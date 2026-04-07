@@ -8,15 +8,36 @@
 </head>
 <body>
 
-    <h1>Hilows Simulated Relics (HSR)</h1>
+    <div class="app-container">
+        <!-- SIDE NAVIGATION -->
+        <nav class="side-nav">
+            <h2>HSR</h2>
+            <button id="nav-pull-btn" class="nav-button">Pull Relics</button>
+            <button id="nav-inventory-btn" class="nav-button">Inventory</button>
+            <button id="nav-characters-btn" class="nav-button" disabled>Characters</button>
+        </nav>
 
-    <button id="pull-button">Pull x10</button>
+        <!-- MAIN CONTENT AREA -->
+        <main class="main-content">
+            <!-- PULL PAGE -->
+            <div id="pull-page" class="page">
+                <h1>Pull Relics</h1>
+                <button id="pull-button">Pull x10</button>
+                <div id="pull-results-container" class="results-grid">
+                    <!-- The 10 newly pulled relics will appear here! -->
+                </div>
+            </div>
 
-    <div id="results-container">
-        <!-- The generated relics will appear here! -->
+            <!-- INVENTORY PAGE -->
+            <div id="inventory-page" class="page hidden">
+                <h1>Inventory</h1>
+                <div id="inventory-container" class="results-grid">
+                    <!-- The entire inventory will be displayed here! -->
+                </div>
+            </div>
+        </main>
     </div>
 
-    <!-- The 'defer' attribute makes sure the JS runs AFTER the HTML is loaded -->
     <script src="script.js" defer></script>
 </body>
 </html>
