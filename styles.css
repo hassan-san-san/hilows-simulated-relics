@@ -71,7 +71,7 @@ body {
 /* Relic Display */
 .results-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
     gap: 15px;
 }
 
@@ -80,6 +80,8 @@ body {
     border: 1px solid #444;
     border-radius: 8px;
     padding: 15px;
+    display: flex;
+    flex-direction: column;
 }
 
 .relic-card h3 {
@@ -87,8 +89,45 @@ body {
     color: #ffa500; /* Orange for main stat */
 }
 
+.relic-card .main-stat {
+    font-size: 1.1em;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
 .relic-card ul {
     padding-left: 20px;
-    margin: 0;
+    margin: 0 0 15px 0;
     color: #b0b0b0;
+    flex-grow: 1;
+}
+
+.relic-controls {
+    display: flex;
+    gap: 10px;
+}
+
+.relic-controls button {
+    flex-grow: 1;
+    padding: 8px;
+    border: none;
+    border-radius: 4px;
+    color: white;
+    cursor: pointer;
+}
+
+.upgrade-btn {
+    background-color: #4CAF50; /* Green */
+}
+
+.upgrade-btn:hover {
+    background-color: #45a049;
+}
+
+.delete-btn {
+    background-color: #f44336; /* Red */
+}
+
+.delete-btn:hover {
+    background-color: #da190b;
 }
