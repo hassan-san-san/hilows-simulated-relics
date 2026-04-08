@@ -11,7 +11,9 @@
         <header>
             <h1>Hilows Simulated Relics</h1>
             <div class="controls">
-                <button id="pull-btn">Pull Relic</button>
+                <!-- Replaced single button with two -->
+                <button id="pull-cavern-btn" class="pull-btn">Pull Cavern Relic (4pc)</button>
+                <button id="pull-planar-btn" class="pull-btn">Pull Planar Ornament (2pc)</button>
             </div>
             <nav class="view-tabs">
                 <button id="inventory-tab-btn" class="tab-btn active">Inventory</button>
@@ -27,7 +29,11 @@
         </div>
     </div>
     
-    <!-- IMPORTANT: type="module" allows us to use import/export -->
+    <!-- Added a footer for the disclaimer -->
+    <footer>
+        <p>Site not updating after a change? Try a hard refresh: Ctrl+Shift+R (Windows/Linux) or Cmd+Shift+R (Mac).</p>
+    </footer>
+    
     <script src="script.js" type="module"></script>
 </body>
 </html>

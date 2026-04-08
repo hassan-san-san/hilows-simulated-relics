@@ -1,16 +1,14 @@
-// This is the main "controller" file. It handles user input, manages the state
-// (inventory, trash), and updates the UI. It imports logic from other files.
-
 import { generateRelic, calculateMainStatValue, formatStat, upgradeRelic } from './relicGenerator.js';
 
 // --- 1. STATE MANAGEMENT ---
 let inventory = [];
 let trash = [];
-let currentView = 'inventory'; // 'inventory' or 'trash'
+let currentView = 'inventory';
 const STORAGE_KEY = 'hsr-data';
 
 // --- 2. UI ELEMENT REFERENCES ---
-const pullBtn = document.getElementById('pull-btn');
+const pullCavernBtn = document.getElementById('pull-cavern-btn'); // New
+const pullPlanarBtn = document.getElementById('pull-planar-btn'); // New
 const inventoryTabBtn = document.getElementById('inventory-tab-btn');
 const trashTabBtn = document.getElementById('trash-tab-btn');
 const contentArea = document.getElementById('content-area');
@@ -19,19 +17,14 @@ const scrapAllBtn = document.getElementById('scrap-all-btn');
 
 // --- 3. RENDERING LOGIC ---
 
-/** Creates the HTML for a single relic card. */
 function createRelicCard(relic) {
     const card = document.createElement('div');
     card.className = 'relic-card';
     card.dataset.id = relic.id;
-
     const mainStatValue = calculateMainStatValue(relic.mainStat, relic.level);
-    
-    // Buttons change depending on the current view
     const buttons = currentView === 'inventory'
         ? `<button class="upgrade-btn">Upgrade (+3)</button><button class="trash-btn">Trash</button>`
         : `<button class="restore-btn">Restore</button>`;
-
     card.innerHTML = `
         <h3>${relic.piece} (+${relic.level})</h3>
         <p class="main-stat">${relic.mainStat}: ${formatStat(relic.mainStat, mainStatValue)}</p>
@@ -43,34 +36,26 @@ function createRelicCard(relic) {
     return card;
 }
 
-/** Renders the currently active view (inventory or trash) to the screen. */
 function render() {
     contentArea.innerHTML = '';
     const itemsToRender = currentView === 'inventory' ? inventory : trash;
-
-    // We render newest first, so we iterate through a reversed copy for display
     itemsToRender.slice().reverse().forEach(relic => {
         contentArea.appendChild(createRelicCard(relic));
     });
-
-    // Update tab styles and visibility of trash controls
     inventoryTabBtn.classList.toggle('active', currentView === 'inventory');
     trashTabBtn.classList.toggle('active', currentView === 'trash');
     trashControls.classList.toggle('hidden', currentView !== 'trash' || trash.length === 0);
 }
 
 
-// --- 4. EVENT HANDLERS ---
+// --- 4. EVENT HANDLERS & HELPERS ---
 
-function handlePull() {
-    const newRelic = generateRelic();
-    inventory.push(newRelic); // Add to end of inventory array
-    
-    // If we're on the inventory tab, add the new relic to the top of the view
+/** Helper function to process a newly pulled relic */
+function addNewRelicToInventory(relic) {
+    inventory.push(relic);
     if (currentView === 'inventory') {
-        contentArea.prepend(createRelicCard(newRelic));
+        contentArea.prepend(createRelicCard(relic));
     }
-    
     saveData();
 }
 
@@ -78,27 +63,21 @@ function handleContentClick(event) {
     const target = event.target;
     const card = target.closest('.relic-card');
     if (!card) return;
-
     const relicId = Number(card.dataset.id);
     const sourceArray = currentView === 'inventory' ? inventory : trash;
-    // Find the relic and its index
     const relicIndex = sourceArray.findIndex(r => r.id === relicId);
     if (relicIndex === -1) return;
-    
-    const [relic] = sourceArray.splice(relicIndex, 1); // Find and remove the relic from its current array
-
+    const [relic] = sourceArray.splice(relicIndex, 1);
     if (target.classList.contains('trash-btn')) {
         trash.push(relic);
     } else if (target.classList.contains('restore-btn')) {
         inventory.push(relic);
     } else if (target.classList.contains('upgrade-btn')) {
         const updatedRelic = upgradeRelic(relic);
-        // Put the updated relic back into the inventory
         inventory.splice(relicIndex, 0, updatedRelic);
     }
-
     saveData();
-    render(); // Re-render the entire view to reflect changes
+    render();
 }
 
 function handleScrapAll() {
@@ -119,7 +98,6 @@ function saveData() {
 function loadData() {
     const savedData = localStorage.getItem(STORAGE_KEY);
     if (savedData) {
-        // FIX IS HERE: I now correctly get 'inventory' and 'trash' from the parsed object.
         const data = JSON.parse(savedData);
         inventory = data.inventory || [];
         trash = data.trash || [];
@@ -128,8 +106,17 @@ function loadData() {
 
 // --- 6. INITIALIZATION ---
 
-// Add event listeners
-pullBtn.addEventListener('click', handlePull);
+// Updated event listeners for the two new pull buttons
+pullCavernBtn.addEventListener('click', () => {
+    const newRelic = generateRelic('cavern');
+    addNewRelicToInventory(newRelic);
+});
+
+pullPlanarBtn.addEventListener('click', () => {
+    const newRelic = generateRelic('planar');
+    addNewRelicToInventory(newRelic);
+});
+
 contentArea.addEventListener('click', handleContentClick);
 scrapAllBtn.addEventListener('click', handleScrapAll);
 inventoryTabBtn.addEventListener('click', () => {
@@ -141,7 +128,6 @@ trashTabBtn.addEventListener('click', () => {
     render();
 });
 
-// Initial load
 loadData();
 render();
-console.log('HSR Modular Simulator Initialized!');
+console.log('HSR Simulator with pull types Initialized!');

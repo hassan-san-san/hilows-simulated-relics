@@ -2,7 +2,11 @@
 // We export the main object so other files can import and use it.
 
 export const GAME_DATA = {
-    PIECES: ['Head', 'Hands', 'Body', 'Feet', 'Planar Sphere', 'Link Rope'],
+    // We now define the specific sets of pieces
+    CAVERN_PIECES: ['Head', 'Hands', 'Body', 'Feet'],
+    PLANAR_PIECES: ['Planar Sphere', 'Link Rope'],
+
+    // The rest of the data remains the same...
     MAIN_STAT_WEIGHTS: {
         'Body': [
             { item: 'HP%', weight: 20 }, { item: 'ATK%', weight: 20 }, { item: 'DEF%', weight: 20 },
