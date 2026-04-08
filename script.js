@@ -7,16 +7,15 @@ let currentView = 'inventory';
 const STORAGE_KEY = 'hsr-data';
 
 // --- 2. UI ELEMENT REFERENCES ---
-const pullCavernBtn = document.getElementById('pull-cavern-btn'); // New
-const pullPlanarBtn = document.getElementById('pull-planar-btn'); // New
+const pullCavernBtn = document.getElementById('pull-cavern-btn');
+const pullPlanarBtn = document.getElementById('pull-planar-btn');
 const inventoryTabBtn = document.getElementById('inventory-tab-btn');
 const trashTabBtn = document.getElementById('trash-tab-btn');
 const contentArea = document.getElementById('content-area');
 const trashControls = document.getElementById('trash-controls');
 const scrapAllBtn = document.getElementById('scrap-all-btn');
 
-// --- 3. RENDERING LOGIC ---
-
+// --- 3. RENDERING LOGIC (Unchanged) ---
 function createRelicCard(relic) {
     const card = document.createElement('div');
     card.className = 'relic-card';
@@ -47,8 +46,7 @@ function render() {
     trashControls.classList.toggle('hidden', currentView !== 'trash' || trash.length === 0);
 }
 
-
-// --- 4. EVENT HANDLERS & HELPERS ---
+// --- 4. EVENT HANDLERS & HELPERS (THE FIX IS HERE) ---
 
 /** Helper function to process a newly pulled relic */
 function addNewRelicToInventory(relic) {
@@ -63,19 +61,40 @@ function handleContentClick(event) {
     const target = event.target;
     const card = target.closest('.relic-card');
     if (!card) return;
+
     const relicId = Number(card.dataset.id);
-    const sourceArray = currentView === 'inventory' ? inventory : trash;
-    const relicIndex = sourceArray.findIndex(r => r.id === relicId);
-    if (relicIndex === -1) return;
-    const [relic] = sourceArray.splice(relicIndex, 1);
+
+    // THE FIX: We now check WHICH button was clicked *before* we modify any arrays.
+    
     if (target.classList.contains('trash-btn')) {
-        trash.push(relic);
-    } else if (target.classList.contains('restore-btn')) {
-        inventory.push(relic);
-    } else if (target.classList.contains('upgrade-btn')) {
-        const updatedRelic = upgradeRelic(relic);
-        inventory.splice(relicIndex, 0, updatedRelic);
+        const relicIndex = inventory.findIndex(r => r.id === relicId);
+        if (relicIndex === -1) return;
+        
+        // Now we safely move the relic
+        const [relicToTrash] = inventory.splice(relicIndex, 1);
+        trash.push(relicToTrash);
+    } 
+    else if (target.classList.contains('restore-btn')) {
+        const relicIndex = trash.findIndex(r => r.id === relicId);
+        if (relicIndex === -1) return;
+
+        // Safely move it back
+        const [relicToRestore] = trash.splice(relicIndex, 1);
+        inventory.push(relicToRestore);
+    } 
+    else if (target.classList.contains('upgrade-btn')) {
+        const relic = inventory.find(r => r.id === relicId);
+        if (!relic) return;
+        
+        // Safely upgrade the relic directly in the inventory array
+        upgradeRelic(relic);
+    } 
+    else {
+        // If no specific button was clicked, we do nothing.
+        return;
     }
+
+    // Since a change definitely happened, we save and re-render.
     saveData();
     render();
 }
@@ -88,7 +107,7 @@ function handleScrapAll() {
     }
 }
 
-// --- 5. SAVING & LOADING ---
+// --- 5. SAVING & LOADING (Unchanged) ---
 
 function saveData() {
     const data = { inventory, trash };
@@ -104,19 +123,15 @@ function loadData() {
     }
 }
 
-// --- 6. INITIALIZATION ---
-
-// Updated event listeners for the two new pull buttons
+// --- 6. INITIALIZATION (Unchanged) ---
 pullCavernBtn.addEventListener('click', () => {
     const newRelic = generateRelic('cavern');
     addNewRelicToInventory(newRelic);
 });
-
 pullPlanarBtn.addEventListener('click', () => {
     const newRelic = generateRelic('planar');
     addNewRelicToInventory(newRelic);
 });
-
 contentArea.addEventListener('click', handleContentClick);
 scrapAllBtn.addEventListener('click', handleScrapAll);
 inventoryTabBtn.addEventListener('click', () => {
@@ -127,7 +142,6 @@ trashTabBtn.addEventListener('click', () => {
     currentView = 'trash';
     render();
 });
-
 loadData();
 render();
-console.log('HSR Simulator with pull types Initialized!');
+console.log('HSR Simulator with click-bug fix Initialized!');
