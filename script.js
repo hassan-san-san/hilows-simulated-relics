@@ -48,7 +48,8 @@ function render() {
     contentArea.innerHTML = '';
     const itemsToRender = currentView === 'inventory' ? inventory : trash;
 
-    itemsToRender.forEach(relic => {
+    // We render newest first, so we iterate through a reversed copy for display
+    itemsToRender.slice().reverse().forEach(relic => {
         contentArea.appendChild(createRelicCard(relic));
     });
 
@@ -63,7 +64,7 @@ function render() {
 
 function handlePull() {
     const newRelic = generateRelic();
-    inventory.unshift(newRelic); // Add to start of inventory
+    inventory.push(newRelic); // Add to end of inventory array
     
     // If we're on the inventory tab, add the new relic to the top of the view
     if (currentView === 'inventory') {
@@ -80,17 +81,20 @@ function handleContentClick(event) {
 
     const relicId = Number(card.dataset.id);
     const sourceArray = currentView === 'inventory' ? inventory : trash;
+    // Find the relic and its index
     const relicIndex = sourceArray.findIndex(r => r.id === relicId);
     if (relicIndex === -1) return;
-    const [relic] = sourceArray.splice(relicIndex, 1); // Find and remove the relic
+    
+    const [relic] = sourceArray.splice(relicIndex, 1); // Find and remove the relic from its current array
 
     if (target.classList.contains('trash-btn')) {
-        trash.unshift(relic);
+        trash.push(relic);
     } else if (target.classList.contains('restore-btn')) {
-        inventory.unshift(relic);
+        inventory.push(relic);
     } else if (target.classList.contains('upgrade-btn')) {
         const updatedRelic = upgradeRelic(relic);
-        inventory.splice(relicIndex, 0, updatedRelic); // Put it back where it was
+        // Put the updated relic back into the inventory
+        inventory.splice(relicIndex, 0, updatedRelic);
     }
 
     saveData();
@@ -98,7 +102,7 @@ function handleContentClick(event) {
 }
 
 function handleScrapAll() {
-    if (confirm(`Are you sure you want to permanently delete ${trash.length} relic(s)? This cannot be undone.`)) {
+    if (trash.length > 0 && confirm(`Are you sure you want to permanently delete ${trash.length} relic(s)? This cannot be undone.`)) {
         trash = [];
         saveData();
         render();
@@ -115,9 +119,10 @@ function saveData() {
 function loadData() {
     const savedData = localStorage.getItem(STORAGE_KEY);
     if (savedData) {
-        const { loadedInventory, loadedTrash } = JSON.parse(savedData);
-        inventory = loadedInventory || [];
-        trash = loadedTrash || [];
+        // FIX IS HERE: I now correctly get 'inventory' and 'trash' from the parsed object.
+        const data = JSON.parse(savedData);
+        inventory = data.inventory || [];
+        trash = data.trash || [];
     }
 }
 

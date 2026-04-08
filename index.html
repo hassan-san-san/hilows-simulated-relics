@@ -7,37 +7,27 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-
-    <div class="app-container">
-        <!-- SIDE NAVIGATION -->
-        <nav class="side-nav">
-            <h2>HSR</h2>
-            <button id="nav-pull-btn" class="nav-button">Pull Relics</button>
-            <button id="nav-inventory-btn" class="nav-button">Inventory</button>
-            <button id="nav-characters-btn" class="nav-button" disabled>Characters</button>
-        </nav>
-
-        <!-- MAIN CONTENT AREA -->
-        <main class="main-content">
-            <!-- PULL PAGE -->
-            <div id="pull-page" class="page">
-                <h1>Pull Relics</h1>
-                <button id="pull-button">Pull Relic</button> <!-- Changed from Pull x10 -->
-                <div id="pull-results-container" class="results-grid">
-                    <!-- The newly pulled relic will appear here! -->
-                </div>
+    <div class="main-container">
+        <header>
+            <h1>Hilows Simulated Relics</h1>
+            <div class="controls">
+                <button id="pull-btn">Pull Relic</button>
             </div>
+            <nav class="view-tabs">
+                <button id="inventory-tab-btn" class="tab-btn active">Inventory</button>
+                <button id="trash-tab-btn" class="tab-btn">Trash</button>
+                <button id="characters-tab-btn" class="tab-btn" disabled>Characters</button>
+            </nav>
+        </header>
+        
+        <main id="content-area" class="results-grid"></main>
 
-            <!-- INVENTORY PAGE -->
-            <div id="inventory-page" class="page hidden">
-                <h1>Inventory</h1>
-                <div id="inventory-container" class="results-grid">
-                    <!-- The entire inventory will be displayed here! -->
-                </div>
-            </div>
-        </main>
+        <div id="trash-controls" class="hidden">
+            <button id="scrap-all-btn">Scrap All Trashed Relics</button>
+        </div>
     </div>
-
-    <script src="script.js" defer></script>
+    
+    <!-- IMPORTANT: type="module" allows us to use import/export -->
+    <script src="script.js" type="module"></script>
 </body>
 </html>
