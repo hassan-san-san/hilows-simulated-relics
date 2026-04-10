@@ -37,7 +37,6 @@ function createRelicCard(relic) {
         
         <ul>
             ${relic.substats.map(sub => {
-                // THE CHANGE IS HERE: We now use [sub.upgrades] instead of repeating '>'
                 const upgradeArrows = sub.upgrades ? `<span class="upgrade-indicator">[${sub.upgrades}]</span>` : '';
                 return `
                 <li class="stat-row">
@@ -148,4 +147,4 @@ trashTabBtn.addEventListener('click', () => {
 });
 loadData();
 render();
-console.log('HSR Simulator initialized with updated layout!');
+console.log('HSR Simulator initialized with hardcoded short names!');

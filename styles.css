@@ -159,3 +159,7 @@ footer {
     color: #888;
     font-size: 0.9em;
 }
+/* Ensure stat rows never wrap, even on small screens */
+.stat-row {
+    white-space: nowrap;
+}
