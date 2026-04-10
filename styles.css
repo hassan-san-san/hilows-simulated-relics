@@ -148,7 +148,7 @@ header {
     color: #ffd700;
     font-weight: bold;
     margin-left: 6px;
-    letter-spacing: 2px;
+    /* Removed the letter-spacing so the brackets sit normally */
 }
 
 footer {

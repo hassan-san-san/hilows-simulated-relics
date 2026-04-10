@@ -27,7 +27,6 @@ function createRelicCard(relic) {
         ? `<button class="upgrade-btn">Upgrade (+3)</button><button class="trash-btn">Trash</button>`
         : `<button class="restore-btn">Restore</button>`;
         
-    // Notice the new <div class="stat-row"> layout here
     card.innerHTML = `
         <h3>${relic.piece} (+${relic.level})</h3>
         
@@ -38,7 +37,8 @@ function createRelicCard(relic) {
         
         <ul>
             ${relic.substats.map(sub => {
-                const upgradeArrows = sub.upgrades ? `<span class="upgrade-indicator">${'>'.repeat(sub.upgrades)}</span>` : '';
+                // THE CHANGE IS HERE: We now use [sub.upgrades] instead of repeating '>'
+                const upgradeArrows = sub.upgrades ? `<span class="upgrade-indicator">[${sub.upgrades}]</span>` : '';
                 return `
                 <li class="stat-row">
                     <span>${sub.stat}</span>
