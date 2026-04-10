@@ -15,20 +15,27 @@ const contentArea = document.getElementById('content-area');
 const trashControls = document.getElementById('trash-controls');
 const scrapAllBtn = document.getElementById('scrap-all-btn');
 
-// --- 3. RENDERING LOGIC (Unchanged) ---
+// --- 3. RENDERING LOGIC ---
 function createRelicCard(relic) {
     const card = document.createElement('div');
     card.className = 'relic-card';
     card.dataset.id = relic.id;
+    
     const mainStatValue = calculateMainStatValue(relic.mainStat, relic.level);
+    
     const buttons = currentView === 'inventory'
         ? `<button class="upgrade-btn">Upgrade (+3)</button><button class="trash-btn">Trash</button>`
         : `<button class="restore-btn">Restore</button>`;
+        
     card.innerHTML = `
         <h3>${relic.piece} (+${relic.level})</h3>
         <p class="main-stat">${relic.mainStat}: ${formatStat(relic.mainStat, mainStatValue)}</p>
         <ul>
-            ${relic.substats.map(sub => `<li>${sub.stat}: ${formatStat(sub.stat, sub.value)}</li>`).join('')}
+            ${relic.substats.map(sub => {
+                // Create the gold arrows based on how many upgrades it has
+                const upgradeArrows = sub.upgrades ? `<span class="upgrade-indicator">${'>'.repeat(sub.upgrades)}</span>` : '';
+                return `<li>${sub.stat}: ${formatStat(sub.stat, sub.value)} ${upgradeArrows}</li>`;
+            }).join('')}
         </ul>
         <div class="relic-controls">${buttons}</div>
     `;
@@ -46,9 +53,7 @@ function render() {
     trashControls.classList.toggle('hidden', currentView !== 'trash' || trash.length === 0);
 }
 
-// --- 4. EVENT HANDLERS & HELPERS (THE FIX IS HERE) ---
-
-/** Helper function to process a newly pulled relic */
+// --- 4. EVENT HANDLERS & HELPERS ---
 function addNewRelicToInventory(relic) {
     inventory.push(relic);
     if (currentView === 'inventory') {
@@ -64,37 +69,27 @@ function handleContentClick(event) {
 
     const relicId = Number(card.dataset.id);
 
-    // THE FIX: We now check WHICH button was clicked *before* we modify any arrays.
-    
     if (target.classList.contains('trash-btn')) {
         const relicIndex = inventory.findIndex(r => r.id === relicId);
         if (relicIndex === -1) return;
-        
-        // Now we safely move the relic
         const [relicToTrash] = inventory.splice(relicIndex, 1);
         trash.push(relicToTrash);
     } 
     else if (target.classList.contains('restore-btn')) {
         const relicIndex = trash.findIndex(r => r.id === relicId);
         if (relicIndex === -1) return;
-
-        // Safely move it back
         const [relicToRestore] = trash.splice(relicIndex, 1);
         inventory.push(relicToRestore);
     } 
     else if (target.classList.contains('upgrade-btn')) {
         const relic = inventory.find(r => r.id === relicId);
         if (!relic) return;
-        
-        // Safely upgrade the relic directly in the inventory array
         upgradeRelic(relic);
     } 
     else {
-        // If no specific button was clicked, we do nothing.
         return;
     }
 
-    // Since a change definitely happened, we save and re-render.
     saveData();
     render();
 }
@@ -107,8 +102,7 @@ function handleScrapAll() {
     }
 }
 
-// --- 5. SAVING & LOADING (Unchanged) ---
-
+// --- 5. SAVING & LOADING ---
 function saveData() {
     const data = { inventory, trash };
     localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
@@ -123,7 +117,7 @@ function loadData() {
     }
 }
 
-// --- 6. INITIALIZATION (Unchanged) ---
+// --- 6. INITIALIZATION ---
 pullCavernBtn.addEventListener('click', () => {
     const newRelic = generateRelic('cavern');
     addNewRelicToInventory(newRelic);
@@ -144,4 +138,4 @@ trashTabBtn.addEventListener('click', () => {
 });
 loadData();
 render();
-console.log('HSR Simulator with click-bug fix Initialized!');
+console.log('HSR Simulator initialized with 3/4 liners and visual upgrades!');

@@ -9,10 +9,19 @@ function weightedRandom(itemsWithWeights) {
     }
 }
 
-/**
- * Generates a relic object based on the specified type ('cavern' or 'planar').
- * @param {string} type - The type of relic to generate.
- */
+/** Helper function to generate a valid, unique substat */
+function getRandomSubstat(mainStatName, existingSubstats) {
+    const possibleSubstats = GAME_DATA.SUBSTAT_WEIGHTS.filter(sub => 
+        sub.item !== mainStatName && !existingSubstats.some(s => s.stat === sub.item)
+    );
+    const newSubstatName = weightedRandom(possibleSubstats);
+    const tiers = GAME_DATA.SUBSTAT_VALUES[newSubstatName];
+    const randomValue = tiers[Math.floor(Math.random() * tiers.length)];
+    
+    // We now include an 'upgrades' tracker set to 0 initially
+    return { stat: newSubstatName, value: randomValue, upgrades: 0 };
+}
+
 export function generateRelic(type) {
     const availablePieces = type === 'cavern' ? GAME_DATA.CAVERN_PIECES : GAME_DATA.PLANAR_PIECES;
     const piece = availablePieces[Math.floor(Math.random() * availablePieces.length)];
@@ -22,15 +31,12 @@ export function generateRelic(type) {
     else if (piece === 'Hands') mainStatName = 'ATK';
     else mainStatName = weightedRandom(GAME_DATA.MAIN_STAT_WEIGHTS[piece]);
     
-    const possibleSubstats = GAME_DATA.SUBSTAT_WEIGHTS.filter(sub => sub.item !== mainStatName);
+    // THE 3 OR 4 LINER LOGIC: 20% chance for 4, 80% chance for 3
+    const startingSubstatsCount = Math.random() < 0.20 ? 4 : 3;
+    
     let substats = [];
-    while (substats.length < 4) {
-        const newSubstatName = weightedRandom(possibleSubstats);
-        if (!substats.some(s => s.stat === newSubstatName)) {
-            const tiers = GAME_DATA.SUBSTAT_VALUES[newSubstatName];
-            const randomValue = tiers[Math.floor(Math.random() * tiers.length)];
-            substats.push({ stat: newSubstatName, value: randomValue });
-        }
+    while (substats.length < startingSubstatsCount) {
+        substats.push(getRandomSubstat(mainStatName, substats));
     }
 
     return {
@@ -42,7 +48,6 @@ export function generateRelic(type) {
     };
 }
 
-// The rest of the functions (calculateMainStatValue, formatStat, upgradeRelic) remain unchanged.
 export function calculateMainStatValue(statName, level) {
     const scaling = GAME_DATA.MAIN_STAT_SCALING[statName];
     if (!scaling) return 0;
@@ -58,10 +63,23 @@ export function formatStat(statName, value) {
 
 export function upgradeRelic(relic) {
     if (relic.level >= 15) return relic;
+    
     relic.level = Math.min(15, relic.level + 3);
-    const substatToUpgrade = relic.substats[Math.floor(Math.random() * relic.substats.length)];
-    const tiers = GAME_DATA.SUBSTAT_VALUES[substatToUpgrade.stat];
-    const rollValue = tiers[Math.floor(Math.random() * tiers.length)];
-    substatToUpgrade.value += rollValue;
+    
+    // THE UPGRADE LOGIC: If it has less than 4 stats, add a new one.
+    if (relic.substats.length < 4) {
+        relic.substats.push(getRandomSubstat(relic.mainStat, relic.substats));
+    } 
+    // Otherwise, pick a random existing stat to boost
+    else {
+        const substatToUpgrade = relic.substats[Math.floor(Math.random() * relic.substats.length)];
+        const tiers = GAME_DATA.SUBSTAT_VALUES[substatToUpgrade.stat];
+        const rollValue = tiers[Math.floor(Math.random() * tiers.length)];
+        
+        substatToUpgrade.value += rollValue;
+        // Track that this specific stat got upgraded for the UI
+        substatToUpgrade.upgrades = (substatToUpgrade.upgrades || 0) + 1;
+    }
+    
     return relic;
 }
