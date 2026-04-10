@@ -27,16 +27,26 @@ function createRelicCard(relic) {
         ? `<button class="upgrade-btn">Upgrade (+3)</button><button class="trash-btn">Trash</button>`
         : `<button class="restore-btn">Restore</button>`;
         
+    // Notice the new <div class="stat-row"> layout here
     card.innerHTML = `
         <h3>${relic.piece} (+${relic.level})</h3>
-        <p class="main-stat">${relic.mainStat}: ${formatStat(relic.mainStat, mainStatValue)}</p>
+        
+        <div class="stat-row main-stat-row">
+            <span>${relic.mainStat}</span>
+            <span>${formatStat(relic.mainStat, mainStatValue)}</span>
+        </div>
+        
         <ul>
             ${relic.substats.map(sub => {
-                // Create the gold arrows based on how many upgrades it has
                 const upgradeArrows = sub.upgrades ? `<span class="upgrade-indicator">${'>'.repeat(sub.upgrades)}</span>` : '';
-                return `<li>${sub.stat}: ${formatStat(sub.stat, sub.value)} ${upgradeArrows}</li>`;
+                return `
+                <li class="stat-row">
+                    <span>${sub.stat}</span>
+                    <span>${formatStat(sub.stat, sub.value)} ${upgradeArrows}</span>
+                </li>`;
             }).join('')}
         </ul>
+        
         <div class="relic-controls">${buttons}</div>
     `;
     return card;
@@ -138,4 +148,4 @@ trashTabBtn.addEventListener('click', () => {
 });
 loadData();
 render();
-console.log('HSR Simulator initialized with 3/4 liners and visual upgrades!');
+console.log('HSR Simulator initialized with updated layout!');
