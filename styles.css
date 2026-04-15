@@ -276,7 +276,8 @@ h1 {
 .relic-controls {
     display: flex;
     gap: 7px;
-    margin-top: 8px;
+    margin-top: auto;
+    padding-top: 8px;
 }
 
 .relic-controls button {
