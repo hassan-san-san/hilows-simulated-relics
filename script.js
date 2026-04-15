@@ -72,6 +72,7 @@ function createRelicCard(relic, context) {
     if (context === 'pull' || context === 'inventory') {
         buttons = `
             <button class="upgrade-btn" ${isMaxLevel ? 'disabled' : ''}>${isMaxLevel ? 'MAX' : '+3'}</button>
+            <button class="upgrade-max-btn" ${isMaxLevel ? 'disabled' : ''}>+15</button>
             <button class="trash-btn" ${isLocked ? 'disabled' : ''}>Trash</button>
         `;
     } else if (context === 'trash') {
@@ -179,6 +180,13 @@ function handleCardClick(event, context) {
         const relic = inventory.find(r => r.id === relicId);
         if (!relic || relic.level >= 15) return;
         upgradeRelic(relic);
+        card.replaceWith(createRelicCard(relic, context));
+        saveData();
+    }
+    else if (target.classList.contains('upgrade-max-btn')) {
+        const relic = inventory.find(r => r.id === relicId);
+        if (!relic || relic.level >= 15) return;
+        while (relic.level < 15) upgradeRelic(relic);
         card.replaceWith(createRelicCard(relic, context));
         saveData();
     }
