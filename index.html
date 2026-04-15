@@ -7,33 +7,54 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div class="main-container">
-        <header>
-            <h1>Hilows Simulated Relics</h1>
-            <div class="controls">
-                <!-- Replaced single button with two -->
-                <button id="pull-cavern-btn" class="pull-btn">Pull Cavern Relic (4pc)</button>
-                <button id="pull-planar-btn" class="pull-btn">Pull Planar Ornament (2pc)</button>
-            </div>
-            <nav class="view-tabs">
-                <button id="inventory-tab-btn" class="tab-btn active">Inventory</button>
-                <button id="trash-tab-btn" class="tab-btn">Trash</button>
-                <button id="characters-tab-btn" class="tab-btn" disabled>Characters</button>
-            </nav>
-        </header>
-        
-        <main id="content-area" class="results-grid"></main>
+    <div class="app-container">
+        <!-- SIDE NAVIGATION -->
+        <nav class="side-nav">
+            <h2>HSR</h2>
+            <button id="nav-pull-btn" class="nav-button active">Pull Relics</button>
+            <button id="nav-inventory-btn" class="nav-button">Inventory</button>
+            <button id="nav-characters-btn" class="nav-button" disabled>Characters</button>
+        </nav>
 
-        <div id="trash-controls" class="hidden">
-            <button id="scrap-all-btn">Scrap All Trashed Relics</button>
-        </div>
+        <!-- MAIN CONTENT AREA -->
+        <main class="main-content">
+
+            <!-- PULL PAGE -->
+            <div id="pull-page" class="page">
+                <h1>Pull Relics</h1>
+                <div class="pull-config">
+                    <div class="pull-type-selector">
+                        <button id="pull-type-cavern" class="pull-type-btn active">Cavern Relics</button>
+                        <button id="pull-type-planar" class="pull-type-btn">Planar Ornaments</button>
+                    </div>
+                    <select id="set-selector-dropdown" class="set-selector"></select>
+                    <button id="pull-btn">Pull Relic</button>
+                </div>
+                <div id="pull-results-container" class="results-grid"></div>
+            </div>
+
+            <!-- INVENTORY PAGE -->
+            <div id="inventory-page" class="page hidden">
+                <div class="inventory-header">
+                    <h1>Inventory</h1>
+                    <div class="inventory-sub-tabs">
+                        <button id="inv-tab-inventory" class="inv-tab active">My Relics</button>
+                        <button id="inv-tab-trash" class="inv-tab">Trash</button>
+                    </div>
+                </div>
+                <div id="trash-controls" class="hidden">
+                    <button id="scrap-all-btn">Scrap All</button>
+                </div>
+                <div id="inventory-container" class="results-grid"></div>
+            </div>
+
+        </main>
     </div>
-    
-    <!-- Added a footer for the disclaimer -->
+
     <footer>
         <p>Site not updating after a change? Try a hard refresh: Ctrl+Shift+R (Windows/Linux) or Cmd+Shift+R (Mac).</p>
     </footer>
-    
+
     <script src="script.js" type="module"></script>
 </body>
 </html>

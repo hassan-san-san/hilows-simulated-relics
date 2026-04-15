@@ -1,165 +1,366 @@
-body {
-    background-color: #1e1e1e;
-    color: #e0e0e0;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+/* === RESET & BASE === */
+*, *::before, *::after {
+    box-sizing: border-box;
     margin: 0;
+    padding: 0;
 }
 
-.main-container {
-    max-width: 1400px; /* Controls the maximum width of the whole app */
-    margin: 0 auto;
-    padding: 20px;
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #0d0d0d;
+    color: #e0e0e0;
+    min-height: 100vh;
 }
 
-header {
-    text-align: center;
-    margin-bottom: 20px;
-}
-
-.controls {
+/* === LAYOUT === */
+.app-container {
     display: flex;
-    justify-content: center;
-    gap: 20px;
-    margin-bottom: 20px;
+    height: 100vh;
+    overflow: hidden;
 }
 
-.pull-btn {
-    padding: 12px 24px;
-    font-size: 1.2em;
-    cursor: pointer;
-}
-
-.view-tabs {
-    border-bottom: 1px solid #444;
-    padding-bottom: 10px;
-    margin-bottom: 20px;
-}
-
-.tab-btn {
-    padding: 10px 20px;
-    font-size: 1.1em;
-    background: none;
-    border: none;
-    color: #888;
-    cursor: pointer;
-}
-
-.tab-btn.active {
-    color: #fff;
-    border-bottom: 2px solid #ffa500;
-}
-
-#trash-controls {
-    text-align: center;
-    margin-top: 20px;
-}
-
-#scrap-all-btn {
-    background-color: #f44336;
-    color: white;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 1.1em;
-}
-
-/* --- Relic Display Styles --- */
-
-.results-grid {
-    display: grid;
-    /* Default to a responsive width for smaller screens */
-    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-    gap: 15px;
-}
-
-/* Force exactly 5 columns on standard desktop screens */
-@media (min-width: 1200px) {
-    .results-grid {
-        grid-template-columns: repeat(5, 1fr);
-    }
-}
-
-.relic-card {
-    background-color: #2a2a2a;
-    border: 1px solid #444;
-    border-radius: 8px;
-    padding: 15px;
+/* === SIDE NAV === */
+.side-nav {
+    width: 200px;
+    min-width: 200px;
+    background-color: #161616;
+    border-right: 1px solid #252525;
     display: flex;
     flex-direction: column;
+    padding: 24px 12px;
+    gap: 6px;
 }
 
-.relic-card h3 { 
-    margin-top: 0; 
-    color: #ffa500; 
-    border-bottom: 1px solid #444;
-    padding-bottom: 8px;
-    margin-bottom: 12px;
+.side-nav h2 {
+    color: #ffa500;
+    font-size: 1.5em;
+    letter-spacing: 3px;
+    text-align: center;
+    margin-bottom: 20px;
 }
 
-/* Flexbox for Left/Right Alignment */
+.nav-button {
+    width: 100%;
+    padding: 11px 16px;
+    background: transparent;
+    border: none;
+    border-radius: 6px;
+    color: #777;
+    font-size: 0.9em;
+    cursor: pointer;
+    text-align: left;
+    transition: background 0.15s, color 0.15s;
+}
+
+.nav-button:hover:not(:disabled) {
+    background: #222;
+    color: #ccc;
+}
+
+.nav-button.active {
+    background: #242424;
+    color: #ffa500;
+    font-weight: 600;
+}
+
+.nav-button:disabled {
+    color: #383838;
+    cursor: not-allowed;
+}
+
+/* === MAIN CONTENT === */
+.main-content {
+    flex: 1;
+    overflow-y: auto;
+    padding: 32px 36px;
+    background-color: #111;
+}
+
+.page { display: block; }
+.hidden { display: none !important; }
+
+/* === PAGE TITLE === */
+h1 {
+    font-size: 1.5em;
+    color: #ffa500;
+    margin-bottom: 22px;
+    font-weight: 600;
+}
+
+/* === PULL PAGE === */
+.pull-config {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 14px;
+    background-color: #191919;
+    border: 1px solid #272727;
+    border-radius: 10px;
+    padding: 22px;
+    margin-bottom: 32px;
+    max-width: 480px;
+}
+
+.pull-type-selector {
+    display: flex;
+    border: 1px solid #2e2e2e;
+    border-radius: 6px;
+    overflow: hidden;
+}
+
+.pull-type-btn {
+    padding: 10px 22px;
+    background-color: #222;
+    color: #777;
+    border: none;
+    cursor: pointer;
+    font-size: 0.9em;
+    transition: background 0.15s, color 0.15s;
+}
+
+.pull-type-btn:hover:not(.active) {
+    background-color: #2a2a2a;
+    color: #bbb;
+}
+
+.pull-type-btn.active {
+    background-color: #ffa500;
+    color: #111;
+    font-weight: 700;
+}
+
+.set-selector {
+    width: 100%;
+    padding: 10px 12px;
+    font-size: 0.9em;
+    background-color: #1c1c1c;
+    color: #e0e0e0;
+    border: 1px solid #2e2e2e;
+    border-radius: 6px;
+    cursor: pointer;
+    outline: none;
+}
+
+.set-selector:focus {
+    border-color: #ffa500;
+}
+
+#pull-btn {
+    padding: 11px 30px;
+    background-color: #ffa500;
+    color: #111;
+    border: none;
+    border-radius: 6px;
+    font-size: 1em;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.15s;
+}
+
+#pull-btn:hover {
+    background-color: #ffb733;
+}
+
+/* === RELIC GRID === */
+.results-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(215px, 1fr));
+    gap: 14px;
+}
+
+/* === RELIC CARD === */
+.relic-card {
+    background-color: #1a1a1a;
+    border: 1px solid #2a2a2a;
+    border-radius: 8px;
+    padding: 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    transition: border-color 0.15s;
+}
+
+.relic-card:hover {
+    border-color: #3a3a3a;
+}
+
+.relic-set-name {
+    font-size: 0.75em;
+    color: #00bcd4;
+    font-style: italic;
+    line-height: 1.3;
+    min-height: 1em;
+}
+
+.relic-card h3 {
+    font-size: 0.95em;
+    color: #e0e0e0;
+    font-weight: 600;
+}
+
+.relic-level {
+    color: #666;
+    font-weight: 400;
+    font-size: 0.85em;
+}
+
+/* === STAT ROWS === */
 .stat-row {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    font-size: 0.85em;
 }
 
 .main-stat-row {
-    font-size: 1.1em;
-    font-weight: bold;
-    color: #fff;
-    margin-bottom: 15px;
+    border-top: 1px solid #272727;
+    border-bottom: 1px solid #272727;
+    padding: 6px 0;
+    font-weight: 600;
 }
 
-/* Substats List */
-.relic-card ul { 
-    padding-left: 0; /* Removed indent */
-    margin: 0 0 15px 0; 
-    color: #b0b0b0; 
-    flex-grow: 1;
-    list-style-type: none; /* Removed bullet points */
+.substat-list {
+    list-style: none;
     display: flex;
     flex-direction: column;
-    gap: 6px; /* Space between substats */
-    min-height: 100px; /* Forces 3-liners to take up the same space as 4-liners */
+    gap: 3px;
+    margin-top: 2px;
 }
 
-.relic-controls { 
-    display: flex; 
-    gap: 10px; 
-    margin-top: auto; /* Pushes buttons to the very bottom */
+.stat-name {
+    color: #999;
 }
 
-.relic-controls button { 
-    flex-grow: 1; 
-    padding: 8px; 
-    border: none; 
-    border-radius: 4px; 
-    color: white; 
-    cursor: pointer; 
+.stat-value {
+    color: #e0e0e0;
+    font-weight: 500;
 }
-
-.upgrade-btn { background-color: #4CAF50; }
-.trash-btn { background-color: #f44336; }
-.restore-btn { background-color: #008CBA; }
-.hidden { display: none; }
 
 .upgrade-indicator {
-    color: #ffd700;
-    font-weight: bold;
-    margin-left: 6px;
-    /* Removed the letter-spacing so the brackets sit normally */
+    color: #ffa500;
+    font-size: 0.8em;
+    margin-left: 3px;
 }
 
-footer {
-    text-align: center;
-    margin-top: 40px;
-    padding-top: 20px;
-    border-top: 1px solid #333;
-    color: #888;
-    font-size: 0.9em;
+/* === CARD BUTTONS === */
+.relic-controls {
+    display: flex;
+    gap: 7px;
+    margin-top: 8px;
 }
-/* Ensure stat rows never wrap, even on small screens */
-.stat-row {
-    white-space: nowrap;
+
+.relic-controls button {
+    flex: 1;
+    padding: 6px 0;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.82em;
+    font-weight: 600;
+    transition: background 0.15s;
+}
+
+.upgrade-btn {
+    background-color: #1e2e1e;
+    color: #66bb6a;
+}
+
+.upgrade-btn:hover:not(:disabled) {
+    background-color: #253525;
+}
+
+.upgrade-btn:disabled {
+    background-color: #1a1a1a;
+    color: #3a3a3a;
+    cursor: not-allowed;
+}
+
+.trash-btn {
+    background-color: #2e1a1a;
+    color: #ef5350;
+}
+
+.trash-btn:hover {
+    background-color: #3a2020;
+}
+
+.restore-btn {
+    background-color: #1a1e2e;
+    color: #42a5f5;
+}
+
+.restore-btn:hover {
+    background-color: #202535;
+}
+
+/* === INVENTORY PAGE === */
+.inventory-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.inventory-header h1 {
+    margin-bottom: 0;
+}
+
+.inventory-sub-tabs {
+    display: flex;
+    border: 1px solid #2a2a2a;
+    border-radius: 6px;
+    overflow: hidden;
+}
+
+.inv-tab {
+    padding: 8px 20px;
+    background: #1a1a1a;
+    border: none;
+    color: #666;
+    cursor: pointer;
+    font-size: 0.88em;
+    transition: background 0.15s, color 0.15s;
+}
+
+.inv-tab:hover:not(.active) {
+    background: #222;
+    color: #bbb;
+}
+
+.inv-tab.active {
+    background: #262626;
+    color: #ffa500;
+    font-weight: 600;
+}
+
+#trash-controls {
+    margin-bottom: 18px;
+}
+
+#scrap-all-btn {
+    padding: 8px 18px;
+    background-color: #2e1a1a;
+    color: #ef5350;
+    border: 1px solid #4a2828;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.88em;
+    font-weight: 600;
+    transition: background 0.15s;
+}
+
+#scrap-all-btn:hover {
+    background-color: #3a2020;
+}
+
+/* === FOOTER === */
+footer {
+    background-color: #0d0d0d;
+    border-top: 1px solid #1c1c1c;
+    padding: 12px 24px;
+    text-align: center;
+    font-size: 0.76em;
+    color: #444;
 }

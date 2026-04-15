@@ -1,150 +1,214 @@
 import { generateRelic, calculateMainStatValue, formatStat, upgradeRelic } from './relicGenerator.js';
+import { RELIC_SETS } from './relicSets.js';
 
-// --- 1. STATE MANAGEMENT ---
+// --- STATE ---
 let inventory = [];
 let trash = [];
-let currentView = 'inventory';
+let currentPullType = 'cavern';
+let inventoryView = 'inventory'; // 'inventory' or 'trash'
 const STORAGE_KEY = 'hsr-data';
 
-// --- 2. UI ELEMENT REFERENCES ---
-const pullCavernBtn = document.getElementById('pull-cavern-btn');
-const pullPlanarBtn = document.getElementById('pull-planar-btn');
-const inventoryTabBtn = document.getElementById('inventory-tab-btn');
-const trashTabBtn = document.getElementById('trash-tab-btn');
-const contentArea = document.getElementById('content-area');
-const trashControls = document.getElementById('trash-controls');
-const scrapAllBtn = document.getElementById('scrap-all-btn');
+// --- DOM REFS ---
+const navPullBtn       = document.getElementById('nav-pull-btn');
+const navInventoryBtn  = document.getElementById('nav-inventory-btn');
+const pullPage         = document.getElementById('pull-page');
+const inventoryPage    = document.getElementById('inventory-page');
 
-// --- 3. RENDERING LOGIC ---
-function createRelicCard(relic) {
+const pullTypeCavernBtn  = document.getElementById('pull-type-cavern');
+const pullTypePlanarBtn  = document.getElementById('pull-type-planar');
+const setSelector        = document.getElementById('set-selector-dropdown');
+const pullBtn            = document.getElementById('pull-btn');
+const pullResultsContainer = document.getElementById('pull-results-container');
+
+const invTabInventory  = document.getElementById('inv-tab-inventory');
+const invTabTrash      = document.getElementById('inv-tab-trash');
+const trashControls    = document.getElementById('trash-controls');
+const scrapAllBtn      = document.getElementById('scrap-all-btn');
+const inventoryContainer = document.getElementById('inventory-container');
+
+// --- SETUP ---
+function populateSetDropdown() {
+    setSelector.innerHTML = '';
+    RELIC_SETS[currentPullType].forEach(set => {
+        const option = document.createElement('option');
+        option.value = set.name;
+        option.textContent = set.name;
+        setSelector.appendChild(option);
+    });
+}
+
+// --- RENDERING ---
+function createRelicCard(relic, context) {
     const card = document.createElement('div');
     card.className = 'relic-card';
     card.dataset.id = relic.id;
-    
+
     const mainStatValue = calculateMainStatValue(relic.mainStat, relic.level);
-    
-    const buttons = currentView === 'inventory'
-        ? `<button class="upgrade-btn">Upgrade (+3)</button><button class="trash-btn">Trash</button>`
-        : `<button class="restore-btn">Restore</button>`;
-        
+    const isMaxLevel = relic.level >= 15;
+
+    let buttons = '';
+    if (context === 'pull' || context === 'inventory') {
+        buttons = `
+            <button class="upgrade-btn" ${isMaxLevel ? 'disabled' : ''}>+3</button>
+            <button class="trash-btn">Trash</button>
+        `;
+    } else if (context === 'trash') {
+        buttons = `<button class="restore-btn">Restore</button>`;
+    }
+
     card.innerHTML = `
-        <h3>${relic.piece} (+${relic.level})</h3>
-        
+        <div class="relic-set-name">${relic.setName || ''}</div>
+        <h3>${relic.piece} <span class="relic-level">(+${relic.level})</span></h3>
         <div class="stat-row main-stat-row">
-            <span>${relic.mainStat}</span>
-            <span>${formatStat(relic.mainStat, mainStatValue)}</span>
+            <span class="stat-name">${relic.mainStat}</span>
+            <span class="stat-value">${formatStat(relic.mainStat, mainStatValue)}</span>
         </div>
-        
-        <ul>
+        <ul class="substat-list">
             ${relic.substats.map(sub => {
-                const upgradeArrows = sub.upgrades ? `<span class="upgrade-indicator">[${sub.upgrades}]</span>` : '';
-                return `
-                <li class="stat-row">
-                    <span>${sub.stat}</span>
-                    <span>${formatStat(sub.stat, sub.value)} ${upgradeArrows}</span>
+                const upgradeMarker = sub.upgrades
+                    ? `<span class="upgrade-indicator">[${sub.upgrades}]</span>`
+                    : '';
+                return `<li class="stat-row">
+                    <span class="stat-name">${sub.stat}</span>
+                    <span class="stat-value">${formatStat(sub.stat, sub.value)}${upgradeMarker}</span>
                 </li>`;
             }).join('')}
         </ul>
-        
         <div class="relic-controls">${buttons}</div>
     `;
     return card;
 }
 
-function render() {
-    contentArea.innerHTML = '';
-    const itemsToRender = currentView === 'inventory' ? inventory : trash;
-    itemsToRender.slice().reverse().forEach(relic => {
-        contentArea.appendChild(createRelicCard(relic));
+function renderInventory() {
+    inventoryContainer.innerHTML = '';
+    const items = inventoryView === 'inventory'
+        ? [...inventory].reverse()
+        : [...trash].reverse();
+
+    items.forEach(relic => {
+        inventoryContainer.appendChild(createRelicCard(relic, inventoryView));
     });
-    inventoryTabBtn.classList.toggle('active', currentView === 'inventory');
-    trashTabBtn.classList.toggle('active', currentView === 'trash');
-    trashControls.classList.toggle('hidden', currentView !== 'trash' || trash.length === 0);
+
+    invTabInventory.classList.toggle('active', inventoryView === 'inventory');
+    invTabTrash.classList.toggle('active', inventoryView === 'trash');
+    trashControls.classList.toggle('hidden', inventoryView !== 'trash' || trash.length === 0);
 }
 
-// --- 4. EVENT HANDLERS & HELPERS ---
-function addNewRelicToInventory(relic) {
+// --- NAVIGATION ---
+navPullBtn.addEventListener('click', () => {
+    pullPage.classList.remove('hidden');
+    inventoryPage.classList.add('hidden');
+    navPullBtn.classList.add('active');
+    navInventoryBtn.classList.remove('active');
+});
+
+navInventoryBtn.addEventListener('click', () => {
+    inventoryPage.classList.remove('hidden');
+    pullPage.classList.add('hidden');
+    navInventoryBtn.classList.add('active');
+    navPullBtn.classList.remove('active');
+    renderInventory();
+});
+
+// --- PULL TYPE TOGGLE ---
+pullTypeCavernBtn.addEventListener('click', () => {
+    currentPullType = 'cavern';
+    pullTypeCavernBtn.classList.add('active');
+    pullTypePlanarBtn.classList.remove('active');
+    populateSetDropdown();
+});
+
+pullTypePlanarBtn.addEventListener('click', () => {
+    currentPullType = 'planar';
+    pullTypePlanarBtn.classList.add('active');
+    pullTypeCavernBtn.classList.remove('active');
+    populateSetDropdown();
+});
+
+// --- PULL BUTTON ---
+pullBtn.addEventListener('click', () => {
+    const selectedSetName = setSelector.value;
+    const relic = generateRelic(currentPullType, selectedSetName);
     inventory.push(relic);
-    if (currentView === 'inventory') {
-        contentArea.prepend(createRelicCard(relic));
-    }
     saveData();
-}
+    pullResultsContainer.prepend(createRelicCard(relic, 'pull'));
+});
 
-function handleContentClick(event) {
+// --- CARD INTERACTIONS ---
+function handleCardClick(event, context) {
     const target = event.target;
     const card = target.closest('.relic-card');
     if (!card) return;
 
     const relicId = Number(card.dataset.id);
 
-    if (target.classList.contains('trash-btn')) {
-        const relicIndex = inventory.findIndex(r => r.id === relicId);
-        if (relicIndex === -1) return;
-        const [relicToTrash] = inventory.splice(relicIndex, 1);
-        trash.push(relicToTrash);
-    } 
-    else if (target.classList.contains('restore-btn')) {
-        const relicIndex = trash.findIndex(r => r.id === relicId);
-        if (relicIndex === -1) return;
-        const [relicToRestore] = trash.splice(relicIndex, 1);
-        inventory.push(relicToRestore);
-    } 
-    else if (target.classList.contains('upgrade-btn')) {
+    if (target.classList.contains('upgrade-btn')) {
         const relic = inventory.find(r => r.id === relicId);
-        if (!relic) return;
+        if (!relic || relic.level >= 15) return;
         upgradeRelic(relic);
-    } 
-    else {
-        return;
+        card.replaceWith(createRelicCard(relic, context));
+        saveData();
     }
-
-    saveData();
-    render();
+    else if (target.classList.contains('trash-btn')) {
+        const idx = inventory.findIndex(r => r.id === relicId);
+        if (idx === -1) return;
+        const [trashed] = inventory.splice(idx, 1);
+        trash.push(trashed);
+        card.remove();
+        saveData();
+        // Keep trash tab count in sync if we're on inventory page
+        if (context === 'inventory') renderInventory();
+    }
+    else if (target.classList.contains('restore-btn')) {
+        const idx = trash.findIndex(r => r.id === relicId);
+        if (idx === -1) return;
+        const [restored] = trash.splice(idx, 1);
+        inventory.push(restored);
+        saveData();
+        renderInventory();
+    }
 }
 
-function handleScrapAll() {
-    if (trash.length > 0 && confirm(`Are you sure you want to permanently delete ${trash.length} relic(s)? This cannot be undone.`)) {
+pullResultsContainer.addEventListener('click', e => handleCardClick(e, 'pull'));
+inventoryContainer.addEventListener('click', e => handleCardClick(e, inventoryView));
+
+// --- INVENTORY SUB-TABS ---
+invTabInventory.addEventListener('click', () => {
+    inventoryView = 'inventory';
+    // Re-bind click handler context
+    inventoryContainer.onclick = e => handleCardClick(e, inventoryView);
+    renderInventory();
+});
+
+invTabTrash.addEventListener('click', () => {
+    inventoryView = 'trash';
+    inventoryContainer.onclick = e => handleCardClick(e, inventoryView);
+    renderInventory();
+});
+
+// --- SCRAP ALL ---
+scrapAllBtn.addEventListener('click', () => {
+    if (trash.length > 0 && confirm(`Permanently delete ${trash.length} relic(s)? This cannot be undone.`)) {
         trash = [];
         saveData();
-        render();
+        renderInventory();
     }
-}
+});
 
-// --- 5. SAVING & LOADING ---
+// --- SAVE / LOAD ---
 function saveData() {
-    const data = { inventory, trash };
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+    localStorage.setItem(STORAGE_KEY, JSON.stringify({ inventory, trash }));
 }
 
 function loadData() {
-    const savedData = localStorage.getItem(STORAGE_KEY);
-    if (savedData) {
-        const data = JSON.parse(savedData);
+    const saved = localStorage.getItem(STORAGE_KEY);
+    if (saved) {
+        const data = JSON.parse(saved);
         inventory = data.inventory || [];
         trash = data.trash || [];
     }
 }
 
-// --- 6. INITIALIZATION ---
-pullCavernBtn.addEventListener('click', () => {
-    const newRelic = generateRelic('cavern');
-    addNewRelicToInventory(newRelic);
-});
-pullPlanarBtn.addEventListener('click', () => {
-    const newRelic = generateRelic('planar');
-    addNewRelicToInventory(newRelic);
-});
-contentArea.addEventListener('click', handleContentClick);
-scrapAllBtn.addEventListener('click', handleScrapAll);
-inventoryTabBtn.addEventListener('click', () => {
-    currentView = 'inventory';
-    render();
-});
-trashTabBtn.addEventListener('click', () => {
-    currentView = 'trash';
-    render();
-});
+// --- INIT ---
 loadData();
-render();
-console.log('HSR Simulator initialized with hardcoded short names!');
+populateSetDropdown();

@@ -22,7 +22,12 @@ function getRandomSubstat(mainStatName, existingSubstats) {
     return { stat: newSubstatName, value: randomValue, upgrades: 0 };
 }
 
-export function generateRelic(type) {
+/**
+ * Generate a relic with the specified type.
+ * @param {string} type - 'cavern' or 'planar'.
+ * @param {string} setName - The name of the set to generate.
+ */
+export function generateRelic(type, setName) {
     const availablePieces = type === 'cavern' ? GAME_DATA.CAVERN_PIECES : GAME_DATA.PLANAR_PIECES;
     const piece = availablePieces[Math.floor(Math.random() * availablePieces.length)];
     
@@ -41,6 +46,7 @@ export function generateRelic(type) {
 
     return {
         id: Date.now() + Math.random(),
+        setName: setName, // The new property!
         piece,
         level: 0,
         mainStat: mainStatName,
