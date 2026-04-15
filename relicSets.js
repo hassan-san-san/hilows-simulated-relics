@@ -185,7 +185,134 @@ export const RELIC_SETS = {
             bonus4pc: "After the wearer uses Basic ATK or Skill, if the wearer's memosprite is on the field, increases Max HP of the wearer and their memosprite by 24%, and increases all allies' DMG by 15% until the wearer's next Basic ATK or Skill."
         },
     ],
+    // NOTE: Planar piece names are approximate placeholders — update when confirmed.
     planar: [
+        {
+            name: "Amphoreus, The Eternal Land",
+            pieces: { "Planar Sphere": "Amphoreus's Titan Heart", "Link Rope": "Amphoreus's Eternal Chain" },
+            bonus2pc: "Increases the wearer's CRIT Rate by 8%. While the wearer's memosprite is on the field, increases all allies' SPD by 8%. This effect cannot be stacked.",
+            bonus4pc: ""
+        },
+        {
+            name: "Arcadia of Woven Dreams",
+            pieces: { "Planar Sphere": "Arcadia's Dream Globe", "Link Rope": "Arcadia's Silken Tether" },
+            bonus2pc: "When there are currently more or less than 4 ally targets in battle, each additional/missing ally target increases the wearer and their memosprite's DMG by 9%/12%, up to a maximum of 4/3 stacks.",
+            bonus4pc: ""
+        },
+        {
+            name: "Belobog of the Architects",
+            pieces: { "Planar Sphere": "Belobog's Iron Defensive Wall", "Link Rope": "Belobog's Foundation Bolt" },
+            bonus2pc: "Increases the wearer's DEF by 15%. When the wearer's Effect Hit Rate is 50% or higher, the wearer gains an extra 15% DEF.",
+            bonus4pc: ""
+        },
+        {
+            name: "Bone Collection's Serene Demesne",
+            pieces: { "Planar Sphere": "Bone Collection's Serene Glass", "Link Rope": "Bone Collection's Silence Chain" },
+            bonus2pc: "Increases the wearer's Max HP by 12%. When the wearer's Max HP is 5000 or higher, increases the wearer's and their memosprite's CRIT DMG by 28%.",
+            bonus4pc: ""
+        },
+        {
+            name: "Broken Keel",
+            pieces: { "Planar Sphere": "Insumousu's Whalefall Ship", "Link Rope": "Insumousu's Frayed Hawser" },
+            bonus2pc: "Increases the wearer's Effect RES by 10%. When the wearer's Effect RES is at 30% or higher, all allies' CRIT DMG increases by 10%.",
+            bonus4pc: ""
+        },
+        {
+            name: "Celestial Differentiator",
+            pieces: { "Planar Sphere": "Planet Screwllum's Mechanical Sun", "Link Rope": "Planet Screwllum's Ring System" },
+            bonus2pc: "Increases the wearer's CRIT DMG by 16%. When the wearer's current CRIT DMG reaches 120% or higher, after entering battle, the wearer's CRIT Rate increases by 60% until the end of their first attack.",
+            bonus4pc: ""
+        },
+        {
+            name: "City of Converging Stars",
+            pieces: { "Planar Sphere": "City of Converging Stars' Orbital Lens", "Link Rope": "City of Converging Stars' Gravity Anchor" },
+            bonus2pc: "When the wearer uses a Follow-Up ATK, increases their ATK by 24% for 2 turns. When an enemy target is defeated, increases CRIT DMG for all allies by 12% for the rest of the current battle. This effect cannot stack.",
+            bonus4pc: ""
+        },
+        {
+            name: "Duran, Dynasty of Running Wolves",
+            pieces: { "Planar Sphere": "Duran's Tent of Golden Sky", "Link Rope": "Duran's Mechabeast Bridle" },
+            bonus2pc: "When an ally uses follow-up attacks, the wearer gains 1 stack of Merit, stacking up to 5 time(s). Each stack of Merit increases the DMG dealt by the wearer's follow-up attacks by 5%. When there are 5 stacks, additionally increases the wearer's CRIT DMG by 25%.",
+            bonus4pc: ""
+        },
+        {
+            name: "Firmament Frontline: Glamoth",
+            pieces: { "Planar Sphere": "Glamoth's Iron Cavalry Regiment", "Link Rope": "Glamoth's Silent Tombstone" },
+            bonus2pc: "Increases the wearer's ATK by 12%. When the wearer's SPD is equal to or higher than 135/160, the wearer deals 12%/18% more DMG.",
+            bonus4pc: ""
+        },
+        {
+            name: "Fleet of the Ageless",
+            pieces: { "Planar Sphere": "The Xianzhou Luofu's Celestial Ark", "Link Rope": "The Xianzhou Luofu's Ambrosial Arbor Vines" },
+            bonus2pc: "Increases the wearer's Max HP by 12%. When the wearer's SPD reaches 120 or higher, all allies' ATK increases by 8%.",
+            bonus4pc: ""
+        },
+        {
+            name: "Forge of the Kalpagni Lantern",
+            pieces: { "Planar Sphere": "Forge's Lotus Lantern Wick", "Link Rope": "Forge's Heavenly Flamewheel Silk" },
+            bonus2pc: "Increases the wearer's SPD by 6%. When the wearer hits an enemy target that has Fire Weakness, the wearer's Break Effect increases by 40%, lasting for 1 turn(s).",
+            bonus4pc: ""
+        },
+        {
+            name: "Giant Tree of Rapt Brooding",
+            pieces: { "Planar Sphere": "Giant Tree's Protective Shade", "Link Rope": "Giant Tree's Root Network" },
+            bonus2pc: "Increases the wearer's SPD by 6%. When the wearer's Speed is 135/180 or higher, increases the wearer and their memosprite's Outgoing Healing by 12%/20%.",
+            bonus4pc: ""
+        },
+        {
+            name: "Inert Salsotto",
+            pieces: { "Planar Sphere": "Salsotto's Moving City", "Link Rope": "Salsotto's Termination Decree" },
+            bonus2pc: "Increases the wearer's CRIT Rate by 8%. When the wearer's current CRIT Rate reaches 50% or higher, the wearer's Ultimate and follow-up attack DMG increases by 15%.",
+            bonus4pc: ""
+        },
+        {
+            name: "Izumo Gensei and Takama Divine Realm",
+            pieces: { "Planar Sphere": "Izumo's Magatama of Ancient Standing", "Link Rope": "Izumo's Sacred Seal" },
+            bonus2pc: "Increases the wearer's ATK by 12%. When entering battle, if at least one other ally follows the same Path as the wearer, then the wearer's CRIT Rate increases by 12%.",
+            bonus4pc: ""
+        },
+        {
+            name: "Lushaka, the Sunken Seas",
+            pieces: { "Planar Sphere": "Lushaka's Waterscape", "Link Rope": "Lushaka's Tidal Pendant" },
+            bonus2pc: "Increases the wearer's Energy Regeneration Rate by 5%. If the wearer is not the first character in the team lineup, then increases the ATK of the first character in the team lineup by 12%.",
+            bonus4pc: ""
+        },
+        {
+            name: "Pan-Cosmic Commercial Enterprise",
+            pieces: { "Planar Sphere": "IPC's Mega HQ", "Link Rope": "IPC's Work Permit" },
+            bonus2pc: "Increases the wearer's Effect Hit Rate by 10%. Meanwhile, the wearer's ATK increases by an amount that is equal to 25% of the current Effect Hit Rate, up to a maximum of 25%.",
+            bonus4pc: ""
+        },
+        {
+            name: "Penacony, Land of the Dreams",
+            pieces: { "Planar Sphere": "Penacony's Grand Hotel Suite", "Link Rope": "Dream's Montage" },
+            bonus2pc: "Increases wearer's Energy Regeneration Rate by 5%. Increases DMG by 10% for all other allies that are of the same Type as the wearer.",
+            bonus4pc: ""
+        },
+        {
+            name: "Punklorde Stage Zero",
+            pieces: { "Planar Sphere": "Punklorde's Infinite Neon Globe", "Link Rope": "Punklorde's Frenzy Cord" },
+            bonus2pc: "Increases the wearer's Elation by 8%. When Elation reaches 40%/80% for the first time in battle, increases the wearer's CRIT DMG by 20%/32%.",
+            bonus4pc: ""
+        },
+        {
+            name: "Revelry by the Sea",
+            pieces: { "Planar Sphere": "Revelry's Festival Lantern", "Link Rope": "Revelry's Anchor Rope" },
+            bonus2pc: "Increases the wearer's ATK by 12%. When the wearer's ATK is higher than or equal to 2,400/3,600, increases the DoT DMG dealt by 12%/24%.",
+            bonus4pc: ""
+        },
+        {
+            name: "Rutilant Arena",
+            pieces: { "Planar Sphere": "Moment of Victory", "Link Rope": "Squirming Core" },
+            bonus2pc: "Increases the wearer's CRIT Rate by 8%. When the wearer's current CRIT Rate reaches 70% or higher, the wearer's Basic ATK and Skill DMG increase by 20%.",
+            bonus4pc: ""
+        },
+        {
+            name: "Sigonia, the Unclaimed Desolation",
+            pieces: { "Planar Sphere": "Sigonia's Gaiathra Beryl", "Link Rope": "Sigonia's Knot of Cyclicness" },
+            bonus2pc: "Increases the wearer's CRIT Rate by 4%. When an enemy target gets defeated, the wearer's CRIT DMG increases by 4%, stacking up to 10 time(s).",
+            bonus4pc: ""
+        },
         {
             name: "Space Sealing Station",
             pieces: { "Planar Sphere": "Herta's Space Station's Exterior", "Link Rope": "Herta's Space Station's Tether" },
@@ -193,9 +320,27 @@ export const RELIC_SETS = {
             bonus4pc: ""
         },
         {
-            name: "Fleet of the Ageless",
-            pieces: { "Planar Sphere": "The Xianzhou Luofu's Celestial Ark", "Link Rope": "The Xianzhou Luofu's Ambrosial Arbor Vines" },
-            bonus2pc: "Increases the wearer's Max HP by 12%. When the wearer's SPD reaches 120 or higher, all allies' ATK increases by 8%.",
+            name: "Sprightly Vonwacq",
+            pieces: { "Planar Sphere": "Vonwacq's Island of Birth", "Link Rope": "Vonwacq's Whalefall Rope" },
+            bonus2pc: "Increases the wearer's Energy Regeneration Rate by 5%. When the wearer's SPD reaches 120 or higher, the wearer's action is Advanced Forward by 40% immediately upon entering battle.",
+            bonus4pc: ""
+        },
+        {
+            name: "Talia: Kingdom of Banditry",
+            pieces: { "Planar Sphere": "Talia's Exposed Electric Wire", "Link Rope": "Talia's Nailscrap Town" },
+            bonus2pc: "Increases the wearer's Break Effect by 16%. When the wearer's SPD reaches 145 or higher, the wearer's Break Effect increases by an extra 20%.",
+            bonus4pc: ""
+        },
+        {
+            name: "Tengoku Livestream",
+            pieces: { "Planar Sphere": "Tengoku's Streaming Lens", "Link Rope": "Tengoku's Lucky Charm" },
+            bonus2pc: "Increases the wearer's CRIT DMG by 16%. If 3 or more Skill Points are consumed in the same turn, additionally increases the wearer's CRIT DMG by 32% for 3 turns.",
+            bonus4pc: ""
+        },
+        {
+            name: "The Wondrous BananAmusement Park",
+            pieces: { "Planar Sphere": "BananAmusement Park's Toto-Balloon", "Link Rope": "BananAmusement Park's Commemorative Ticket" },
+            bonus2pc: "Increases the wearer's CRIT DMG by 16%. When a target summoned by the wearer is on the field, CRIT DMG additionally increases by 32%.",
             bonus4pc: ""
         },
     ]

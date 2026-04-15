@@ -161,6 +161,35 @@ h1 {
     background-color: #ffb733;
 }
 
+/* === SET BONUS DISPLAY === */
+.set-bonus-display {
+    max-width: 480px;
+    background-color: #191919;
+    border: 1px solid #272727;
+    border-radius: 8px;
+    padding: 14px 18px;
+    margin-bottom: 28px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    font-size: 0.85em;
+    color: #bbb;
+    line-height: 1.5;
+}
+
+.bonus-label {
+    display: inline-block;
+    background-color: #ffa500;
+    color: #111;
+    font-size: 0.75em;
+    font-weight: 700;
+    padding: 1px 6px;
+    border-radius: 4px;
+    margin-right: 6px;
+    vertical-align: middle;
+    letter-spacing: 0.5px;
+}
+
 /* === RELIC GRID === */
 .results-grid {
     display: grid;

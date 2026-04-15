@@ -18,7 +18,10 @@ const pullTypeCavernBtn  = document.getElementById('pull-type-cavern');
 const pullTypePlanarBtn  = document.getElementById('pull-type-planar');
 const setSelector        = document.getElementById('set-selector-dropdown');
 const pullBtn            = document.getElementById('pull-btn');
-const pullResultsContainer = document.getElementById('pull-results-container');
+const pullResultsContainer  = document.getElementById('pull-results-container');
+const setBonusDisplay       = document.getElementById('set-bonus-display');
+const bonus2pcEl            = document.getElementById('bonus-2pc');
+const bonus4pcEl            = document.getElementById('bonus-4pc');
 
 const invTabInventory  = document.getElementById('inv-tab-inventory');
 const invTabTrash      = document.getElementById('inv-tab-trash');
@@ -35,6 +38,23 @@ function populateSetDropdown() {
         option.textContent = set.name;
         setSelector.appendChild(option);
     });
+    updateSetBonus();
+}
+
+function updateSetBonus() {
+    const setData = RELIC_SETS[currentPullType].find(s => s.name === setSelector.value);
+    if (!setData) {
+        setBonusDisplay.classList.add('hidden');
+        return;
+    }
+    setBonusDisplay.classList.remove('hidden');
+    bonus2pcEl.innerHTML = `<span class="bonus-label">2pc</span> ${setData.bonus2pc}`;
+    if (setData.bonus4pc) {
+        bonus4pcEl.innerHTML = `<span class="bonus-label">4pc</span> ${setData.bonus4pc}`;
+        bonus4pcEl.classList.remove('hidden');
+    } else {
+        bonus4pcEl.classList.add('hidden');
+    }
 }
 
 // --- RENDERING ---
@@ -124,6 +144,9 @@ pullTypePlanarBtn.addEventListener('click', () => {
     pullTypeCavernBtn.classList.remove('active');
     populateSetDropdown();
 });
+
+// --- SET BONUS ON DROPDOWN CHANGE ---
+setSelector.addEventListener('change', updateSetBonus);
 
 // --- PULL BUTTON ---
 pullBtn.addEventListener('click', () => {
