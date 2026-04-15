@@ -254,6 +254,7 @@ h1 {
     flex-direction: column;
     gap: 3px;
     margin-top: 2px;
+    min-height: 88px; /* reserves space for 4 substat rows so 3-liners match 4-liner card height */
 }
 
 .stat-name {
