@@ -46,9 +46,10 @@ export function generateRelic(type, setName) {
 
     return {
         id: Date.now() + Math.random(),
-        setName: setName, // The new property!
+        setName: setName,
         piece,
         level: 0,
+        locked: false,
         mainStat: mainStatName,
         substats,
     };

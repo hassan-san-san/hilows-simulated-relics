@@ -66,17 +66,20 @@ function createRelicCard(relic, context) {
     const mainStatValue = calculateMainStatValue(relic.mainStat, relic.level);
     const isMaxLevel = relic.level >= 15;
 
+    const isLocked = relic.locked || false;
+
     let buttons = '';
     if (context === 'pull' || context === 'inventory') {
         buttons = `
             <button class="upgrade-btn" ${isMaxLevel ? 'disabled' : ''}>${isMaxLevel ? 'MAX' : '+3'}</button>
-            <button class="trash-btn">Trash</button>
+            <button class="trash-btn" ${isLocked ? 'disabled' : ''}>Trash</button>
         `;
     } else if (context === 'trash') {
         buttons = `<button class="restore-btn">Restore</button>`;
     }
 
     card.innerHTML = `
+        <button class="lock-btn ${isLocked ? 'is-locked' : ''}" title="${isLocked ? 'Unlock' : 'Lock'}">${isLocked ? '🔒' : '🔓'}</button>
         <div class="relic-set-name">${relic.setName || ''}</div>
         <h3>${relic.piece} <span class="relic-level">(+${relic.level})</span></h3>
         <div class="stat-row main-stat-row">
@@ -165,7 +168,14 @@ function handleCardClick(event, context) {
 
     const relicId = Number(card.dataset.id);
 
-    if (target.classList.contains('upgrade-btn')) {
+    if (target.classList.contains('lock-btn')) {
+        const relic = [...inventory, ...trash].find(r => r.id === relicId);
+        if (!relic) return;
+        relic.locked = !relic.locked;
+        card.replaceWith(createRelicCard(relic, context));
+        saveData();
+    }
+    else if (target.classList.contains('upgrade-btn')) {
         const relic = inventory.find(r => r.id === relicId);
         if (!relic || relic.level >= 15) return;
         upgradeRelic(relic);
