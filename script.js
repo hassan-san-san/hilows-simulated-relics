@@ -69,7 +69,7 @@ function createRelicCard(relic, context) {
     let buttons = '';
     if (context === 'pull' || context === 'inventory') {
         buttons = `
-            <button class="upgrade-btn" ${isMaxLevel ? 'disabled' : ''}>+3</button>
+            <button class="upgrade-btn" ${isMaxLevel ? 'disabled' : ''}>${isMaxLevel ? 'MAX' : '+3'}</button>
             <button class="trash-btn">Trash</button>
         `;
     } else if (context === 'trash') {
@@ -198,14 +198,11 @@ inventoryContainer.addEventListener('click', e => handleCardClick(e, inventoryVi
 // --- INVENTORY SUB-TABS ---
 invTabInventory.addEventListener('click', () => {
     inventoryView = 'inventory';
-    // Re-bind click handler context
-    inventoryContainer.onclick = e => handleCardClick(e, inventoryView);
     renderInventory();
 });
 
 invTabTrash.addEventListener('click', () => {
     inventoryView = 'trash';
-    inventoryContainer.onclick = e => handleCardClick(e, inventoryView);
     renderInventory();
 });
 
