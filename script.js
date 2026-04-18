@@ -8,28 +8,47 @@ let currentPullType = 'cavern';
 let inventoryView = 'inventory'; // 'inventory' or 'trash'
 const STORAGE_KEY = 'hsr-data';
 
-// --- DOM REFS ---
-const navPullBtn       = document.getElementById('nav-pull-btn');
-const navInventoryBtn  = document.getElementById('nav-inventory-btn');
-const pullPage         = document.getElementById('pull-page');
-const inventoryPage    = document.getElementById('inventory-page');
+// --- FILTER / SORT STATE ---
+let filterPiece    = '';
+let filterSet      = '';
+let filterMainStat = '';
+let sortBy         = 'date';
+let sortOrder      = 'desc';
 
-const pullTypeCavernBtn  = document.getElementById('pull-type-cavern');
-const pullTypePlanarBtn  = document.getElementById('pull-type-planar');
-const setSelector        = document.getElementById('set-selector-dropdown');
-const pullBtn            = document.getElementById('pull-btn');
+// --- DOM REFS: NAV ---
+const navPullBtn      = document.getElementById('nav-pull-btn');
+const navInventoryBtn = document.getElementById('nav-inventory-btn');
+const pullPage        = document.getElementById('pull-page');
+const inventoryPage   = document.getElementById('inventory-page');
+
+// --- DOM REFS: PULL PAGE ---
+const pullTypeCavernBtn     = document.getElementById('pull-type-cavern');
+const pullTypePlanarBtn     = document.getElementById('pull-type-planar');
+const setSelector           = document.getElementById('set-selector-dropdown');
+const pullBtn               = document.getElementById('pull-btn');
 const pullResultsContainer  = document.getElementById('pull-results-container');
 const setBonusDisplay       = document.getElementById('set-bonus-display');
 const bonus2pcEl            = document.getElementById('bonus-2pc');
 const bonus4pcEl            = document.getElementById('bonus-4pc');
 
-const invTabInventory  = document.getElementById('inv-tab-inventory');
-const invTabTrash      = document.getElementById('inv-tab-trash');
-const trashControls    = document.getElementById('trash-controls');
-const scrapAllBtn      = document.getElementById('scrap-all-btn');
+// --- DOM REFS: INVENTORY PAGE ---
+const invTabInventory    = document.getElementById('inv-tab-inventory');
+const invTabTrash        = document.getElementById('inv-tab-trash');
+const trashControls      = document.getElementById('trash-controls');
+const scrapAllBtn        = document.getElementById('scrap-all-btn');
 const inventoryContainer = document.getElementById('inventory-container');
+const inventoryFilters   = document.getElementById('inventory-filters');
+const filterCountEl      = document.getElementById('filter-count');
 
-// --- SETUP ---
+// --- DOM REFS: FILTER CONTROLS ---
+const filterPieceEl    = document.getElementById('filter-piece');
+const filterSetEl      = document.getElementById('filter-set');
+const filterMainStatEl = document.getElementById('filter-mainstat');
+const sortByEl         = document.getElementById('sort-by');
+const sortOrderEl      = document.getElementById('sort-order');
+const resetFiltersBtn  = document.getElementById('reset-filters-btn');
+
+// --- PULL PAGE SETUP ---
 function populateSetDropdown() {
     setSelector.innerHTML = '';
     RELIC_SETS[currentPullType].forEach(set => {
@@ -43,10 +62,7 @@ function populateSetDropdown() {
 
 function updateSetBonus() {
     const setData = RELIC_SETS[currentPullType].find(s => s.name === setSelector.value);
-    if (!setData) {
-        setBonusDisplay.classList.add('hidden');
-        return;
-    }
+    if (!setData) { setBonusDisplay.classList.add('hidden'); return; }
     setBonusDisplay.classList.remove('hidden');
     bonus2pcEl.innerHTML = `<span class="bonus-label">2pc</span> ${setData.bonus2pc}`;
     if (setData.bonus4pc) {
@@ -57,6 +73,59 @@ function updateSetBonus() {
     }
 }
 
+// --- FILTER / SORT SETUP ---
+function populateSetFilter() {
+    const allSets = [...RELIC_SETS.cavern, ...RELIC_SETS.planar]
+        .map(s => s.name)
+        .sort((a, b) => a.localeCompare(b));
+    filterSetEl.innerHTML = '<option value="">All Sets</option>';
+    allSets.forEach(name => {
+        const opt = document.createElement('option');
+        opt.value = name;
+        opt.textContent = name;
+        filterSetEl.appendChild(opt);
+    });
+}
+
+function getSubstatValue(relic, substatName) {
+    const sub = relic.substats.find(s => s.stat === substatName);
+    return sub ? sub.value : -Infinity;
+}
+
+function applyFiltersAndSort(items) {
+    let result = [...items];
+
+    if (filterPiece)    result = result.filter(r => r.piece === filterPiece);
+    if (filterSet)      result = result.filter(r => r.setName === filterSet);
+    if (filterMainStat) result = result.filter(r => r.mainStat === filterMainStat);
+
+    result.sort((a, b) => {
+        let aVal, bVal;
+        if (sortBy === 'date') {
+            aVal = a.id;    bVal = b.id;
+        } else if (sortBy === 'level') {
+            aVal = a.level; bVal = b.level;
+        } else {
+            // substat sort — relics missing that substat sink to the bottom
+            aVal = getSubstatValue(a, sortBy);
+            bVal = getSubstatValue(b, sortBy);
+        }
+        return sortOrder === 'desc' ? bVal - aVal : aVal - bVal;
+    });
+
+    return result;
+}
+
+function resetFilters() {
+    filterPiece = ''; filterSet = ''; filterMainStat = '';
+    sortBy = 'date';  sortOrder = 'desc';
+    filterPieceEl.value    = '';
+    filterSetEl.value      = '';
+    filterMainStatEl.value = '';
+    sortByEl.value         = 'date';
+    sortOrderEl.value      = 'desc';
+}
+
 // --- RENDERING ---
 function createRelicCard(relic, context) {
     const card = document.createElement('div');
@@ -64,9 +133,8 @@ function createRelicCard(relic, context) {
     card.dataset.id = relic.id;
 
     const mainStatValue = calculateMainStatValue(relic.mainStat, relic.level);
-    const isMaxLevel = relic.level >= 15;
-
-    const isLocked = relic.locked || false;
+    const isMaxLevel    = relic.level >= 15;
+    const isLocked      = relic.locked || false;
 
     let buttons = '';
     if (context === 'pull' || context === 'inventory') {
@@ -105,17 +173,33 @@ function createRelicCard(relic, context) {
 
 function renderInventory() {
     inventoryContainer.innerHTML = '';
-    const items = inventoryView === 'inventory'
-        ? [...inventory].reverse()
+
+    const isInventoryView = inventoryView === 'inventory';
+
+    // Show/hide filter bar
+    inventoryFilters.classList.toggle('hidden', !isInventoryView);
+
+    // Apply filters+sort for My Relics; simple reverse for Trash
+    const items = isInventoryView
+        ? applyFiltersAndSort(inventory)
         : [...trash].reverse();
 
     items.forEach(relic => {
         inventoryContainer.appendChild(createRelicCard(relic, inventoryView));
     });
 
-    invTabInventory.classList.toggle('active', inventoryView === 'inventory');
-    invTabTrash.classList.toggle('active', inventoryView === 'trash');
-    trashControls.classList.toggle('hidden', inventoryView !== 'trash' || trash.length === 0);
+    // Result count (only shown in My Relics view)
+    if (isInventoryView) {
+        const isFiltered = filterPiece || filterSet || filterMainStat || sortBy !== 'date' || sortOrder !== 'desc';
+        filterCountEl.textContent = isFiltered
+            ? `Showing ${items.length} of ${inventory.length} relics`
+            : `${inventory.length} relic${inventory.length !== 1 ? 's' : ''}`;
+    }
+
+    // Tab + trash controls state
+    invTabInventory.classList.toggle('active', isInventoryView);
+    invTabTrash.classList.toggle('active', !isInventoryView);
+    trashControls.classList.toggle('hidden', isInventoryView || trash.length === 0);
 }
 
 // --- NAVIGATION ---
@@ -154,8 +238,7 @@ setSelector.addEventListener('change', updateSetBonus);
 
 // --- PULL BUTTON ---
 pullBtn.addEventListener('click', () => {
-    const selectedSetName = setSelector.value;
-    const relic = generateRelic(currentPullType, selectedSetName);
+    const relic = generateRelic(currentPullType, setSelector.value);
     inventory.push(relic);
     saveData();
     pullResultsContainer.prepend(createRelicCard(relic, 'pull'));
@@ -164,7 +247,7 @@ pullBtn.addEventListener('click', () => {
 // --- CARD INTERACTIONS ---
 function handleCardClick(event, context) {
     const target = event.target;
-    const card = target.closest('.relic-card');
+    const card   = target.closest('.relic-card');
     if (!card) return;
 
     const relicId = Number(card.dataset.id);
@@ -197,7 +280,6 @@ function handleCardClick(event, context) {
         trash.push(trashed);
         card.remove();
         saveData();
-        // Keep trash tab count in sync if we're on inventory page
         if (context === 'inventory') renderInventory();
     }
     else if (target.classList.contains('restore-btn')) {
@@ -214,15 +296,8 @@ pullResultsContainer.addEventListener('click', e => handleCardClick(e, 'pull'));
 inventoryContainer.addEventListener('click', e => handleCardClick(e, inventoryView));
 
 // --- INVENTORY SUB-TABS ---
-invTabInventory.addEventListener('click', () => {
-    inventoryView = 'inventory';
-    renderInventory();
-});
-
-invTabTrash.addEventListener('click', () => {
-    inventoryView = 'trash';
-    renderInventory();
-});
+invTabInventory.addEventListener('click', () => { inventoryView = 'inventory'; renderInventory(); });
+invTabTrash.addEventListener('click',     () => { inventoryView = 'trash';     renderInventory(); });
 
 // --- SCRAP ALL ---
 scrapAllBtn.addEventListener('click', () => {
@@ -231,6 +306,18 @@ scrapAllBtn.addEventListener('click', () => {
         saveData();
         renderInventory();
     }
+});
+
+// --- FILTER / SORT EVENT LISTENERS ---
+filterPieceEl.addEventListener('change',    e => { filterPiece    = e.target.value; renderInventory(); });
+filterSetEl.addEventListener('change',      e => { filterSet      = e.target.value; renderInventory(); });
+filterMainStatEl.addEventListener('change', e => { filterMainStat = e.target.value; renderInventory(); });
+sortByEl.addEventListener('change',         e => { sortBy         = e.target.value; renderInventory(); });
+sortOrderEl.addEventListener('change',      e => { sortOrder      = e.target.value; renderInventory(); });
+
+resetFiltersBtn.addEventListener('click', () => {
+    resetFilters();
+    renderInventory();
 });
 
 // --- SAVE / LOAD ---
@@ -243,10 +330,11 @@ function loadData() {
     if (saved) {
         const data = JSON.parse(saved);
         inventory = data.inventory || [];
-        trash = data.trash || [];
+        trash     = data.trash     || [];
     }
 }
 
 // --- INIT ---
 loadData();
 populateSetDropdown();
+populateSetFilter();

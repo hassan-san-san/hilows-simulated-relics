@@ -49,6 +49,86 @@
                 <div id="trash-controls" class="hidden">
                     <button id="scrap-all-btn">Scrap All</button>
                 </div>
+
+                <!-- FILTER & SORT BAR (My Relics only) -->
+                <div id="inventory-filters" class="hidden">
+                    <div class="filter-bar">
+                        <div class="filter-group">
+                            <label for="filter-piece">Piece</label>
+                            <select id="filter-piece">
+                                <option value="">All Pieces</option>
+                                <option value="Head">Head</option>
+                                <option value="Hands">Hands</option>
+                                <option value="Body">Body</option>
+                                <option value="Feet">Feet</option>
+                                <option value="Planar Sphere">Planar Sphere</option>
+                                <option value="Link Rope">Link Rope</option>
+                            </select>
+                        </div>
+                        <div class="filter-group">
+                            <label for="filter-set">Set</label>
+                            <select id="filter-set">
+                                <option value="">All Sets</option>
+                                <!-- populated dynamically -->
+                            </select>
+                        </div>
+                        <div class="filter-group">
+                            <label for="filter-mainstat">Main Stat</label>
+                            <select id="filter-mainstat">
+                                <option value="">All</option>
+                                <option value="HP">HP</option>
+                                <option value="ATK">ATK</option>
+                                <option value="HP%">HP%</option>
+                                <option value="ATK%">ATK%</option>
+                                <option value="DEF%">DEF%</option>
+                                <option value="SPD">SPD</option>
+                                <option value="CRIT Rate">CRIT Rate</option>
+                                <option value="CRIT DMG">CRIT DMG</option>
+                                <option value="Effect Hit Rate">Effect Hit Rate</option>
+                                <option value="Healing Boost">Healing Boost</option>
+                                <option value="Break Effect">Break Effect</option>
+                                <option value="Energy Regeneration Rate">Energy Regen Rate</option>
+                                <option value="Physical DMG">Physical DMG</option>
+                                <option value="Fire DMG">Fire DMG</option>
+                                <option value="Ice DMG">Ice DMG</option>
+                                <option value="Wind DMG">Wind DMG</option>
+                                <option value="Lightning DMG">Lightning DMG</option>
+                                <option value="Quantum DMG">Quantum DMG</option>
+                                <option value="Imaginary DMG">Imaginary DMG</option>
+                            </select>
+                        </div>
+                        <div class="filter-divider"></div>
+                        <div class="filter-group">
+                            <label for="sort-by">Sort By</label>
+                            <select id="sort-by">
+                                <option value="date">Date</option>
+                                <option value="level">Level</option>
+                                <option value="SPD">SPD</option>
+                                <option value="CRIT Rate">CRIT Rate</option>
+                                <option value="CRIT DMG">CRIT DMG</option>
+                                <option value="HP%">HP%</option>
+                                <option value="ATK%">ATK%</option>
+                                <option value="DEF%">DEF%</option>
+                                <option value="Break Effect">Break Effect</option>
+                                <option value="Effect Hit Rate">Effect Hit Rate</option>
+                                <option value="Effect RES">Effect RES</option>
+                                <option value="HP">HP (flat)</option>
+                                <option value="ATK">ATK (flat)</option>
+                                <option value="DEF">DEF (flat)</option>
+                            </select>
+                        </div>
+                        <div class="filter-group">
+                            <label for="sort-order">Order</label>
+                            <select id="sort-order">
+                                <option value="desc">↓ High → Low</option>
+                                <option value="asc">↑ Low → High</option>
+                            </select>
+                        </div>
+                        <button id="reset-filters-btn">Reset</button>
+                    </div>
+                    <div id="filter-count" class="filter-count"></div>
+                </div>
+
                 <div id="inventory-container" class="results-grid"></div>
             </div>
 
