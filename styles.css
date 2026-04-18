@@ -534,6 +534,125 @@ h1 {
     background-color: #3a2020;
 }
 
+/* === CUSTOM SELECT === */
+.custom-select {
+    position: relative;
+    user-select: none;
+}
+
+.cs-trigger {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 10px;
+    background-color: #1c1c1c;
+    border: 1px solid #2e2e2e;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.88em;
+    color: #e0e0e0;
+    transition: border-color 0.15s;
+    min-height: 38px;
+}
+
+.cs-trigger:hover {
+    border-color: #444;
+}
+
+.custom-select.open .cs-trigger {
+    border-color: #ffa500;
+}
+
+.cs-arrow {
+    margin-left: auto;
+    color: #666;
+    font-size: 0.8em;
+    transition: transform 0.15s;
+    flex-shrink: 0;
+}
+
+.custom-select.open .cs-arrow {
+    transform: rotate(180deg);
+}
+
+.cs-img {
+    width: 26px;
+    height: 26px;
+    object-fit: contain;
+    border-radius: 4px;
+    background-color: #141414;
+    flex-shrink: 0;
+}
+
+.cs-label {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    min-width: 0;
+}
+
+.cs-dropdown {
+    position: absolute;
+    top: calc(100% + 4px);
+    left: 0;
+    right: 0;
+    background-color: #1e1e1e;
+    border: 1px solid #333;
+    border-radius: 6px;
+    z-index: 200;
+    max-height: 300px;
+    overflow-y: auto;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.6);
+}
+
+.cs-dropdown::-webkit-scrollbar { width: 5px; }
+.cs-dropdown::-webkit-scrollbar-track { background: #1e1e1e; }
+.cs-dropdown::-webkit-scrollbar-thumb { background: #333; border-radius: 3px; }
+
+.cs-option {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 10px;
+    cursor: pointer;
+    font-size: 0.86em;
+    color: #bbb;
+    transition: background 0.1s;
+}
+
+.cs-option:hover {
+    background-color: #272727;
+    color: #e0e0e0;
+}
+
+.cs-option.selected {
+    color: #ffa500;
+    background-color: #242424;
+}
+
+.cs-group-header {
+    padding: 8px 10px 3px;
+    font-size: 0.7em;
+    color: #555;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    font-weight: 700;
+    border-top: 1px solid #272727;
+    pointer-events: none;
+}
+
+.cs-group-header:first-child {
+    border-top: none;
+}
+
+#set-selector-dropdown {
+    width: 100%;
+}
+
+#filter-set {
+    min-width: 200px;
+}
+
 /* === FOOTER === */
 footer {
     background-color: #0d0d0d;

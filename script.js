@@ -5,8 +5,9 @@ import { RELIC_SETS } from './relicSets.js';
 let inventory = [];
 let trash = [];
 let currentPullType = 'cavern';
-let inventoryView = 'inventory'; // 'inventory' or 'trash'
-const STORAGE_KEY = 'hsr-data';
+let currentSetName  = '';        // tracks selected set on pull page
+let inventoryView   = 'inventory'; // 'inventory' or 'trash'
+const STORAGE_KEY   = 'hsr-data';
 
 // --- FILTER / SORT STATE ---
 let filterPiece    = '';
@@ -49,7 +50,7 @@ const sortOrderEl      = document.getElementById('sort-order');
 const resetFiltersBtn  = document.getElementById('reset-filters-btn');
 
 // --- IMAGE URL HELPER ---
-const IMG_BASE = 'https://raw.githubusercontent.com/Mar-7th/StarRailRes/master/';
+const IMG_BASE   = 'https://raw.githubusercontent.com/Mar-7th/StarRailRes/master/';
 const PIECE_INDEX = { 'Head': 0, 'Hands': 1, 'Body': 2, 'Feet': 3, 'Planar Sphere': 0, 'Link Rope': 1 };
 
 function getRelicImageUrl(setId, piece) {
@@ -57,20 +58,113 @@ function getRelicImageUrl(setId, piece) {
     return `${IMG_BASE}icon/relic/${setId}_${PIECE_INDEX[piece]}.png`;
 }
 
+// --- CUSTOM SELECT ---
+function closeAllCustomSelects() {
+    document.querySelectorAll('.custom-select.open').forEach(cs => {
+        cs.querySelector('.cs-dropdown')?.classList.add('hidden');
+        cs.classList.remove('open');
+    });
+}
+
+document.addEventListener('click', closeAllCustomSelects);
+
+/**
+ * Builds a custom image-bearing dropdown inside `container`.
+ * @param {HTMLElement} container - The wrapper div (gets class 'custom-select' added)
+ * @param {Array} options - Array of { value, label, imageUrl?, isGroup?, label }
+ * @param {string} selectedValue - Initially selected value
+ * @param {Function} onChange - Called with new value when an option is picked
+ */
+function buildCustomSelect(container, options, selectedValue, onChange) {
+    container.innerHTML = '';
+    container.className = 'custom-select';
+
+    const firstReal = options.find(o => !o.isGroup);
+    const initOpt   = options.find(o => !o.isGroup && o.value === selectedValue) || firstReal;
+
+    // Trigger row
+    const trigger = document.createElement('div');
+    trigger.className = 'cs-trigger';
+
+    function updateTrigger(opt) {
+        trigger.innerHTML = `
+            ${opt?.imageUrl ? `<img class="cs-img" src="${opt.imageUrl}" onerror="this.style.display='none'">` : ''}
+            <span class="cs-label">${opt?.label || ''}</span>
+            <span class="cs-arrow">▾</span>
+        `;
+    }
+    updateTrigger(initOpt);
+
+    // Dropdown list
+    const dropdown = document.createElement('div');
+    dropdown.className = 'cs-dropdown hidden';
+
+    options.forEach(opt => {
+        if (opt.isGroup) {
+            const header = document.createElement('div');
+            header.className = 'cs-group-header';
+            header.textContent = opt.label;
+            dropdown.appendChild(header);
+            return;
+        }
+
+        const item = document.createElement('div');
+        item.className = 'cs-option' + (opt.value === selectedValue ? ' selected' : '');
+        item.dataset.value = opt.value;
+        item.innerHTML = `
+            ${opt.imageUrl ? `<img class="cs-img" src="${opt.imageUrl}" onerror="this.style.display='none'">` : ''}
+            <span>${opt.label}</span>
+        `;
+        item.addEventListener('click', e => {
+            e.stopPropagation();
+            dropdown.querySelectorAll('.cs-option').forEach(o => o.classList.remove('selected'));
+            item.classList.add('selected');
+            updateTrigger(opt);
+            dropdown.classList.add('hidden');
+            container.classList.remove('open');
+            onChange(opt.value);
+        });
+        dropdown.appendChild(item);
+    });
+
+    trigger.addEventListener('click', e => {
+        e.stopPropagation();
+        const isOpen = !dropdown.classList.contains('hidden');
+        closeAllCustomSelects();
+        if (!isOpen) {
+            dropdown.classList.remove('hidden');
+            container.classList.add('open');
+        }
+    });
+
+    container.appendChild(trigger);
+    container.appendChild(dropdown);
+}
+
 // --- PULL PAGE SETUP ---
 function populateSetDropdown() {
-    setSelector.innerHTML = '';
-    RELIC_SETS[currentPullType].forEach(set => {
-        const option = document.createElement('option');
-        option.value = set.name;
-        option.textContent = set.name;
-        setSelector.appendChild(option);
+    // Sort by id descending — newest set at top
+    const sets = [...RELIC_SETS[currentPullType]].sort((a, b) => b.id - a.id);
+    const iconPiece = currentPullType === 'cavern' ? 'Head' : 'Planar Sphere';
+
+    const options = sets.map(set => ({
+        value: set.name,
+        label: set.name,
+        imageUrl: getRelicImageUrl(set.id, iconPiece)
+    }));
+
+    currentSetName = options[0]?.value || '';
+
+    buildCustomSelect(setSelector, options, currentSetName, val => {
+        currentSetName = val;
+        updateSetBonus();
     });
+
     updateSetBonus();
 }
 
 function updateSetBonus() {
-    const setData = RELIC_SETS[currentPullType].find(s => s.name === setSelector.value);
+    const setData = RELIC_SETS[currentPullType].find(s => s.name === currentSetName);
     if (!setData) { setBonusDisplay.classList.add('hidden'); return; }
     setBonusDisplay.classList.remove('hidden');
     bonus2pcEl.innerHTML = `<span class="bonus-label">2pc</span> ${setData.bonus2pc}`;
@@ -84,15 +178,29 @@ function updateSetBonus() {
 
 // --- FILTER / SORT SETUP ---
 function populateSetFilter() {
-    const allSets = [...RELIC_SETS.cavern, ...RELIC_SETS.planar]
-        .map(s => s.name)
-        .sort((a, b) => a.localeCompare(b));
-    filterSetEl.innerHTML = '<option value="">All Sets</option>';
-    allSets.forEach(name => {
-        const opt = document.createElement('option');
-        opt.value = name;
-        opt.textContent = name;
-        filterSetEl.appendChild(opt);
+    // Sort each group by id descending (newest first)
+    const cavernSets = [...RELIC_SETS.cavern].sort((a, b) => b.id - a.id);
+    const planarSets = [...RELIC_SETS.planar].sort((a, b) => b.id - a.id);
+
+    const options = [
+        { value: '', label: 'All Sets' },
+        { isGroup: true, label: 'Cavern Relics' },
+        ...cavernSets.map(set => ({
+            value: set.name,
+            label: set.name,
+            imageUrl: getRelicImageUrl(set.id, 'Head')
+        })),
+        { isGroup: true, label: 'Planar Ornaments' },
+        ...planarSets.map(set => ({
+            value: set.name,
+            label: set.name,
+            imageUrl: getRelicImageUrl(set.id, 'Planar Sphere')
+        }))
+    ];
+
+    buildCustomSelect(filterSetEl, options, filterSet, val => {
+        filterSet = val;
+        renderInventory();
     });
 }
 
@@ -115,7 +223,6 @@ function applyFiltersAndSort(items) {
         } else if (sortBy === 'level') {
             aVal = a.level; bVal = b.level;
         } else {
-            // substat sort — relics missing that substat sink to the bottom
             aVal = getSubstatValue(a, sortBy);
             bVal = getSubstatValue(b, sortBy);
         }
@@ -129,10 +236,10 @@ function resetFilters() {
     filterPiece = ''; filterSet = ''; filterMainStat = '';
     sortBy = 'date';  sortOrder = 'desc';
     filterPieceEl.value    = '';
-    filterSetEl.value      = '';
     filterMainStatEl.value = '';
     sortByEl.value         = 'date';
     sortOrderEl.value      = 'desc';
+    populateSetFilter(); // rebuild custom select showing "All Sets"
 }
 
 // --- RENDERING ---
@@ -145,11 +252,10 @@ function createRelicCard(relic, context) {
     const isMaxLevel    = relic.level >= 15;
     const isLocked      = relic.locked || false;
 
-    // Look up the set's numeric ID for the image
-    const allSets   = [...RELIC_SETS.cavern, ...RELIC_SETS.planar];
-    const setData   = allSets.find(s => s.name === relic.setName);
-    const imageUrl  = setData ? getRelicImageUrl(setData.id, relic.piece) : null;
-    const imgHtml   = imageUrl
+    const allSets  = [...RELIC_SETS.cavern, ...RELIC_SETS.planar];
+    const setData  = allSets.find(s => s.name === relic.setName);
+    const imageUrl = setData ? getRelicImageUrl(setData.id, relic.piece) : null;
+    const imgHtml  = imageUrl
         ? `<img class="relic-icon" src="${imageUrl}" alt="${relic.piece}" onerror="this.style.display='none'">`
         : '';
 
@@ -198,10 +304,8 @@ function renderInventory() {
 
     const isInventoryView = inventoryView === 'inventory';
 
-    // Show/hide filter bar
     inventoryFilters.classList.toggle('hidden', !isInventoryView);
 
-    // Apply filters+sort for My Relics; simple reverse for Trash
     const items = isInventoryView
         ? applyFiltersAndSort(inventory)
         : [...trash].reverse();
@@ -210,7 +314,6 @@ function renderInventory() {
         inventoryContainer.appendChild(createRelicCard(relic, inventoryView));
     });
 
-    // Result count (only shown in My Relics view)
     if (isInventoryView) {
         const isFiltered = filterPiece || filterSet || filterMainStat || sortBy !== 'date' || sortOrder !== 'desc';
         filterCountEl.textContent = isFiltered
@@ -218,7 +321,6 @@ function renderInventory() {
             : `${inventory.length} relic${inventory.length !== 1 ? 's' : ''}`;
     }
 
-    // Tab + trash controls state
     invTabInventory.classList.toggle('active', isInventoryView);
     invTabTrash.classList.toggle('active', !isInventoryView);
     trashControls.classList.toggle('hidden', isInventoryView || trash.length === 0);
@@ -255,12 +357,9 @@ pullTypePlanarBtn.addEventListener('click', () => {
     populateSetDropdown();
 });
 
-// --- SET BONUS ON DROPDOWN CHANGE ---
-setSelector.addEventListener('change', updateSetBonus);
-
 // --- PULL BUTTON ---
 pullBtn.addEventListener('click', () => {
-    const relic = generateRelic(currentPullType, setSelector.value);
+    const relic = generateRelic(currentPullType, currentSetName);
     inventory.push(relic);
     saveData();
     pullResultsContainer.prepend(createRelicCard(relic, 'pull'));
@@ -332,7 +431,6 @@ scrapAllBtn.addEventListener('click', () => {
 
 // --- FILTER / SORT EVENT LISTENERS ---
 filterPieceEl.addEventListener('change',    e => { filterPiece    = e.target.value; renderInventory(); });
-filterSetEl.addEventListener('change',      e => { filterSet      = e.target.value; renderInventory(); });
 filterMainStatEl.addEventListener('change', e => { filterMainStat = e.target.value; renderInventory(); });
 sortByEl.addEventListener('change',         e => { sortBy         = e.target.value; renderInventory(); });
 sortOrderEl.addEventListener('change',      e => { sortOrder      = e.target.value; renderInventory(); });
