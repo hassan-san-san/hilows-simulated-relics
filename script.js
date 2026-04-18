@@ -48,6 +48,15 @@ const sortByEl         = document.getElementById('sort-by');
 const sortOrderEl      = document.getElementById('sort-order');
 const resetFiltersBtn  = document.getElementById('reset-filters-btn');
 
+// --- IMAGE URL HELPER ---
+const IMG_BASE = 'https://raw.githubusercontent.com/Mar-7th/StarRailRes/master/';
+const PIECE_INDEX = { 'Head': 0, 'Hands': 1, 'Body': 2, 'Feet': 3, 'Planar Sphere': 0, 'Link Rope': 1 };
+
+function getRelicImageUrl(setId, piece) {
+    if (!setId) return null;
+    return `${IMG_BASE}icon/relic/${setId}_${PIECE_INDEX[piece]}.png`;
+}
+
 // --- PULL PAGE SETUP ---
 function populateSetDropdown() {
     setSelector.innerHTML = '';
@@ -136,6 +145,14 @@ function createRelicCard(relic, context) {
     const isMaxLevel    = relic.level >= 15;
     const isLocked      = relic.locked || false;
 
+    // Look up the set's numeric ID for the image
+    const allSets   = [...RELIC_SETS.cavern, ...RELIC_SETS.planar];
+    const setData   = allSets.find(s => s.name === relic.setName);
+    const imageUrl  = setData ? getRelicImageUrl(setData.id, relic.piece) : null;
+    const imgHtml   = imageUrl
+        ? `<img class="relic-icon" src="${imageUrl}" alt="${relic.piece}" onerror="this.style.display='none'">`
+        : '';
+
     let buttons = '';
     if (context === 'pull' || context === 'inventory') {
         buttons = `
@@ -149,8 +166,13 @@ function createRelicCard(relic, context) {
 
     card.innerHTML = `
         <button class="lock-btn ${isLocked ? 'is-locked' : ''}" title="${isLocked ? 'Unlock' : 'Lock'}">${isLocked ? '🔒' : '🔓'}</button>
-        <div class="relic-set-name">${relic.setName || ''}</div>
-        <h3>${relic.piece} <span class="relic-level">(+${relic.level})</span></h3>
+        <div class="relic-header">
+            ${imgHtml}
+            <div class="relic-header-text">
+                <div class="relic-set-name">${relic.setName || ''}</div>
+                <h3>${relic.piece} <span class="relic-level">(+${relic.level})</span></h3>
+            </div>
+        </div>
         <div class="stat-row main-stat-row">
             <span class="stat-name">${relic.mainStat}</span>
             <span class="stat-value">${formatStat(relic.mainStat, mainStatValue)}</span>
