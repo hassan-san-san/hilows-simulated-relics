@@ -18,7 +18,7 @@ Partly inspired by [Fribbels' HSR Optimizer](https://github.com/fribbels/hsr-opt
 
 ## Status
 
-> **Early Access / Beta** — the core relic system is functional but features are still being added. Expect changes.
+> **Early Access / Beta** — the core relic system is functional but features are still being added. Expect changes and relic wipes until fully functional.
 
 Planned: character builder, stamina system, leaderboards.
 
