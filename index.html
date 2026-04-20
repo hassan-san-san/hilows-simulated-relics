@@ -13,7 +13,7 @@
             <h2>HSR</h2>
             <button id="nav-pull-btn" class="nav-button active">Pull Relics</button>
             <button id="nav-inventory-btn" class="nav-button">Inventory</button>
-            <button id="nav-characters-btn" class="nav-button" disabled>Characters</button>
+            <button id="nav-characters-btn" class="nav-button">Characters</button>
         </nav>
 
         <!-- MAIN CONTENT AREA -->
@@ -127,6 +127,71 @@
                 </div>
 
                 <div id="inventory-container" class="results-grid"></div>
+            </div>
+
+            <!-- CHARACTER PAGE -->
+            <div id="character-page" class="page hidden">
+                <h1>Characters</h1>
+
+                <!-- Character search/select -->
+                <div id="char-selector-wrapper" class="char-selector-wrapper">
+                    <div id="char-selector-dropdown"></div>
+                </div>
+
+                <!-- Character view (hidden until a char is selected) -->
+                <div id="char-view" class="char-view hidden">
+
+                    <!-- Left: portrait + identity -->
+                    <div class="char-left">
+                        <div class="char-portrait-wrap">
+                            <img id="char-portrait" class="char-portrait" src="" alt="" />
+                        </div>
+                        <div class="char-identity">
+                            <div id="char-name" class="char-name"></div>
+                            <div id="char-meta" class="char-meta"></div>
+                        </div>
+                    </div>
+
+                    <!-- Middle: stats -->
+                    <div class="char-stats-panel">
+                        <div class="char-stats-heading">Base Stats <span class="char-stats-level">(Lv. 80)</span></div>
+                        <table id="char-stats-table" class="char-stats-table"></table>
+                        <div class="char-stats-heading char-traces-heading">Minor Traces</div>
+                        <table id="char-traces-table" class="char-stats-table"></table>
+                    </div>
+
+                    <!-- Right: relic slots -->
+                    <div class="char-slots-panel">
+                        <div class="char-slots-heading">Equipped Relics</div>
+                        <div class="char-slots-grid">
+                            <div class="relic-slot" data-piece="Head">
+                                <div class="slot-piece-label">Head</div>
+                                <div class="slot-empty">—</div>
+                            </div>
+                            <div class="relic-slot" data-piece="Planar Sphere">
+                                <div class="slot-piece-label">Planar Sphere</div>
+                                <div class="slot-empty">—</div>
+                            </div>
+                            <div class="relic-slot" data-piece="Hands">
+                                <div class="slot-piece-label">Hands</div>
+                                <div class="slot-empty">—</div>
+                            </div>
+                            <div class="relic-slot" data-piece="Link Rope">
+                                <div class="slot-piece-label">Link Rope</div>
+                                <div class="slot-empty">—</div>
+                            </div>
+                            <div class="relic-slot" data-piece="Body">
+                                <div class="slot-piece-label">Body</div>
+                                <div class="slot-empty">—</div>
+                            </div>
+                            <div class="relic-slot" data-piece="Feet">
+                                <div class="slot-piece-label">Feet</div>
+                                <div class="slot-empty">—</div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
             </div>
 
         </main>

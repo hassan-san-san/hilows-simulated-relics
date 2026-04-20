@@ -1,5 +1,6 @@
 import { generateRelic, calculateMainStatValue, formatStat, upgradeRelic } from './relicGenerator.js';
 import { RELIC_SETS } from './relicSets.js';
+import { CHARACTERS } from './characterData.js';
 
 // --- STATE ---
 let inventory = [];
@@ -7,6 +8,7 @@ let trash = [];
 let currentPullType = 'cavern';
 let currentSetName  = '';        // tracks selected set on pull page
 let inventoryView   = 'inventory'; // 'inventory' or 'trash'
+let currentCharId   = null;      // currently viewed character id (string)
 const STORAGE_KEY   = 'hsr-data';
 
 // --- FILTER / SORT STATE ---
@@ -17,10 +19,12 @@ let sortBy         = 'date';
 let sortOrder      = 'desc';
 
 // --- DOM REFS: NAV ---
-const navPullBtn      = document.getElementById('nav-pull-btn');
-const navInventoryBtn = document.getElementById('nav-inventory-btn');
-const pullPage        = document.getElementById('pull-page');
-const inventoryPage   = document.getElementById('inventory-page');
+const navPullBtn        = document.getElementById('nav-pull-btn');
+const navInventoryBtn   = document.getElementById('nav-inventory-btn');
+const navCharactersBtn  = document.getElementById('nav-characters-btn');
+const pullPage          = document.getElementById('pull-page');
+const inventoryPage     = document.getElementById('inventory-page');
+const characterPage     = document.getElementById('character-page');
 
 // --- DOM REFS: PULL PAGE ---
 const pullTypeCavernBtn     = document.getElementById('pull-type-cavern');
@@ -326,20 +330,185 @@ function renderInventory() {
     trashControls.classList.toggle('hidden', isInventoryView || trash.length === 0);
 }
 
+// --- CHARACTER PAGE ---
+const IMG_BASE_CHAR = 'https://raw.githubusercontent.com/Mar-7th/StarRailRes/master/';
+
+const ELEMENT_COLOURS = {
+    'Physical': '#9e9e9e', 'Fire': '#ef5350', 'Ice': '#42a5f5',
+    'Lightning': '#ab47bc', 'Wind': '#26a69a', 'Quantum': '#7e57c2',
+    'Imaginary': '#fdd835'
+};
+
+function buildCharSelector() {
+    const container = document.getElementById('char-selector-dropdown');
+    container.innerHTML = '';
+    container.className = 'custom-select';
+
+    // Sort: 5-star first, then alphabetically
+    const sorted = [...CHARACTERS].sort((a, b) =>
+        b.rarity - a.rarity || a.name.localeCompare(b.name)
+    );
+
+    const initChar = currentCharId
+        ? CHARACTERS.find(c => c.id === currentCharId)
+        : null;
+
+    // Trigger
+    const trigger = document.createElement('div');
+    trigger.className = 'cs-trigger';
+
+    function updateTrigger(char) {
+        trigger.innerHTML = char ? `
+            <img class="cs-img" src="${IMG_BASE_CHAR}${char.icon}" onerror="this.style.display='none'">
+            <span class="cs-label">${char.name}</span>
+            <span class="cs-arrow">▾</span>
+        ` : `<span class="cs-label" style="color:#555">Select a character...</span><span class="cs-arrow">▾</span>`;
+    }
+    updateTrigger(initChar);
+
+    // Dropdown with search
+    const dropdown = document.createElement('div');
+    dropdown.className = 'cs-dropdown hidden';
+
+    const searchInput = document.createElement('input');
+    searchInput.type = 'text';
+    searchInput.className = 'cs-search';
+    searchInput.placeholder = 'Search characters...';
+    dropdown.appendChild(searchInput);
+
+    const optionsList = document.createElement('div');
+    dropdown.appendChild(optionsList);
+
+    function renderOptions(filter) {
+        optionsList.innerHTML = '';
+        const term = filter.toLowerCase();
+        sorted.forEach(char => {
+            if (term && !char.name.toLowerCase().includes(term)) return;
+            const item = document.createElement('div');
+            item.className = 'cs-option' + (char.id === currentCharId ? ' selected' : '');
+            item.dataset.id = char.id;
+            const elemCol = ELEMENT_COLOURS[char.element] || '#888';
+            item.innerHTML = `
+                <img class="cs-img" src="${IMG_BASE_CHAR}${char.icon}" onerror="this.style.display='none'">
+                <span style="flex:1">${char.name}</span>
+                <span style="font-size:0.75em;color:${elemCol}">${char.element}</span>
+            `;
+            item.addEventListener('click', e => {
+                e.stopPropagation();
+                currentCharId = char.id;
+                updateTrigger(char);
+                optionsList.querySelectorAll('.cs-option').forEach(o => o.classList.remove('selected'));
+                item.classList.add('selected');
+                dropdown.classList.add('hidden');
+                container.classList.remove('open');
+                renderCharView();
+            });
+            optionsList.appendChild(item);
+        });
+        if (!optionsList.children.length) {
+            optionsList.innerHTML = '<div style="padding:10px 12px;color:#555;font-size:0.85em">No results</div>';
+        }
+    }
+
+    renderOptions('');
+
+    searchInput.addEventListener('input', e => {
+        e.stopPropagation();
+        renderOptions(e.target.value);
+    });
+    searchInput.addEventListener('click', e => e.stopPropagation());
+
+    trigger.addEventListener('click', e => {
+        e.stopPropagation();
+        const isOpen = !dropdown.classList.contains('hidden');
+        closeAllCustomSelects();
+        if (!isOpen) {
+            dropdown.classList.remove('hidden');
+            container.classList.add('open');
+            searchInput.value = '';
+            renderOptions('');
+            setTimeout(() => searchInput.focus(), 50);
+        }
+    });
+
+    container.appendChild(trigger);
+    container.appendChild(dropdown);
+}
+
+function renderCharView() {
+    const charView = document.getElementById('char-view');
+    if (!currentCharId) { charView.classList.add('hidden'); return; }
+
+    const char = CHARACTERS.find(c => c.id === currentCharId);
+    if (!char) { charView.classList.add('hidden'); return; }
+
+    charView.classList.remove('hidden');
+
+    // Portrait
+    document.getElementById('char-portrait').src = `${IMG_BASE_CHAR}${char.portrait}`;
+    document.getElementById('char-portrait').alt  = char.name;
+
+    // Name + meta
+    document.getElementById('char-name').textContent = char.name;
+    const stars = '★'.repeat(char.rarity);
+    const elemCol = ELEMENT_COLOURS[char.element] || '#888';
+    document.getElementById('char-meta').innerHTML =
+        `<span class="char-rarity-star">${stars}</span> &nbsp;` +
+        `<span style="color:${elemCol}">${char.element}</span> · ${char.path}`;
+
+    // Base stats table
+    const bs = char.baseStats;
+    const statsTable = document.getElementById('char-stats-table');
+    statsTable.innerHTML = [
+        ['HP',        Math.round(bs.hp)],
+        ['ATK',       Math.round(bs.atk)],
+        ['DEF',       Math.round(bs.def)],
+        ['SPD',       bs.spd],
+        ['CRIT Rate', `${(bs.critRate * 100).toFixed(1)}%`],
+        ['CRIT DMG',  `${(bs.critDmg  * 100).toFixed(1)}%`],
+    ].map(([name, val]) => `<tr><td>${name}</td><td>${val}</td></tr>`).join('');
+
+    // Traces table
+    const tracesTable = document.getElementById('char-traces-table');
+    const traceRows = Object.entries(char.traces).map(([stat, val]) => {
+        const isPercent = !['HP', 'ATK', 'DEF', 'SPD'].includes(stat) || stat.includes('%');
+        const display = typeof val === 'number' && val < 10
+            ? `+${(val * 100).toFixed(1)}%`
+            : `+${val}`;
+        return `<tr><td>${stat}</td><td class="stat-highlight">${display}</td></tr>`;
+    });
+    tracesTable.innerHTML = traceRows.join('') || '<tr><td colspan="2" style="color:#444">None</td></tr>';
+}
+
 // --- NAVIGATION ---
 navPullBtn.addEventListener('click', () => {
     pullPage.classList.remove('hidden');
     inventoryPage.classList.add('hidden');
+    characterPage.classList.add('hidden');
     navPullBtn.classList.add('active');
     navInventoryBtn.classList.remove('active');
+    navCharactersBtn.classList.remove('active');
 });
 
 navInventoryBtn.addEventListener('click', () => {
     inventoryPage.classList.remove('hidden');
     pullPage.classList.add('hidden');
+    characterPage.classList.add('hidden');
     navInventoryBtn.classList.add('active');
     navPullBtn.classList.remove('active');
+    navCharactersBtn.classList.remove('active');
     renderInventory();
+});
+
+navCharactersBtn.addEventListener('click', () => {
+    characterPage.classList.remove('hidden');
+    pullPage.classList.add('hidden');
+    inventoryPage.classList.add('hidden');
+    navCharactersBtn.classList.add('active');
+    navPullBtn.classList.remove('active');
+    navInventoryBtn.classList.remove('active');
+    buildCharSelector();
+    renderCharView();
 });
 
 // --- PULL TYPE TOGGLE ---
@@ -397,6 +566,13 @@ function handleCardClick(event, context) {
     else if (target.classList.contains('trash-btn')) {
         const idx = inventory.findIndex(r => r.id === relicId);
         if (idx === -1) return;
+        const relic = inventory[idx];
+        if (relic.equippedBy) {
+            const char = CHARACTERS.find(c => c.id === relic.equippedBy);
+            const charName = char ? char.name : 'a character';
+            alert(`Can't trash — this relic is equipped on ${charName}. Unequip it first.`);
+            return;
+        }
         const [trashed] = inventory.splice(idx, 1);
         trash.push(trashed);
         card.remove();
@@ -451,6 +627,10 @@ function loadData() {
         const data = JSON.parse(saved);
         inventory = data.inventory || [];
         trash     = data.trash     || [];
+        // Backfill equippedBy for relics created before the field existed
+        [...inventory, ...trash].forEach(r => {
+            if (r.equippedBy === undefined) r.equippedBy = null;
+        });
     }
 }
 

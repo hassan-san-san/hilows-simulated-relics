@@ -50,6 +50,7 @@ export function generateRelic(type, setName) {
         piece,
         level: 0,
         locked: false,
+        equippedBy: null,   // character id string, or null if unequipped
         mainStat: mainStatName,
         substats,
     };
