@@ -616,6 +616,222 @@ function renderCharView() {
         return `<tr><td>${stat}</td><td class="stat-highlight">${display}</td></tr>`;
     });
     tracesTable.innerHTML = traceRows.join('') || '<tr><td colspan="2" style="color:#444">None</td></tr>';
+
+    renderSlots();
+}
+
+// --- EQUIP SYSTEM ---
+
+function getEquippedRelics(charId) {
+    const slots = {};
+    inventory.filter(r => r.equippedBy === charId).forEach(r => { slots[r.piece] = r; });
+    return slots;
+}
+
+function renderSlots() {
+    if (!currentCharId) return;
+    const equippedRelics = getEquippedRelics(currentCharId);
+    const allSets = [...RELIC_SETS.cavern, ...RELIC_SETS.planar];
+
+    document.querySelectorAll('.relic-slot').forEach(slotEl => {
+        const piece = slotEl.dataset.piece;
+        const relic = equippedRelics[piece] || null;
+
+        slotEl.classList.toggle('filled', !!relic);
+        slotEl.onclick = () => openSlotPicker(piece);
+
+        if (relic) {
+            const setData  = allSets.find(s => s.name === relic.setName);
+            const imageUrl = setData ? getRelicImageUrl(setData.id, relic.piece) : null;
+            const mainVal  = calculateMainStatValue(relic.mainStat, relic.level);
+
+            slotEl.innerHTML = `
+                <div class="slot-piece-label">${piece}</div>
+                <div class="slot-relic-content">
+                    ${imageUrl ? `<img class="slot-relic-icon" src="${imageUrl}" onerror="this.style.display='none'">` : ''}
+                    <div class="slot-relic-info">
+                        <div class="slot-set-name">${relic.setName}</div>
+                        <div class="slot-main-stat-display">${relic.mainStat}: ${formatStat(relic.mainStat, mainVal)}</div>
+                    </div>
+                    <button class="slot-unequip-btn" title="Unequip">✕</button>
+                </div>
+                <div class="slot-level-badge">+${relic.level}</div>
+            `;
+
+            slotEl.querySelector('.slot-unequip-btn').onclick = e => {
+                e.stopPropagation();
+                relic.equippedBy = null;
+                saveData();
+                renderSlots();
+            };
+        } else {
+            slotEl.innerHTML = `
+                <div class="slot-piece-label">${piece}</div>
+                <div class="slot-empty">Click to equip</div>
+            `;
+        }
+    });
+}
+
+// --- SLOT PICKER ---
+
+let slotPickerEl = null;
+
+function ensureSlotPicker() {
+    if (slotPickerEl) return;
+    slotPickerEl = document.createElement('div');
+    slotPickerEl.id = 'slot-picker-overlay';
+    slotPickerEl.className = 'slot-picker-overlay hidden';
+    document.body.appendChild(slotPickerEl);
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeSlotPicker(); });
+}
+
+function openSlotPicker(piece) {
+    ensureSlotPicker();
+
+    const equippedRelics  = getEquippedRelics(currentCharId);
+    const currentRelic    = equippedRelics[piece] || null;
+    const others = inventory
+        .filter(r => r.piece === piece && r.id !== currentRelic?.id)
+        .sort((a, b) => {
+            const aOther = a.equippedBy && a.equippedBy !== currentCharId ? 1 : 0;
+            const bOther = b.equippedBy && b.equippedBy !== currentCharId ? 1 : 0;
+            if (aOther !== bOther) return aOther - bOther;
+            return b.level - a.level;
+        });
+
+    slotPickerEl.innerHTML = `
+        <div class="slot-picker-panel">
+            <div class="slot-picker-header">
+                <span class="slot-picker-title">Equip ${piece}</span>
+                <button class="slot-picker-close">✕</button>
+            </div>
+            <div class="slot-picker-list" id="slot-picker-list"></div>
+        </div>
+    `;
+
+    slotPickerEl.querySelector('.slot-picker-close').onclick = closeSlotPicker;
+    slotPickerEl.onclick = e => { if (e.target === slotPickerEl) closeSlotPicker(); };
+
+    const list = document.getElementById('slot-picker-list');
+
+    // Currently equipped section
+    addSectionHeader(list, 'Currently Equipped');
+    if (currentRelic) {
+        list.appendChild(createPickerItem(currentRelic, true));
+    } else {
+        addEmptyNote(list, 'Nothing equipped');
+    }
+
+    // Inventory section
+    addSectionHeader(list, `Inventory (${others.length})`);
+    if (others.length === 0) {
+        addEmptyNote(list, 'No relics for this slot — pull some first!');
+    } else {
+        others.forEach(r => list.appendChild(createPickerItem(r, false)));
+    }
+
+    slotPickerEl.classList.remove('hidden');
+    document.body.style.overflow = 'hidden';
+}
+
+function closeSlotPicker() {
+    if (!slotPickerEl) return;
+    slotPickerEl.classList.add('hidden');
+    document.body.style.overflow = '';
+}
+
+function addSectionHeader(parent, text) {
+    const el = document.createElement('div');
+    el.className = 'slot-picker-section-header';
+    el.textContent = text;
+    parent.appendChild(el);
+}
+
+function addEmptyNote(parent, text) {
+    const el = document.createElement('div');
+    el.className = 'slot-picker-none';
+    el.textContent = text;
+    parent.appendChild(el);
+}
+
+function createPickerItem(relic, isEquipped) {
+    const allSets   = [...RELIC_SETS.cavern, ...RELIC_SETS.planar];
+    const setData   = allSets.find(s => s.name === relic.setName);
+    const imageUrl  = setData ? getRelicImageUrl(setData.id, relic.piece) : null;
+    const mainVal   = calculateMainStatValue(relic.mainStat, relic.level);
+    const onOther   = !isEquipped && relic.equippedBy && relic.equippedBy !== currentCharId;
+    const otherChar = onOther ? CHARACTERS.find(c => c.id === relic.equippedBy) : null;
+
+    const item = document.createElement('div');
+    item.className = 'slot-picker-item'
+        + (isEquipped ? ' is-equipped' : '')
+        + (onOther    ? ' is-on-other'  : '');
+
+    item.innerHTML = `
+        <div class="picker-item-top">
+            ${imageUrl ? `<img class="picker-relic-icon" src="${imageUrl}" onerror="this.style.display='none'">` : ''}
+            <div class="picker-item-info">
+                <div class="picker-set-name">${relic.setName || ''}</div>
+                <div class="picker-main-stat">
+                    ${relic.mainStat}
+                    <span class="picker-main-val">${formatStat(relic.mainStat, mainVal)}</span>
+                    <span class="picker-level">+${relic.level}</span>
+                </div>
+                ${onOther ? `<div class="picker-other-char">On: ${otherChar?.name || 'another character'}</div>` : ''}
+            </div>
+            <div class="picker-badges">
+                ${isEquipped ? '<span class="picker-badge-equipped">Equipped</span>' : ''}
+                ${relic.locked ? '<span class="picker-lock">🔒</span>' : ''}
+            </div>
+        </div>
+        <div class="picker-substats">
+            ${relic.substats.map(s =>
+                `<span class="picker-substat">${s.stat}: ${formatStat(s.stat, s.value)}</span>`
+            ).join('')}
+        </div>
+        <div class="picker-item-actions">
+            ${isEquipped
+                ? `<button class="picker-btn picker-unequip-btn">Unequip</button>`
+                : `<button class="picker-btn picker-equip-btn">Equip</button>`}
+        </div>
+    `;
+
+    if (isEquipped) {
+        item.querySelector('.picker-unequip-btn').onclick = e => {
+            e.stopPropagation();
+            relic.equippedBy = null;
+            saveData();
+            closeSlotPicker();
+            renderSlots();
+        };
+    } else {
+        item.querySelector('.picker-equip-btn').onclick = e => {
+            e.stopPropagation();
+            doEquip(relic);
+        };
+    }
+
+    return item;
+}
+
+function doEquip(relic) {
+    const currentChar = CHARACTERS.find(c => c.id === currentCharId);
+
+    if (relic.equippedBy && relic.equippedBy !== currentCharId) {
+        const otherChar = CHARACTERS.find(c => c.id === relic.equippedBy);
+        if (!confirm(`This relic is on ${otherChar?.name || 'another character'}. Move it to ${currentChar?.name}?`)) return;
+        relic.equippedBy = null;
+    }
+
+    // Unequip whatever is currently in this slot
+    const slottedRelic = inventory.find(r => r.equippedBy === currentCharId && r.piece === relic.piece);
+    if (slottedRelic) slottedRelic.equippedBy = null;
+
+    relic.equippedBy = currentCharId;
+    saveData();
+    closeSlotPicker();
+    renderSlots();
 }
 
 // --- NAVIGATION ---
