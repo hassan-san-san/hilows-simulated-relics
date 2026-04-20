@@ -1,6 +1,7 @@
 import { generateRelic, calculateMainStatValue, formatStat, upgradeRelic } from './relicGenerator.js';
 import { RELIC_SETS } from './relicSets.js';
 import { CHARACTERS } from './characterData.js';
+import { LIGHT_CONES } from './lightConeData.js';
 
 // --- STATE ---
 let inventory = [];
@@ -9,6 +10,7 @@ let currentPullType = 'cavern';
 let currentSetName  = '';        // tracks selected set on pull page
 let inventoryView   = 'inventory'; // 'inventory' or 'trash'
 let currentCharId   = null;      // currently viewed character id (string)
+let currentLcId     = null;      // currently selected light cone id (string)
 const STORAGE_KEY   = 'hsr-data';
 
 // --- FILTER / SORT STATE ---
@@ -435,6 +437,119 @@ function buildCharSelector() {
     container.appendChild(dropdown);
 }
 
+function buildLcSelector(charPath) {
+    const container = document.getElementById('lc-selector-dropdown');
+    container.innerHTML = '';
+    container.className = 'custom-select';
+
+    if (!charPath) {
+        container.innerHTML = '<div class="cs-trigger" style="color:#444;cursor:default">Select a character first</div>';
+        return;
+    }
+
+    // Filter to matching path only, keep 5-star first then alpha
+    const filtered = LIGHT_CONES.filter(lc => lc.path === charPath);
+
+    // If currently selected LC doesn't match new path, clear it
+    if (currentLcId && !filtered.find(lc => lc.id === currentLcId)) {
+        currentLcId = null;
+    }
+
+    const initLc = currentLcId ? filtered.find(lc => lc.id === currentLcId) : null;
+
+    const trigger = document.createElement('div');
+    trigger.className = 'cs-trigger';
+
+    function updateTrigger(lc) {
+        trigger.innerHTML = lc ? `
+            <img class="cs-img" src="${IMG_BASE_CHAR}${lc.icon}" onerror="this.style.display='none'">
+            <span class="cs-label">${lc.name}</span>
+            <span style="font-size:0.75em;color:${lc.rarity === 5 ? '#ffa500' : '#42a5f5'};margin-left:auto;flex-shrink:0">${'★'.repeat(lc.rarity)}</span>
+        ` : `<span class="cs-label" style="color:#555">No Light Cone</span><span class="cs-arrow">▾</span>`;
+    }
+    updateTrigger(initLc);
+
+    const dropdown = document.createElement('div');
+    dropdown.className = 'cs-dropdown hidden';
+
+    const searchInput = document.createElement('input');
+    searchInput.type = 'text';
+    searchInput.className = 'cs-search';
+    searchInput.placeholder = 'Search light cones...';
+    dropdown.appendChild(searchInput);
+
+    const optionsList = document.createElement('div');
+    dropdown.appendChild(optionsList);
+
+    // "No LC" option at top
+    function renderOptions(filter) {
+        optionsList.innerHTML = '';
+        const term = filter.toLowerCase();
+
+        // None option
+        if (!term) {
+            const noneItem = document.createElement('div');
+            noneItem.className = 'cs-option' + (!currentLcId ? ' selected' : '');
+            noneItem.innerHTML = `<span style="color:#555">No Light Cone</span>`;
+            noneItem.addEventListener('click', e => {
+                e.stopPropagation();
+                currentLcId = null;
+                updateTrigger(null);
+                dropdown.classList.add('hidden');
+                container.classList.remove('open');
+                renderCharView();
+            });
+            optionsList.appendChild(noneItem);
+        }
+
+        filtered.forEach(lc => {
+            if (term && !lc.name.toLowerCase().includes(term)) return;
+            const item = document.createElement('div');
+            item.className = 'cs-option' + (lc.id === currentLcId ? ' selected' : '');
+            const starCol = lc.rarity === 5 ? '#ffa500' : '#42a5f5';
+            item.innerHTML = `
+                <img class="cs-img" src="${IMG_BASE_CHAR}${lc.icon}" onerror="this.style.display='none'">
+                <span style="flex:1">${lc.name}</span>
+                <span style="font-size:0.72em;color:${starCol};flex-shrink:0">${lc.rarity}★</span>
+            `;
+            item.addEventListener('click', e => {
+                e.stopPropagation();
+                currentLcId = lc.id;
+                updateTrigger(lc);
+                dropdown.classList.add('hidden');
+                container.classList.remove('open');
+                renderCharView();
+            });
+            optionsList.appendChild(item);
+        });
+
+        if (!optionsList.children.length) {
+            optionsList.innerHTML = '<div style="padding:10px 12px;color:#555;font-size:0.85em">No results</div>';
+        }
+    }
+
+    renderOptions('');
+
+    searchInput.addEventListener('input', e => { e.stopPropagation(); renderOptions(e.target.value); });
+    searchInput.addEventListener('click', e => e.stopPropagation());
+
+    trigger.addEventListener('click', e => {
+        e.stopPropagation();
+        const isOpen = !dropdown.classList.contains('hidden');
+        closeAllCustomSelects();
+        if (!isOpen) {
+            dropdown.classList.remove('hidden');
+            container.classList.add('open');
+            searchInput.value = '';
+            renderOptions('');
+            setTimeout(() => searchInput.focus(), 50);
+        }
+    });
+
+    container.appendChild(trigger);
+    container.appendChild(dropdown);
+}
+
 function renderCharView() {
     const charView = document.getElementById('char-view');
     if (!currentCharId) { charView.classList.add('hidden'); return; }
@@ -443,6 +558,9 @@ function renderCharView() {
     if (!char) { charView.classList.add('hidden'); return; }
 
     charView.classList.remove('hidden');
+
+    // Build LC selector filtered to this character's path
+    buildLcSelector(char.path);
 
     // Portrait
     document.getElementById('char-portrait').src = `${IMG_BASE_CHAR}${char.portrait}`;
@@ -456,22 +574,42 @@ function renderCharView() {
         `<span class="char-rarity-star">${stars}</span> &nbsp;` +
         `<span style="color:${elemCol}">${char.element}</span> · ${char.path}`;
 
-    // Base stats table
+    // Resolve selected LC
+    const lc = currentLcId ? LIGHT_CONES.find(l => l.id === currentLcId) : null;
+    const lcBase = lc ? lc.baseStats : { hp: 0, atk: 0, def: 0 };
+
+    // Stat formula: (charBase + lcBase) * (1 + trace%) + flat trace deltas
     const bs = char.baseStats;
+    const tr = char.traces;
+
+    const hpPct   = tr['HP%']       || 0;
+    const atkPct  = tr['ATK%']      || 0;
+    const defPct  = tr['DEF%']      || 0;
+    const spdDelta= tr['SPD']       || 0;
+    const crBonus = tr['CRIT Rate'] || 0;
+    const cdBonus = tr['CRIT DMG']  || 0;
+
+    const finalHp  = Math.round((bs.hp  + lcBase.hp)  * (1 + hpPct));
+    const finalAtk = Math.round((bs.atk + lcBase.atk) * (1 + atkPct));
+    const finalDef = Math.round((bs.def + lcBase.def) * (1 + defPct));
+    const finalSpd = bs.spd + spdDelta;
+    const finalCr  = bs.critRate + crBonus;
+    const finalCd  = bs.critDmg  + cdBonus;
+
+    const lcLabel = lc ? ` <span style="font-size:0.75em;color:#555">(+LC)</span>` : '';
     const statsTable = document.getElementById('char-stats-table');
     statsTable.innerHTML = [
-        ['HP',        Math.round(bs.hp)],
-        ['ATK',       Math.round(bs.atk)],
-        ['DEF',       Math.round(bs.def)],
-        ['SPD',       bs.spd],
-        ['CRIT Rate', `${(bs.critRate * 100).toFixed(1)}%`],
-        ['CRIT DMG',  `${(bs.critDmg  * 100).toFixed(1)}%`],
-    ].map(([name, val]) => `<tr><td>${name}</td><td>${val}</td></tr>`).join('');
+        ['HP',        finalHp],
+        ['ATK',       finalAtk],
+        ['DEF',       finalDef],
+        ['SPD',       finalSpd],
+        ['CRIT Rate', `${(finalCr * 100).toFixed(1)}%`],
+        ['CRIT DMG',  `${(finalCd * 100).toFixed(1)}%`],
+    ].map(([name, val]) => `<tr><td>${name}${name === 'HP' ? lcLabel : ''}</td><td>${val}</td></tr>`).join('');
 
     // Traces table
     const tracesTable = document.getElementById('char-traces-table');
     const traceRows = Object.entries(char.traces).map(([stat, val]) => {
-        const isPercent = !['HP', 'ATK', 'DEF', 'SPD'].includes(stat) || stat.includes('%');
         const display = typeof val === 'number' && val < 10
             ? `+${(val * 100).toFixed(1)}%`
             : `+${val}`;
@@ -508,7 +646,7 @@ navCharactersBtn.addEventListener('click', () => {
     navPullBtn.classList.remove('active');
     navInventoryBtn.classList.remove('active');
     buildCharSelector();
-    renderCharView();
+    if (currentCharId) renderCharView(); else buildLcSelector(null);
 });
 
 // --- PULL TYPE TOGGLE ---

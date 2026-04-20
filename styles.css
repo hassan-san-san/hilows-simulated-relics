@@ -654,10 +654,29 @@ h1 {
 }
 
 /* === CHARACTER PAGE === */
-.char-selector-wrapper {
-    max-width: 360px;
+.char-lc-selectors {
+    display: flex;
+    gap: 16px;
     margin-bottom: 28px;
-    position: relative;
+    flex-wrap: wrap;
+    align-items: flex-end;
+}
+
+.char-selector-group {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    min-width: 280px;
+    max-width: 360px;
+    flex: 1;
+}
+
+.selector-label {
+    font-size: 0.72em;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: #555;
+    font-weight: 600;
 }
 
 /* Extend custom-select with search input */
