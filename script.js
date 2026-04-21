@@ -265,6 +265,13 @@ function createRelicCard(relic, context) {
         ? `<img class="relic-icon" src="${imageUrl}" alt="${relic.piece}" onerror="this.style.display='none'">`
         : '';
 
+    const equippedChar = relic.equippedBy
+        ? CHARACTERS.find(c => c.id === relic.equippedBy)
+        : null;
+    const equippedHtml = equippedChar
+        ? `<div class="relic-equipped-on" title="Equipped on ${equippedChar.name}">On: ${equippedChar.name}</div>`
+        : '';
+
     let buttons = '';
     if (context === 'pull' || context === 'inventory') {
         buttons = `
@@ -283,6 +290,7 @@ function createRelicCard(relic, context) {
             <div class="relic-header-text">
                 <div class="relic-set-name">${relic.setName || ''}</div>
                 <h3>${relic.piece} <span class="relic-level">(+${relic.level})</span></h3>
+                ${equippedHtml}
             </div>
         </div>
         <div class="stat-row main-stat-row">

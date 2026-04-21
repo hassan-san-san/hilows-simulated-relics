@@ -276,6 +276,17 @@ h1 {
     min-height: 1em;
 }
 
+.relic-equipped-on {
+    font-size: 0.7em;
+    color: #ffa500;
+    opacity: 0.7;
+    margin-top: 2px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 110px;
+}
+
 .relic-card h3 {
     font-size: 0.95em;
     color: #e0e0e0;
