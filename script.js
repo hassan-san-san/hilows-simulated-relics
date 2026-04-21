@@ -653,13 +653,18 @@ function renderSlots() {
             const imageUrl = setData ? getRelicImageUrl(setData.id, relic.piece) : null;
             const mainVal  = calculateMainStatValue(relic.mainStat, relic.level);
 
+            const substatHtml = relic.substats.map(s =>
+                `<div class="slot-substat-row">${s.stat}: ${formatStat(s.stat, s.value)}</div>`
+            ).join('');
+
             slotEl.innerHTML = `
                 <div class="slot-piece-label">${piece}</div>
                 <div class="slot-relic-content">
                     ${imageUrl ? `<img class="slot-relic-icon" src="${imageUrl}" onerror="this.style.display='none'">` : ''}
                     <div class="slot-relic-info">
                         <div class="slot-set-name">${relic.setName}</div>
-                        <div class="slot-main-stat-display">${relic.mainStat}: ${formatStat(relic.mainStat, mainVal)}</div>
+                        <div class="slot-main-stat-display"><strong>${relic.mainStat}: ${formatStat(relic.mainStat, mainVal)}</strong></div>
+                        <div class="slot-substats">${substatHtml}</div>
                     </div>
                     <button class="slot-unequip-btn" title="Unequip">✕</button>
                 </div>
