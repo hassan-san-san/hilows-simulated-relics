@@ -11,7 +11,7 @@ export const LIGHT_CONES = [
         path: "Harmony",
         icon: "icon/light_cone/23034.png",
         baseStats: { hp: 1164, atk: 476, def: 529 },
-        description: "After the wearer uses Skill or Ultimate on one ally character, the wearer regenerates 6.0 Energy and the ability's target receives 1 stack of \"Hymn\" for 3 turn(s), stacking up to 3 time(s). Each stack of \"Hymn\" increases its holder's DMG dealt by 0%. After every 2 instance(s) of Skill or Ultimate the wearer uses on one ally character, recovers 1 Skill Point.",
+        description: "After the wearer uses Skill or Ultimate on one ally character, the wearer regenerates 6.0 Energy and the ability's target receives 1 stack of \"Hymn\" for 3 turn(s), stacking up to 3 time(s). Each stack of \"Hymn\" increases its holder's DMG dealt by 15%. After every 2 instance(s) of Skill or Ultimate the wearer uses on one ally character, recovers 1 Skill Point.",
         stats: null,
     },
     {
@@ -19,7 +19,7 @@ export const LIGHT_CONES = [
         path: "Destruction",
         icon: "icon/light_cone/23045.png",
         baseStats: { hp: 953, atk: 582, def: 529 },
-        description: "Increases the wearer's CRIT DMG by 0%. When using Ultimate, increases the wearer's ATK by 0%, and if the wearer's Max Energy is greater than or equal to 300, regenerates a fixed amount of Energy equal to 0% of the wearer's Max Energy and once again increases the wearer's ATK by 0%, lasting for 2 turns.",
+        description: "Increases the wearer's CRIT DMG by 36%. When using Ultimate, increases the wearer's ATK by 40%, and if the wearer's Max Energy is greater than or equal to 300, regenerates a fixed amount of Energy equal to 10% of the wearer's Max Energy and once again increases the wearer's ATK by 40%, lasting for 2 turns.",
         stats: { critDmg: 0.36 },
     },
     {
@@ -27,7 +27,7 @@ export const LIGHT_CONES = [
         path: "Nihility",
         icon: "icon/light_cone/23024.png",
         baseStats: { hp: 1058, atk: 635, def: 397 },
-        description: "Increases the wearer's CRIT DMG by 0%. When the wearer hits an enemy target, inflicts Mirage Fizzle on the enemy, lasting for 1 turn. Each time the wearer attacks, this effect can only trigger 1 time on each target. The wearer deals 0% increased DMG to targets afflicted with Mirage Fizzle, and the DMG dealt by Ultimate additionally increases by 0%.",
+        description: "Increases the wearer's CRIT DMG by 36%. When the wearer hits an enemy target, inflicts Mirage Fizzle on the enemy, lasting for 1 turn. Each time the wearer attacks, this effect can only trigger 1 time on each target. The wearer deals 24% increased DMG to targets afflicted with Mirage Fizzle, and the DMG dealt by Ultimate additionally increases by 24%.",
         stats: { critDmg: 0.28 },
     },
     {
@@ -35,7 +35,7 @@ export const LIGHT_CONES = [
         path: "Erudition",
         icon: "icon/light_cone/23018.png",
         baseStats: { hp: 1058, atk: 582, def: 463 },
-        description: "Increases the wearer's CRIT DMG by 0%. When the wearer uses Ultimate, increases DMG dealt by the wearer's Ultimate based on their Max Energy. Each point of Energy increases DMG dealt by Ultimate by 0.00%. A max of 180 points of Energy will be taken into account for this.",
+        description: "Increases the wearer's CRIT DMG by 36%. When the wearer uses Ultimate, increases DMG dealt by the wearer's Ultimate based on their Max Energy. Each point of Energy increases DMG dealt by Ultimate by 0.36%. A max of 180 points of Energy will be taken into account for this.",
         stats: { critDmg: 0.36 },
     },
     {
@@ -43,7 +43,7 @@ export const LIGHT_CONES = [
         path: "The Hunt",
         icon: "icon/light_cone/23020.png",
         baseStats: { hp: 953, atk: 582, def: 529 },
-        description: "Increases the wearer's CRIT DMG by 0%. For every debuff on the enemy target, the wearer's CRIT DMG dealt against this target additionally increases by 0%, stacking up to 3 times. When using Ultimate to attack the enemy target, the wearer receives the \"Disputation\" effect, which increases DMG dealt by 0% and enables their Follow-Up ATKs to ignore 0% of the target's DEF. This effect lasts for 2 turns.",
+        description: "Increases the wearer's CRIT DMG by 20%. For every debuff on the enemy target, the wearer's CRIT DMG dealt against this target additionally increases by 8%, stacking up to 3 times. When using Ultimate to attack the enemy target, the wearer receives the \"Disputation\" effect, which increases DMG dealt by 36% and enables their Follow-Up ATKs to ignore 24% of the target's DEF. This effect lasts for 2 turns.",
         stats: { critDmg: 0.32 },
     },
     {
@@ -51,7 +51,7 @@ export const LIGHT_CONES = [
         path: "Erudition",
         icon: "icon/light_cone/23010.png",
         baseStats: { hp: 1058, atk: 582, def: 463 },
-        description: "Increases the wearer's CRIT DMG by 0%. Increases DMG dealt by the wearer's Skill and Ultimate by 0%. After the wearer uses Skill or Ultimate, gains \"Somnus Corpus.\" Upon triggering a Follow-Up ATK, consumes \"Somnus Corpus,\" and increases DMG dealt by Follow-Up ATK by 0%.",
+        description: "Increases the wearer's CRIT DMG by 36%. Increases DMG dealt by the wearer's Skill and Ultimate by 18%. After the wearer uses Skill or Ultimate, gains \"Somnus Corpus.\" Upon triggering a Follow-Up ATK, consumes \"Somnus Corpus,\" and increases DMG dealt by Follow-Up ATK by 48%.",
         stats: { critDmg: 0.36 },
     },
     {
@@ -59,7 +59,7 @@ export const LIGHT_CONES = [
         path: "Destruction",
         icon: "icon/light_cone/23015.png",
         baseStats: { hp: 1058, atk: 635, def: 397 },
-        description: "Increases the wearer's CRIT Rate by 0%. When the wearer uses their Basic ATK, they will gain 1 stack of Dragon's Call, lasting for 2 turns. Each stack of Dragon's Call increases the wearer's ATK by 0% and Energy Regeneration Rate by 0.1%. Dragon's Call can be stacked up to 2 times.",
+        description: "Increases the wearer's CRIT Rate by 18%. When the wearer uses their Basic ATK, they will gain 1 stack of Dragon's Call, lasting for 2 turns. Each stack of Dragon's Call increases the wearer's ATK by 18% and Energy Regeneration Rate by 6.0%. Dragon's Call can be stacked up to 2 times.",
         stats: { critRate: 0.18 },
     },
     {
@@ -67,7 +67,7 @@ export const LIGHT_CONES = [
         path: "Harmony",
         icon: "icon/light_cone/23003.png",
         baseStats: { hp: 1164, atk: 529, def: 463 },
-        description: "Increases the wearer's Energy Regeneration Rate by 0% and regenerates 1 Skill Point when the wearer uses their Ultimate on an ally. This effect can be triggered once after every 2 uses of the wearer's Ultimate. When the wearer uses their Skill, the next ally taking action (except the wearer) deals 0% more DMG for 1 turn(s).",
+        description: "Increases the wearer's Energy Regeneration Rate by 10% and regenerates 1 Skill Point when the wearer uses their Ultimate on an ally. This effect can be triggered once after every 2 uses of the wearer's Ultimate. When the wearer uses their Skill, the next ally taking action (except the wearer) deals 30% more DMG for 1 turn(s).",
         stats: { energyRegen: 0.10 },
     },
     {
@@ -75,7 +75,7 @@ export const LIGHT_CONES = [
         path: "The Hunt",
         icon: "icon/light_cone/24001.png",
         baseStats: { hp: 953, atk: 529, def: 463 },
-        description: "Increases the wearer's CRIT Rate by 0%, and increases their CRIT Rate against enemies with HP percentage 0% or less by an extra 0%. When the wearer defeats an enemy, their ATK is increased by 0% for 2 turn(s).",
+        description: "Increases the wearer's CRIT Rate by 8%, and increases their CRIT Rate against enemies with HP percentage 50% or less by an extra 8%. When the wearer defeats an enemy, their ATK is increased by 20% for 2 turn(s).",
         stats: { critRate: 0.08 },
     },
     {
@@ -83,7 +83,7 @@ export const LIGHT_CONES = [
         path: "Destruction",
         icon: "icon/light_cone/23030.png",
         baseStats: { hp: 1058, atk: 582, def: 463 },
-        description: "Greatly increases the wearer's chance of getting attacked and increases CRIT DMG by 0%. After the wearer uses Ultimate, receives 1 stack of \"Firedance,\" lasting for 2 turns and stacking up to 2 time(s). Each stack of \"Firedance\" increases the DMG dealt by the wearer's Follow-Up ATK by 0%.",
+        description: "Greatly increases the wearer's chance of getting attacked and increases CRIT DMG by 36%. After the wearer uses Ultimate, receives 1 stack of \"Firedance,\" lasting for 2 turns and stacking up to 2 time(s). Each stack of \"Firedance\" increases the DMG dealt by the wearer's Follow-Up ATK by 36%.",
         stats: { critDmg: 0.36 },
     },
     {
@@ -91,7 +91,7 @@ export const LIGHT_CONES = [
         path: "Elation",
         icon: "icon/light_cone/23053.png",
         baseStats: { hp: 1058, atk: 582, def: 463 },
-        description: "Increases the wearer's CRIT DMG by 0%. While the wearer is on the field, for every 1 Elation character in the team, increases the Skill Point upper limit by 1, up to a max increase of 3. For every 1 Skill Point the wearer consumes, enables the Elation DMG dealt by this unit to ignore 0.1% of enemy targets' DEF, stacking up to 4 times. If 4 or more Skill Points are consumed in the same turn, the wearer gains \"Stream Promo,\" which increases all allies' Elation by 0%. Light Cone effects of the same type cannot stack.",
+        description: "Increases the wearer's CRIT DMG by 48%. While the wearer is on the field, for every 1 Elation character in the team, increases the Skill Point upper limit by 1, up to a max increase of 3. For every 1 Skill Point the wearer consumes, enables the Elation DMG dealt by this unit to ignore 5.0% of enemy targets' DEF, stacking up to 4 times. If 4 or more Skill Points are consumed in the same turn, the wearer gains \"Stream Promo,\" which increases all allies' Elation by 20%. Light Cone effects of the same type cannot stack.",
         stats: { critDmg: 0.36 },
     },
     {
@@ -99,7 +99,7 @@ export const LIGHT_CONES = [
         path: "Harmony",
         icon: "icon/light_cone/23021.png",
         baseStats: { hp: 1164, atk: 529, def: 463 },
-        description: "Increases the wearer's CRIT DMG by 0%. At the start of the battle, the wearer gains Mask, lasting for 3 turn(s). While the wearer has Mask, the wearer's teammates have their CRIT Rate increased by 0% and their CRIT DMG increased by 0%. For every 1 Skill Point the wearer recovers (including Skill Points that exceed the limit), they gain 1 stack of Radiant Flame. And when the wearer has 4 stacks of Radiant Flame, all the stacks are removed, and they gain Mask, lasting for 4 turn(s).",
+        description: "Increases the wearer's CRIT DMG by 32%. At the start of the battle, the wearer gains Mask, lasting for 3 turn(s). While the wearer has Mask, the wearer's teammates have their CRIT Rate increased by 10% and their CRIT DMG increased by 28%. For every 1 Skill Point the wearer recovers (including Skill Points that exceed the limit), they gain 1 stack of Radiant Flame. And when the wearer has 4 stacks of Radiant Flame, all the stacks are removed, and they gain Mask, lasting for 4 turn(s).",
         stats: { critDmg: 0.32 },
     },
     {
@@ -107,7 +107,7 @@ export const LIGHT_CONES = [
         path: "Abundance",
         icon: "icon/light_cone/23008.png",
         baseStats: { hp: 1164, atk: 582, def: 397 },
-        description: "Increases the wearer's ATK by 0%. After the wearer uses an attack, for each different enemy target the wearer hits, regenerates 3.0 Energy. Each attack can regenerate Energy up to 3 time(s) this way. After the wearer uses their Ultimate, all allies gain 12 SPD for 1 turn.",
+        description: "Increases the wearer's ATK by 24%. After the wearer uses an attack, for each different enemy target the wearer hits, regenerates 3.0 Energy. Each attack can regenerate Energy up to 3 time(s) this way. After the wearer uses their Ultimate, all allies gain 12 SPD for 1 turn.",
         stats: { atkPct: 0.48 },
     },
     {
@@ -115,7 +115,7 @@ export const LIGHT_CONES = [
         path: "Elation",
         icon: "icon/light_cone/24006.png",
         baseStats: { hp: 953, atk: 529, def: 463 },
-        description: "Increases the wearer's ATK by 0%. After the wearer uses Skill or Ultimate on one ally character, increases the target's Elation stat by 0% for 2 turn(s).",
+        description: "Increases the wearer's ATK by 20%. After the wearer uses Skill or Ultimate on one ally character, increases the target's Elation stat by 12% for 2 turn(s).",
         stats: { atkPct: 0.24 },
     },
     {
@@ -123,7 +123,7 @@ export const LIGHT_CONES = [
         path: "Harmony",
         icon: "icon/light_cone/23048.png",
         baseStats: { hp: 953, atk: 635, def: 463 },
-        description: "Increases the wearer's ATK by 1%. After using Ultimate to attack, recovers 1 Skill Point(s). After the wearer uses their Skill on one ally character, increases the Skill DMG dealt by the target by 0.5% for 3 turn(s).",
+        description: "Increases the wearer's ATK by 64%. After using Ultimate to attack, recovers 1 Skill Point(s). After the wearer uses their Skill on one ally character, increases the Skill DMG dealt by the target by 54.0% for 3 turn(s).",
         stats: { atkPct: 0.24 },
     },
     {
@@ -131,7 +131,7 @@ export const LIGHT_CONES = [
         path: "Erudition",
         icon: "icon/light_cone/24004.png",
         baseStats: { hp: 1058, atk: 529, def: 397 },
-        description: "Increases the wearer's ATK by 0%. After using an attack, for each enemy target hit, additionally increases ATK by 0%. This effect can stack up to 5 times and last until the next attack. If there are 3 or more enemy targets hit, this unit's SPD increases by 0%, lasting for 1 turn(s).",
+        description: "Increases the wearer's ATK by 8%. After using an attack, for each enemy target hit, additionally increases ATK by 4%. This effect can stack up to 5 times and last until the next attack. If there are 3 or more enemy targets hit, this unit's SPD increases by 8%, lasting for 1 turn(s).",
         stats: { atkPct: 0.24 },
     },
     {
@@ -139,7 +139,7 @@ export const LIGHT_CONES = [
         path: "Destruction",
         icon: "icon/light_cone/23039.png",
         baseStats: { hp: 1376, atk: 476, def: 397 },
-        description: "Increases the wearer's Max HP by 0% and Incoming Healing by 0%. When using Skill or Ultimate, consumes HP equal to 0.1% of the wearer's Max HP and increases the DMG dealt by this attack by 0%. If this effect's consumed HP is greater than 500, the DMG additionally increases by 0%.\nIf the current HP is not sufficient, this effect reduces the wearer's current HP down to 1.",
+        description: "Increases the wearer's Max HP by 18% and Incoming Healing by 20%. When using Skill or Ultimate, consumes HP equal to 6.0% of the wearer's Max HP and increases the DMG dealt by this attack by 30%. If this effect's consumed HP is greater than 500, the DMG additionally increases by 30%.\nIf the current HP is not sufficient, this effect reduces the wearer's current HP down to 1.",
         stats: { hpPct: 0.24 },
     },
     {
@@ -147,7 +147,7 @@ export const LIGHT_CONES = [
         path: "Harmony",
         icon: "icon/light_cone/23026.png",
         baseStats: { hp: 953, atk: 635, def: 463 },
-        description: "Every time an ally attacks, the wearer gains 1 stack of Cantillation. Each stack of Cantillation increases the wearer's Energy Regeneration Rate by 0.0%, stacking up to 5 time(s). When the wearer uses their Ultimate, removes Cantillation and gains Cadenza. Cadenza increases the Wearer's ATK by 0% and increases all allies' DMG dealt by 0%, lasting for 1 turn(s).",
+        description: "Every time an ally attacks, the wearer gains 1 stack of Cantillation. Each stack of Cantillation increases the wearer's Energy Regeneration Rate by 3.0%, stacking up to 5 time(s). When the wearer uses their Ultimate, removes Cantillation and gains Cadenza. Cadenza increases the Wearer's ATK by 48% and increases all allies' DMG dealt by 24%, lasting for 1 turn(s).",
         stats: null,
     },
     {
@@ -155,7 +155,7 @@ export const LIGHT_CONES = [
         path: "Destruction",
         icon: "icon/light_cone/23014.png",
         baseStats: { hp: 1164, atk: 582, def: 397 },
-        description: "Increases the wearer's CRIT DMG by 0%. When a teammate gets attacked or loses HP, the wearer gains 1 stack of Eclipse, up to a max of 3 stack(s). Each stack of Eclipse increases the DMG of the wearer's next attack by 0.1%. When 3 stack(s) are reached, additionally enables that attack to ignore 0% of the enemy's DEF. This effect will be removed after the wearer uses an attack.",
+        description: "Increases the wearer's CRIT DMG by 20%. When a teammate gets attacked or loses HP, the wearer gains 1 stack of Eclipse, up to a max of 3 stack(s). Each stack of Eclipse increases the DMG of the wearer's next attack by 14.0%. When 3 stack(s) are reached, additionally enables that attack to ignore 12% of the enemy's DEF. This effect will be removed after the wearer uses an attack.",
         stats: { critDmg: 0.20 },
     },
     {
@@ -163,7 +163,7 @@ export const LIGHT_CONES = [
         path: "The Hunt",
         icon: "icon/light_cone/23031.png",
         baseStats: { hp: 953, atk: 635, def: 463 },
-        description: "Increases the wearer's CRIT Rate by 0.1%. When the wearer launches a Follow-Up ATK, gains 1 stack of \"Luminflux,\" stacking up to 2 time(s). Each stack of \"Luminflux\" enables the Ultimate DMG dealt by the wearer to ignore 0% of the target's DEF. When the wearer's turn ends, removes 1 stack of \"Luminflux.\"",
+        description: "Increases the wearer's CRIT Rate by 15.0%. When the wearer launches a Follow-Up ATK, gains 1 stack of \"Luminflux,\" stacking up to 2 time(s). Each stack of \"Luminflux\" enables the Ultimate DMG dealt by the wearer to ignore 27% of the target's DEF. When the wearer's turn ends, removes 1 stack of \"Luminflux.\"",
         stats: { critRate: 0.15 },
     },
     {
@@ -171,7 +171,7 @@ export const LIGHT_CONES = [
         path: "Harmony",
         icon: "icon/light_cone/23038.png",
         baseStats: { hp: 1270, atk: 529, def: 397 },
-        description: "Increases the wearer's CRIT DMG by 0%. After the wearer launches Follow-Up ATK, additionally regenerates 12 Energy and gains \"Presage,\" lasting for 2 turn(s). While the wearer has \"Presage,\" all ally targets' CRIT DMG increases by 0%. When entering battle, the wearer regenerates 21 Energy and gains \"Presage,\" lasting for 2 turn(s).",
+        description: "Increases the wearer's CRIT DMG by 36%. After the wearer launches Follow-Up ATK, additionally regenerates 12 Energy and gains \"Presage,\" lasting for 2 turn(s). While the wearer has \"Presage,\" all ally targets' CRIT DMG increases by 48%. When entering battle, the wearer regenerates 21 Energy and gains \"Presage,\" lasting for 2 turn(s).",
         stats: { critDmg: 0.32 },
     },
     {
@@ -179,7 +179,7 @@ export const LIGHT_CONES = [
         path: "Nihility",
         icon: "icon/light_cone/23004.png",
         baseStats: { hp: 1058, atk: 582, def: 463 },
-        description: "Increases the wearer's DMG to debuffed enemies by 0%. When the wearer uses their Skill, the Effect Hit Rate for this attack increases by 0%, and ATK increases by 0%.",
+        description: "Increases the wearer's DMG to debuffed enemies by 24%. When the wearer uses their Skill, the Effect Hit Rate for this attack increases by 18%, and ATK increases by 24%.",
         stats: null,
     },
     {
@@ -187,7 +187,7 @@ export const LIGHT_CONES = [
         path: "The Hunt",
         icon: "icon/light_cone/23001.png",
         baseStats: { hp: 1058, atk: 582, def: 463 },
-        description: "Increases the wearer's CRIT Rate by 0%. While the wearer is in battle, for every 10 SPD that exceeds 100, increases DMG dealt by Basic ATK and Skill by 0%. At the same time, increases the CRIT DMG of Ultimate by 0%. This effect can stack up to 6 time(s).",
+        description: "Increases the wearer's CRIT Rate by 18%. While the wearer is in battle, for every 10 SPD that exceeds 100, increases DMG dealt by Basic ATK and Skill by 6%. At the same time, increases the CRIT DMG of Ultimate by 12%. This effect can stack up to 6 time(s).",
         stats: { critRate: 0.18 },
     },
     {
@@ -195,7 +195,7 @@ export const LIGHT_CONES = [
         path: "Nihility",
         icon: "icon/light_cone/23007.png",
         baseStats: { hp: 1058, atk: 582, def: 463 },
-        description: "Increases the wearer's Effect Hit Rate by 0%. When the wearer deals DMG to an enemy that currently has 3 or more debuffs, increases the wearer's CRIT Rate by 0%. After the wearer uses their Basic ATK, Skill, or Ultimate, there is a 1% base chance to implant Aether Code on a random hit target that does not yet have it. Targets with Aether Code receive 0% increased DMG for 1 turn.",
+        description: "Increases the wearer's Effect Hit Rate by 24%. When the wearer deals DMG to an enemy that currently has 3 or more debuffs, increases the wearer's CRIT Rate by 12%. After the wearer uses their Basic ATK, Skill, or Ultimate, there is a 100% base chance to implant Aether Code on a random hit target that does not yet have it. Targets with Aether Code receive 12% increased DMG for 1 turn.",
         stats: { effectHitRate: 0.24 },
     },
     {
@@ -203,7 +203,7 @@ export const LIGHT_CONES = [
         path: "Preservation",
         icon: "icon/light_cone/23023.png",
         baseStats: { hp: 1058, atk: 423, def: 662 },
-        description: "Increases the wearer's DEF by 0%. When the wearer provides a Shield to an ally, the wearer's CRIT DMG increases by 0%, lasting for 2 turn(s). When the wearer's Follow-Up ATK hits an enemy target, there is a 1% base chance to increase the DMG taken by the attacked enemy target by 0.1%, lasting for 2 turn(s).",
+        description: "Increases the wearer's DEF by 40%. When the wearer provides a Shield to an ally, the wearer's CRIT DMG increases by 40%, lasting for 2 turn(s). When the wearer's Follow-Up ATK hits an enemy target, there is a 100% base chance to increase the DMG taken by the attacked enemy target by 10.0%, lasting for 2 turn(s).",
         stats: { defPct: 0.40 },
     },
     {
@@ -211,7 +211,7 @@ export const LIGHT_CONES = [
         path: "Erudition",
         icon: "icon/light_cone/23037.png",
         baseStats: { hp: 953, atk: 635, def: 463 },
-        description: "Increases the wearer's CRIT Rate by 0%. When the wearer uses their Ultimate, increases the wearer's Skill DMG and Ultimate DMG dealt by 1%, lasting for 3 turn(s). After the wearer uses their Ultimate, if this Ultimate consumed 140 or more Energy, recovers 1 Skill Point.",
+        description: "Increases the wearer's CRIT Rate by 12%. When the wearer uses their Ultimate, increases the wearer's Skill DMG and Ultimate DMG dealt by 60%, lasting for 3 turn(s). After the wearer uses their Ultimate, if this Ultimate consumed 140 or more Energy, recovers 1 Skill Point.",
         stats: { critRate: 0.24 },
     },
     {
@@ -219,7 +219,7 @@ export const LIGHT_CONES = [
         path: "Nihility",
         icon: "icon/light_cone/23043.png",
         baseStats: { hp: 953, atk: 582, def: 529 },
-        description: "Increases the wearer's SPD by 0%. After the wearer uses an attack, there is a 1% base chance to inflict the \"Bamboozle\" state on every enemy target. While under the \"Bamboozle\" state, enemy targets have their DEF decreased by 0% for 2 turn(s). If the wearer's SPD is higher than or equal to 170, there is a 1% base chance to inflict the \"Theft\" state on every enemy target. While under the \"Theft\" state, enemy targets have their DEF decreased by 0% for 2 turn(s). When \"Bamboozle\" or \"Theft\" is repeatedly inflicted, only the most recently inflicted instance takes effect.",
+        description: "Increases the wearer's SPD by 18%. After the wearer uses an attack, there is a 120% base chance to inflict the \"Bamboozle\" state on every enemy target. While under the \"Bamboozle\" state, enemy targets have their DEF decreased by 16% for 2 turn(s). If the wearer's SPD is higher than or equal to 170, there is a 120% base chance to inflict the \"Theft\" state on every enemy target. While under the \"Theft\" state, enemy targets have their DEF decreased by 8% for 2 turn(s). When \"Bamboozle\" or \"Theft\" is repeatedly inflicted, only the most recently inflicted instance takes effect.",
         stats: { spdPct: 0.12 },
     },
     {
@@ -227,7 +227,7 @@ export const LIGHT_CONES = [
         path: "Erudition",
         icon: "icon/light_cone/23041.png",
         baseStats: { hp: 953, atk: 582, def: 529 },
-        description: "When the wearer's turn starts, regenerates 10 Energy. If the enemy target has a Weakness implanted by the wearer, increases the wearer's DMG dealt to it by 1%.\nWhen an enemy target gets attacked by the wearer, the wearer decreases the target's DEF by 0%, lasting for 2 turn(s). The same types of effects cannot stack.",
+        description: "When the wearer's turn starts, regenerates 10 Energy. If the enemy target has a Weakness implanted by the wearer, increases the wearer's DMG dealt to it by 60%.\nWhen an enemy target gets attacked by the wearer, the wearer decreases the target's DEF by 12%, lasting for 2 turn(s). The same types of effects cannot stack.",
         stats: null,
     },
     {
@@ -235,7 +235,7 @@ export const LIGHT_CONES = [
         path: "Remembrance",
         icon: "icon/light_cone/23042.png",
         baseStats: { hp: 1164, atk: 476, def: 529 },
-        description: "Increases the wearer's SPD by 0%. When the wearer uses Basic ATK, Skill, or Ultimate, consumes all allies' HP equal to 0.0% of their current HP, and after the next attack of the wearer's memosprite, enables it to additionally deal 1 instance of Additional DMG equal to 2.5% of the total consumed HP to the attacked target, with the damage type based on the memosprite's type. Then, the total consumed HP is reset. When the wearer's memosprite uses Memosprite Skill, increases the DMG taken by all enemies by 0.2%, lasting for 2 turn(s). Effects of the same type cannot stack.",
+        description: "Increases the wearer's SPD by 18%. When the wearer uses Basic ATK, Skill, or Ultimate, consumes all allies' HP equal to 1.0% of their current HP, and after the next attack of the wearer's memosprite, enables it to additionally deal 1 instance of Additional DMG equal to 250.0% of the total consumed HP to the attacked target, with the damage type based on the memosprite's type. Then, the total consumed HP is reset. When the wearer's memosprite uses Memosprite Skill, increases the DMG taken by all enemies by 18.0%, lasting for 2 turn(s). Effects of the same type cannot stack.",
         stats: { spdPct: 0.08 },
     },
     {
@@ -243,7 +243,7 @@ export const LIGHT_CONES = [
         path: "Nihility",
         icon: "icon/light_cone/23035.png",
         baseStats: { hp: 953, atk: 476, def: 662 },
-        description: "Increases the wearer's Break Effect by 1%. When an enemy target's Weakness gets broken, there is a 1% base chance to inflict the \"Charring\" state on it, which increases its Break DMG taken by 0%, lasting for 2 turn(s). This effect can stack 2 time(s).",
+        description: "Increases the wearer's Break Effect by 60%. When an enemy target's Weakness gets broken, there is a 100% base chance to inflict the \"Charring\" state on it, which increases its Break DMG taken by 18%, lasting for 2 turn(s). This effect can stack 2 time(s).",
         stats: { breakEffect: 0.60 },
     },
     {
@@ -251,7 +251,7 @@ export const LIGHT_CONES = [
         path: "Remembrance",
         icon: "icon/light_cone/23040.png",
         baseStats: { hp: 1270, atk: 529, def: 397 },
-        description: "Increases the wearer's Max HP by 0%. When the wearer or their memosprite loses HP during their own turn, the wearer gains \"Death Flower.\" \"Death Flower\" allows the wearer and their memosprite to ignore 0% of the target's DEF when dealing DMG, lasting for 2 turn(s).\nWhen the wearer's memosprite disappears, advances the wearer's action by 0%. This effect can only trigger up to 1 time, and the trigger count resets every time the wearer uses Ultimate.",
+        description: "Increases the wearer's Max HP by 30%. When the wearer or their memosprite loses HP during their own turn, the wearer gains \"Death Flower.\" \"Death Flower\" allows the wearer and their memosprite to ignore 30% of the target's DEF when dealing DMG, lasting for 2 turn(s).\nWhen the wearer's memosprite disappears, advances the wearer's action by 12%. This effect can only trigger up to 1 time, and the trigger count resets every time the wearer uses Ultimate.",
         stats: { hpPct: 0.24 },
     },
     {
@@ -259,7 +259,7 @@ export const LIGHT_CONES = [
         path: "Remembrance",
         icon: "icon/light_cone/24005.png",
         baseStats: { hp: 1058, atk: 529, def: 397 },
-        description: "Increases the wearer's SPD by 0.1%. After the wearer uses Skill, increases the DMG dealt by all allies by 0%, lasting for 3 turn(s).",
+        description: "Increases the wearer's SPD by 6.0%. After the wearer uses Skill, increases the DMG dealt by all allies by 8%, lasting for 3 turn(s).",
         stats: { spdPct: 0.06 },
     },
     {
@@ -267,7 +267,7 @@ export const LIGHT_CONES = [
         path: "Preservation",
         icon: "icon/light_cone/23005.png",
         baseStats: { hp: 1058, atk: 476, def: 595 },
-        description: "Increases the wearer's DEF by 0% and Effect Hit Rate by 0%. Increases the chance for the wearer to be attacked by enemies. When the wearer is attacked, increase their DEF by an extra 0% until the end of the wearer's turn.",
+        description: "Increases the wearer's DEF by 24% and Effect Hit Rate by 24%. Increases the chance for the wearer to be attacked by enemies. When the wearer is attacked, increase their DEF by an extra 24% until the end of the wearer's turn.",
         stats: { defPct: 0.24, effectHitRate: 0.24 },
     },
     {
@@ -275,7 +275,7 @@ export const LIGHT_CONES = [
         path: "Nihility",
         icon: "icon/light_cone/23050.png",
         baseStats: { hp: 1164, atk: 529, def: 463 },
-        description: "Increases the wearer's Break Effect by 1%. When entering combat, increases Break DMG dealt by the wearer and another teammate who triggered combat by 0%. If there is no teammate who triggered combat, applies this effect to the wearer and the teammate with the highest Break Effect. Effects of the same type cannot be stacked. When the wearer applies Weakness to an enemy target, recovers 1 Skill Point. This effect can only trigger once. And resets this trigger count when using Ultimate.",
+        description: "Increases the wearer's Break Effect by 60%. When entering combat, increases Break DMG dealt by the wearer and another teammate who triggered combat by 32%. If there is no teammate who triggered combat, applies this effect to the wearer and the teammate with the highest Break Effect. Effects of the same type cannot be stacked. When the wearer applies Weakness to an enemy target, recovers 1 Skill Point. This effect can only trigger once. And resets this trigger count when using Ultimate.",
         stats: { breakEffect: 0.60 },
     },
     {
@@ -283,7 +283,7 @@ export const LIGHT_CONES = [
         path: "Abundance",
         icon: "icon/light_cone/23017.png",
         baseStats: { hp: 1164, atk: 476, def: 529 },
-        description: "Increases the wearer's Energy Regeneration Rate by 0%. When any ally uses their Ultimate, the wearer restores HP for the ally currently with the lowest HP percentage by an amount equal to 0% of the healed ally's Max HP. When the wearer provides healing for an ally, increases the healed ally's ATK by 0.0%. This effect can stack up to 5 times and lasts for 2 turn(s).",
+        description: "Increases the wearer's Energy Regeneration Rate by 12%. When any ally uses their Ultimate, the wearer restores HP for the ally currently with the lowest HP percentage by an amount equal to 10% of the healed ally's Max HP. When the wearer provides healing for an ally, increases the healed ally's ATK by 2.4%. This effect can stack up to 5 times and lasts for 2 turn(s).",
         stats: { energyRegen: 0.12 },
     },
     {
@@ -291,7 +291,7 @@ export const LIGHT_CONES = [
         path: "Erudition",
         icon: "icon/light_cone/23000.png",
         baseStats: { hp: 1164, atk: 582, def: 397 },
-        description: "For every enemy on the field, increases the wearer's ATK by 0.1%, up to 5 stacks. When an enemy is inflicted with Weakness Break, the DMG dealt by the wearer increases by 0% for 1 turn.",
+        description: "For every enemy on the field, increases the wearer's ATK by 9.0%, up to 5 stacks. When an enemy is inflicted with Weakness Break, the DMG dealt by the wearer increases by 30% for 1 turn.",
         stats: null,
     },
     {
@@ -299,7 +299,7 @@ export const LIGHT_CONES = [
         path: "Erudition",
         icon: "icon/light_cone/23033.png",
         baseStats: { hp: 953, atk: 582, def: 529 },
-        description: "Increases the wearer's Break Effect by 1%. When entering battle, immediately regenerates 30.0 Energy. After the wearer uses Ultimate, obtains \"Raiton.\" After using 2 Basic ATKs, advances the wearer's action by 0% and removes \"Raiton.\" After the wearer uses Ultimate, resets \"Raiton.\"",
+        description: "Increases the wearer's Break Effect by 60%. When entering battle, immediately regenerates 30.0 Energy. After the wearer uses Ultimate, obtains \"Raiton.\" After using 2 Basic ATKs, advances the wearer's action by 50% and removes \"Raiton.\" After the wearer uses Ultimate, resets \"Raiton.\"",
         stats: { breakEffect: 0.60 },
     },
     {
@@ -307,7 +307,7 @@ export const LIGHT_CONES = [
         path: "Destruction",
         icon: "icon/light_cone/24000.png",
         baseStats: { hp: 1058, atk: 529, def: 397 },
-        description: "When the wearer attacks, increases their ATK by 0% in this battle. This effect can stack up to 4 time(s). After the wearer breaks an enemy's Weakness, increases DMG dealt by 0%, lasting for 2 turn(s).",
+        description: "When the wearer attacks, increases their ATK by 8% in this battle. This effect can stack up to 4 time(s). After the wearer breaks an enemy's Weakness, increases DMG dealt by 12%, lasting for 2 turn(s).",
         stats: null,
     },
     {
@@ -315,7 +315,7 @@ export const LIGHT_CONES = [
         path: "Harmony",
         icon: "icon/light_cone/23019.png",
         baseStats: { hp: 1058, atk: 529, def: 529 },
-        description: "Increases the wearer's Break Effect by 1%. When the wearer uses their Ultimate, increases all allies' DMG by 0%, lasting for 3 turn(s). If the wearer's Break Effect exceeds or equals 2%, 1 Skill Point will be recovered.\nAt the start of each wave, all allies regenerate 10.0 Energy immediately. Abilities of the same type cannot stack.",
+        description: "Increases the wearer's Break Effect by 60%. When the wearer uses their Ultimate, increases all allies' DMG by 24%, lasting for 3 turn(s). If the wearer's Break Effect exceeds or equals 150%, 1 Skill Point will be recovered.\nAt the start of each wave, all allies regenerate 10.0 Energy immediately. Abilities of the same type cannot stack.",
         stats: { breakEffect: 0.32 },
     },
     {
@@ -323,7 +323,7 @@ export const LIGHT_CONES = [
         path: "Nihility",
         icon: "icon/light_cone/23006.png",
         baseStats: { hp: 1058, atk: 582, def: 463 },
-        description: "Increases DMG dealt by the wearer by 0%. After every attack launched by wearer, their SPD increases by 0.0%, stacking up to 3 times.\nIf the wearer hits an enemy target that is not afflicted by Erode, there is a 100% base chance to inflict Erode to the target. Enemies afflicted with Erode are also considered to be Shocked and will receive Lightning DoT at the start of each turn equal to 1% of the wearer's ATK, lasting for 1 turn(s).",
+        description: "Increases DMG dealt by the wearer by 24%. After every attack launched by wearer, their SPD increases by 4.8%, stacking up to 3 times.\nIf the wearer hits an enemy target that is not afflicted by Erode, there is a 100% base chance to inflict Erode to the target. Enemies afflicted with Erode are also considered to be Shocked and will receive Lightning DoT at the start of each turn equal to 60% of the wearer's ATK, lasting for 1 turn(s).",
         stats: null,
     },
     {
@@ -331,7 +331,7 @@ export const LIGHT_CONES = [
         path: "Nihility",
         icon: "icon/light_cone/23022.png",
         baseStats: { hp: 1058, atk: 582, def: 463 },
-        description: "Increases the wearer's Effect Hit Rate by 0%. When the wearer deals DMG to an enemy inflicted with Wind Shear, Burn, Shock, or Bleed, each respectively grants 1 stack of Prophet, stacking up to 4 time(s). In a single battle, only 1 stack of Prophet can be granted for each type of DoT. Every stack of Prophet increases wearer's ATK by 0% and enables the DoT dealt to ignore 0.1% of the target's DEF.",
+        description: "Increases the wearer's Effect Hit Rate by 40%. When the wearer deals DMG to an enemy inflicted with Wind Shear, Burn, Shock, or Bleed, each respectively grants 1 stack of Prophet, stacking up to 4 time(s). In a single battle, only 1 stack of Prophet can be granted for each type of DoT. Every stack of Prophet increases wearer's ATK by 5% and enables the DoT dealt to ignore 7.2% of the target's DEF.",
         stats: { effectHitRate: 0.40 },
     },
     {
@@ -339,7 +339,7 @@ export const LIGHT_CONES = [
         path: "The Hunt",
         icon: "icon/light_cone/23027.png",
         baseStats: { hp: 1058, atk: 582, def: 463 },
-        description: "Increases the wearer's Break Effect by 1%. The Break DMG dealt by the wearer ignores 0% of the target's DEF. When the wearer's Break Effect in battle is at 2% or greater, increases their SPD by 0%.",
+        description: "Increases the wearer's Break Effect by 60%. The Break DMG dealt by the wearer ignores 20% of the target's DEF. When the wearer's Break Effect in battle is at 150% or greater, increases their SPD by 12%.",
         stats: { breakEffect: 0.60 },
     },
     {
@@ -347,7 +347,7 @@ export const LIGHT_CONES = [
         path: "Abundance",
         icon: "icon/light_cone/23032.png",
         baseStats: { hp: 1058, atk: 529, def: 529 },
-        description: "Increases the wearer's Break Effect by 1%. After the wearer uses Ultimate to attack enemy targets, inflicts the targets with the \"Woefree\" state, lasting for 2 turn(s). While in \"Woefree,\" enemy targets take 0% increased DMG. The effect of increasing DMG taken is additionally boosted by 0% if the wearer's current Break Effect is 2% or higher.",
+        description: "Increases the wearer's Break Effect by 60%. After the wearer uses Ultimate to attack enemy targets, inflicts the targets with the \"Woefree\" state, lasting for 2 turn(s). While in \"Woefree,\" enemy targets take 10% increased DMG. The effect of increasing DMG taken is additionally boosted by 8% if the wearer's current Break Effect is 150% or higher.",
         stats: { breakEffect: 0.40 },
     },
     {
@@ -355,7 +355,7 @@ export const LIGHT_CONES = [
         path: "Preservation",
         icon: "icon/light_cone/23011.png",
         baseStats: { hp: 1270, atk: 423, def: 529 },
-        description: "Increases the wearer's Max HP by 0% and Energy Regeneration Rate by 0%. When the wearer's HP is reduced, all allies' DMG dealt increases by 0.1%, lasting for 2 turn(s).\nAt the start of every wave, restores HP to all allies by an amount equal to 1% of their respective lost HP.",
+        description: "Increases the wearer's Max HP by 24% and Energy Regeneration Rate by 12%. When the wearer's HP is reduced, all allies' DMG dealt increases by 9.0%, lasting for 2 turn(s).\nAt the start of every wave, restores HP to all allies by an amount equal to 80% of their respective lost HP.",
         stats: { hpPct: 0.24, energyRegen: 0.10 },
     },
     {
@@ -363,7 +363,7 @@ export const LIGHT_CONES = [
         path: "The Hunt",
         icon: "icon/light_cone/23012.png",
         baseStats: { hp: 1058, atk: 582, def: 463 },
-        description: "Increases the wearer's CRIT DMG by 0%. When the wearer's Basic ATK or Skill DMG does not result in a CRIT Hit, increases their CRIT Rate by 0%, lasting for 1 turn(s). This effect can only trigger once every 3 turn(s).",
+        description: "Increases the wearer's CRIT DMG by 30%. When the wearer's Basic ATK or Skill DMG does not result in a CRIT Hit, increases their CRIT Rate by 36%, lasting for 1 turn(s). This effect can only trigger once every 3 turn(s).",
         stats: { critDmg: 0.30 },
     },
     {
@@ -371,7 +371,7 @@ export const LIGHT_CONES = [
         path: "Nihility",
         icon: "icon/light_cone/24003.png",
         baseStats: { hp: 1058, atk: 529, def: 397 },
-        description: "Increases the wearer's Break Effect by 0%. When the wearer uses their Ultimate, increases DoT dealt by the wearer by 0%, lasting for 2 turn(s). When a target enemy suffering from DoT imposed by the wearer is defeated, regenerates 4.0 Energy for the wearer.",
+        description: "Increases the wearer's Break Effect by 20%. When the wearer uses their Ultimate, increases DoT dealt by the wearer by 24%, lasting for 2 turn(s). When a target enemy suffering from DoT imposed by the wearer is defeated, regenerates 4.0 Energy for the wearer.",
         stats: { breakEffect: 0.40 },
     },
     {
@@ -379,7 +379,7 @@ export const LIGHT_CONES = [
         path: "Destruction",
         icon: "icon/light_cone/23002.png",
         baseStats: { hp: 1164, atk: 582, def: 397 },
-        description: "Increases the wearer's ATK by 0%. When the wearer defeats an enemy or is hit, immediately restores HP equal to 0% of the wearer's ATK. At the same time, the wearer's DMG is increased by 0% until the end of their next turn. This effect cannot stack and can only trigger 1 time per turn.",
+        description: "Increases the wearer's ATK by 24%. When the wearer defeats an enemy or is hit, immediately restores HP equal to 8% of the wearer's ATK. At the same time, the wearer's DMG is increased by 24% until the end of their next turn. This effect cannot stack and can only trigger 1 time per turn.",
         stats: { atkPct: 0.24 },
     },
     {
@@ -387,7 +387,7 @@ export const LIGHT_CONES = [
         path: "Preservation",
         icon: "icon/light_cone/24002.png",
         baseStats: { hp: 1058, atk: 423, def: 529 },
-        description: "Increases the wearer's Effect RES by 0%. If the wearer is attacked and has no Shield, they gain a Shield equal to 0% of their Max HP for 2 turn(s). This effect can only be triggered once every 3 turn(s). If the wearer has a Shield when attacked, the DMG they receive decreases by 0%.",
+        description: "Increases the wearer's Effect RES by 8%. If the wearer is attacked and has no Shield, they gain a Shield equal to 16% of their Max HP for 2 turn(s). This effect can only be triggered once every 3 turn(s). If the wearer has a Shield when attacked, the DMG they receive decreases by 12%.",
         stats: { effectRes: 0.08 },
     },
     {
@@ -395,7 +395,7 @@ export const LIGHT_CONES = [
         path: "The Hunt",
         icon: "icon/light_cone/23056.png",
         baseStats: { hp: 847, atk: 635, def: 529 },
-        description: "Increases the wearer's CRIT Rate by 0%. At the start of battle or for every 4 instance(s) of Follow-Up ATK the wearer uses, the wearer gains \"Umbra Devourer,\" lasting for 3 turn(s). While the wearer holds \"Umbra Devourer,\" increases ATK by 0% and increases the DMG taken by all enemies by 0%. Effects of the same type cannot stack.",
+        description: "Increases the wearer's CRIT Rate by 18%. At the start of battle or for every 4 instance(s) of Follow-Up ATK the wearer uses, the wearer gains \"Umbra Devourer,\" lasting for 3 turn(s). While the wearer holds \"Umbra Devourer,\" increases ATK by 40% and increases the DMG taken by all enemies by 20%. Effects of the same type cannot stack.",
         stats: { critRate: 0.24 },
     },
     {
@@ -403,7 +403,7 @@ export const LIGHT_CONES = [
         path: "The Hunt",
         icon: "icon/light_cone/23046.png",
         baseStats: { hp: 953, atk: 582, def: 529 },
-        description: "Increases the wearer's CRIT Rate by 0%. When entering combat, if the allies' Skill Points limit is 6 or higher, increases the wearer's ATK by 0%. After each use of the wearer's Skill, increases the wearer's ATK by 0%, stacking up to 4 time(s).",
+        description: "Increases the wearer's CRIT Rate by 16%. When entering combat, if the allies' Skill Points limit is 6 or higher, increases the wearer's ATK by 40%. After each use of the wearer's Skill, increases the wearer's ATK by 10%, stacking up to 4 time(s).",
         stats: { critRate: 0.24 },
     },
     {
@@ -411,7 +411,7 @@ export const LIGHT_CONES = [
         path: "Destruction",
         icon: "icon/light_cone/23009.png",
         baseStats: { hp: 1270, atk: 582, def: 331 },
-        description: "Increases the wearer's CRIT Rate by 0% and increases their Max HP by 0%. When the wearer is attacked or consumes their own HP, their DMG increases by 0%. This effect is removed after the wearer uses an attack.",
+        description: "Increases the wearer's CRIT Rate by 18% and increases their Max HP by 18%. When the wearer is attacked or consumes their own HP, their DMG increases by 24%. This effect is removed after the wearer uses an attack.",
         stats: { critRate: 0.18, hpPct: 0.18 },
     },
     {
@@ -419,7 +419,7 @@ export const LIGHT_CONES = [
         path: "Remembrance",
         icon: "icon/light_cone/23052.png",
         baseStats: { hp: 1270, atk: 476, def: 463 },
-        description: "Increases the wearer's SPD by 0%. When the wearer's memosprite uses Memosprite Skill on one ally, gains \"Blank,\" which increases DMG taken by all enemies by 0%. When the wearer's memosprite uses Memosprite Skill on an enemy, gains \"Verse,\" which increases CRIT DMG of all allies by 0%. When the wearer's memosprite has both \"Blank\" and \"Verse,\" increases the effects of both \"Blank\" and \"Verse\" by 1%.",
+        description: "Increases the wearer's SPD by 18%. When the wearer's memosprite uses Memosprite Skill on one ally, gains \"Blank,\" which increases DMG taken by all enemies by 10%. When the wearer's memosprite uses Memosprite Skill on an enemy, gains \"Verse,\" which increases CRIT DMG of all allies by 16%. When the wearer's memosprite has both \"Blank\" and \"Verse,\" increases the effects of both \"Blank\" and \"Verse\" by 60%.",
         stats: { spdPct: 0.08 },
     },
     {
@@ -427,7 +427,7 @@ export const LIGHT_CONES = [
         path: "Nihility",
         icon: "icon/light_cone/23029.png",
         baseStats: { hp: 953, atk: 582, def: 529 },
-        description: "Increases the wearer's Effect Hit Rate by 1%. After the wearer uses Basic ATK, Skill, or Ultimate to attack an enemy target, there is a 1% base chance to inflict \"Unarmored\" on the target. While in the Unarmored state, the enemy target receives 0% increased DMG, lasting for 2 turn(s). If the target is under a DoT state inflicted by the wearer, there is a 1% base chance to upgrade the \"Unarmored\" state inflicted by the wearer to the \"Cornered\" state, which additionally increases the DMG the enemy target receives by 0%, lasting for 2 turn(s). During this period, the wearer cannot inflict \"Unarmored\" on the target.",
+        description: "Increases the wearer's Effect Hit Rate by 60%. After the wearer uses Basic ATK, Skill, or Ultimate to attack an enemy target, there is a 60% base chance to inflict \"Unarmored\" on the target. While in the Unarmored state, the enemy target receives 10% increased DMG, lasting for 2 turn(s). If the target is under a DoT state inflicted by the wearer, there is a 60% base chance to upgrade the \"Unarmored\" state inflicted by the wearer to the \"Cornered\" state, which additionally increases the DMG the enemy target receives by 14%, lasting for 2 turn(s). During this period, the wearer cannot inflict \"Unarmored\" on the target.",
         stats: { effectHitRate: 0.40 },
     },
     {
@@ -435,7 +435,7 @@ export const LIGHT_CONES = [
         path: "Preservation",
         icon: "icon/light_cone/23051.png",
         baseStats: { hp: 1058, atk: 582, def: 463 },
-        description: "Increases the wearer's ATK by 1%. When the wearer uses Ultimate, restores HP equal to 0% of the wearer's ATK for all allies, and additionally restores HP equal to 0% of the wearer's ATK for the character with the lowest current HP, and grants \"Redoubt\" to all allies for 3 turn(s). Targets with \"Redoubt\" deal 0% increased DMG, which further increases by 0% if the targets have summons.",
+        description: "Increases the wearer's ATK by 64%. When the wearer uses Ultimate, restores HP equal to 10% of the wearer's ATK for all allies, and additionally restores HP equal to 10% of the wearer's ATK for the character with the lowest current HP, and grants \"Redoubt\" to all allies for 3 turn(s). Targets with \"Redoubt\" deal 24% increased DMG, which further increases by 12% if the targets have summons.",
         stats: { atkPct: 0.24 },
     },
     {
@@ -443,7 +443,7 @@ export const LIGHT_CONES = [
         path: "Destruction",
         icon: "icon/light_cone/23044.png",
         baseStats: { hp: 953, atk: 688, def: 397 },
-        description: "The wearer's base SPD increases by 12. When dealing DMG, ignores 0% of the target's DEF. After the wearer uses Ultimate, gains \"Blazing Sun,\" which is removed at the start of the turn. While holding \"Blazing Sun,\" increases the wearer's DMG dealt by 1%.",
+        description: "The wearer's base SPD increases by 12. When dealing DMG, ignores 18% of the target's DEF. After the wearer uses Ultimate, gains \"Blazing Sun,\" which is removed at the start of the turn. While holding \"Blazing Sun,\" increases the wearer's DMG dealt by 60%.",
         stats: { baseSpdBonus: 10 },
     },
     {
@@ -451,7 +451,7 @@ export const LIGHT_CONES = [
         path: "Abundance",
         icon: "icon/light_cone/23013.png",
         baseStats: { hp: 1270, atk: 476, def: 463 },
-        description: "Increases the wearer's Max HP by 0% and Outgoing Healing by 0%. When the wearer heals allies, record the amount of Outgoing Healing. When any ally launches an attack, a random attacked enemy takes Additional DMG equal to 0% of the recorded Outgoing Healing value. The type of this Additional DMG is of the same Type as the wearer's. This Additional DMG is not affected by other buffs, and can only occur 1 time per turn.",
+        description: "Increases the wearer's Max HP by 18% and Outgoing Healing by 12%. When the wearer heals allies, record the amount of Outgoing Healing. When any ally launches an attack, a random attacked enemy takes Additional DMG equal to 36% of the recorded Outgoing Healing value. The type of this Additional DMG is of the same Type as the wearer's. This Additional DMG is not affected by other buffs, and can only occur 1 time per turn.",
         stats: { hpPct: 0.18, healingBoost: 0.12 },
     },
     {
@@ -459,7 +459,7 @@ export const LIGHT_CONES = [
         path: "Remembrance",
         icon: "icon/light_cone/23036.png",
         baseStats: { hp: 1058, atk: 635, def: 397 },
-        description: "Increases the wearer's base SPD by 12. After the wearer and the wearer's memosprite attacks, the wearer gains 1 stack of \"Brocade.\" Each stack of \"Brocade\" increases the wearer's and their memosprite's CRIT DMG by 0.1%, stacking up to 6 time(s). When reaching maximum stacks, each \"Brocade\" stack additionally increases Basic ATK DMG dealt by 0.1%.",
+        description: "Increases the wearer's base SPD by 12. After the wearer and the wearer's memosprite attacks, the wearer gains 1 stack of \"Brocade.\" Each stack of \"Brocade\" increases the wearer's and their memosprite's CRIT DMG by 9.0%, stacking up to 6 time(s). When reaching maximum stacks, each \"Brocade\" stack additionally increases Basic ATK DMG dealt by 9.0%.",
         stats: { baseSpdBonus: 10 },
     },
     {
@@ -467,7 +467,7 @@ export const LIGHT_CONES = [
         path: "Remembrance",
         icon: "icon/light_cone/23049.png",
         baseStats: { hp: 1164, atk: 529, def: 463 },
-        description: "Increases the wearer's Max HP by 0%. When the wearer's memosprite uses an ability, the wearer gains \"Noctis.\" While the wearer has \"Noctis,\" the DMG dealt by all ally memosprites ignores 0% of the targets' DEF. Increases the DMG dealt by the wearer and their memosprite by 0%. When the wearer's memosprite disappears, the wearer recovers 8 Energy. Effects of the same type cannot stack.",
+        description: "Increases the wearer's Max HP by 30%. When the wearer's memosprite uses an ability, the wearer gains \"Noctis.\" While the wearer has \"Noctis,\" the DMG dealt by all ally memosprites ignores 20% of the targets' DEF. Increases the DMG dealt by the wearer and their memosprite by 30%. When the wearer's memosprite disappears, the wearer recovers 8 Energy. Effects of the same type cannot stack.",
         stats: { hpPct: 0.24 },
     },
     {
@@ -475,7 +475,7 @@ export const LIGHT_CONES = [
         path: "Elation",
         icon: "icon/light_cone/23058.png",
         baseStats: { hp: 953, atk: 635, def: 463 },
-        description: "Increases the wearer's CRIT DMG by 1% and Energy Regeneration Rate by 0.1%. When the wearer's Max Energy is greater than 120, for every 10 points of Max Energy that exceeds this amount, further increases Energy Regeneration Rate by 0.0%. Up to a maximum of 360 points of excess Max Energy can be taken into account. When the wearer uses Elation Skill, increases the DMG received by all enemies by 0.1% for 2 turn(s). Effects of the same type cannot stack.",
+        description: "Increases the wearer's CRIT DMG by 60% and Energy Regeneration Rate by 10.0%. When the wearer's Max Energy is greater than 120, for every 10 points of Max Energy that exceeds this amount, further increases Energy Regeneration Rate by 0.3%. Up to a maximum of 360 points of excess Max Energy can be taken into account. When the wearer uses Elation Skill, increases the DMG received by all enemies by 15.0% for 2 turn(s). Effects of the same type cannot stack.",
         stats: { critDmg: 0.36, energyRegen: 0.08 },
     },
     {
@@ -483,7 +483,7 @@ export const LIGHT_CONES = [
         path: "Elation",
         icon: "icon/light_cone/23057.png",
         baseStats: { hp: 1164, atk: 476, def: 529 },
-        description: "Increases the wearer's SPD by 0%. The Elation DMG dealt ignores 0% of the target's DEF. When the wearer uses Ultimate on themselves, gains 20 point(s) of \"Punchline.\" This effect can be triggered up to 1 time. And resets this trigger count after using Basic ATK 3 time(s).",
+        description: "Increases the wearer's SPD by 18%. The Elation DMG dealt ignores 20% of the target's DEF. When the wearer uses Ultimate on themselves, gains 20 point(s) of \"Punchline.\" This effect can be triggered up to 1 time. And resets this trigger count after using Basic ATK 3 time(s).",
         stats: { spdPct: 0.08 },
     },
     {
@@ -491,7 +491,7 @@ export const LIGHT_CONES = [
         path: "Elation",
         icon: "icon/light_cone/23054.png",
         baseStats: { hp: 1058, atk: 529, def: 529 },
-        description: "Increases the wearer's SPD by 0%. When the wearer enters combat or uses Ultimate on an ally target, the wearer gains \"Great Fortune\" for 3 turn(s). While the wearer holds \"Great Fortune,\" all allies' CRIT Rate increases by 0%, CRIT DMG increases by 0%, and the wearer's Energy Regeneration Rate increases by 0%.\nAt the start of each wave, the wearer regenerates a fixed amount of 15 Energy.",
+        description: "Increases the wearer's SPD by 18%. When the wearer enters combat or uses Ultimate on an ally target, the wearer gains \"Great Fortune\" for 3 turn(s). While the wearer holds \"Great Fortune,\" all allies' CRIT Rate increases by 10%, CRIT DMG increases by 30%, and the wearer's Energy Regeneration Rate increases by 12%.\nAt the start of each wave, the wearer regenerates a fixed amount of 15 Energy.",
         stats: { spdPct: 0.06 },
     },
     {
@@ -499,7 +499,7 @@ export const LIGHT_CONES = [
         path: "Destruction",
         icon: "icon/light_cone/23025.png",
         baseStats: { hp: 1164, atk: 476, def: 529 },
-        description: "Increases the wearer's Break Effect by 1%. When the wearer deals Break DMG to an enemy target, inflicts Routed on the enemy, lasting for 2 turn(s). Targets afflicted with Routed receive 0.2% increased Break DMG from the wearer, and their SPD is lowered by 0%. Effects of the same type cannot be stacked.",
+        description: "Increases the wearer's Break Effect by 60%. When the wearer deals Break DMG to an enemy target, inflicts Routed on the enemy, lasting for 2 turn(s). Targets afflicted with Routed receive 24.0% increased Break DMG from the wearer, and their SPD is lowered by 20%. Effects of the same type cannot be stacked.",
         stats: { breakEffect: 0.60 },
     },
     {
@@ -507,7 +507,7 @@ export const LIGHT_CONES = [
         path: "Nihility",
         icon: "icon/light_cone/23047.png",
         baseStats: { hp: 953, atk: 635, def: 463 },
-        description: "Increases the wearer's Effect Hit Rate by 0%. When an enemy target gets inflicted with a debuff by the wearer, there is a 1% base chance for them to enter \"Enthrallment,\" lasting for 3 turn(s). Effects of the same type cannot stack. While the target is in \"Enthrallment,\" for every 1 debuff applied by the wearer on the target, increases the target's received DoT by 0.1%, stacking up to 6 time(s). When the target gets attacked by an ally, increases the attacker's SPD by 0.1% for 3 turn(s). When the wearer gets knocked down, removes all \"Enthrallment.\"",
+        description: "Increases the wearer's Effect Hit Rate by 40%. When an enemy target gets inflicted with a debuff by the wearer, there is a 80% base chance for them to enter \"Enthrallment,\" lasting for 3 turn(s). Effects of the same type cannot stack. While the target is in \"Enthrallment,\" for every 1 debuff applied by the wearer on the target, increases the target's received DoT by 5.0%, stacking up to 6 time(s). When the target gets attacked by an ally, increases the attacker's SPD by 10.0% for 3 turn(s). When the wearer gets knocked down, removes all \"Enthrallment.\"",
         stats: { effectHitRate: 0.24 },
     },
     {
@@ -515,7 +515,7 @@ export const LIGHT_CONES = [
         path: "The Hunt",
         icon: "icon/light_cone/23016.png",
         baseStats: { hp: 1058, atk: 582, def: 463 },
-        description: "Increase the wearer's CRIT Rate by 0% and increases DMG dealt by Follow-Up ATK by 0%. After the wearer uses a Follow-Up ATK, inflicts the target with the \"Tame\" state, stacking up to 2 time(s). When allies hit enemy targets under the \"Tame\" state, each \"Tame\" stack increases the CRIT DMG dealt by 0%.",
+        description: "Increase the wearer's CRIT Rate by 18% and increases DMG dealt by Follow-Up ATK by 30%. After the wearer uses a Follow-Up ATK, inflicts the target with the \"Tame\" state, stacking up to 2 time(s). When allies hit enemy targets under the \"Tame\" state, each \"Tame\" stack increases the CRIT DMG dealt by 12%.",
         stats: { critRate: 0.18 },
     },
     {
@@ -523,7 +523,7 @@ export const LIGHT_CONES = [
         path: "Erudition",
         icon: "icon/light_cone/23028.png",
         baseStats: { hp: 953, atk: 582, def: 529 },
-        description: "Increases the wearer's CRIT Rate by 0%. While the wearer is in battle, for every 0% CRIT DMG that exceeds 1%, the DMG dealt by Follow-Up ATK increases by 0%. This effect can stack up to 4 time(s). When the battle starts or after the wearer uses their Basic ATK, enables the DMG dealt by Ultimate or Follow-Up ATK to ignore 0% of the target's DEF, lasting for 2 turn(s).",
+        description: "Increases the wearer's CRIT Rate by 16%. While the wearer is in battle, for every 20% CRIT DMG that exceeds 120%, the DMG dealt by Follow-Up ATK increases by 12%. This effect can stack up to 4 time(s). When the battle starts or after the wearer uses their Basic ATK, enables the DMG dealt by Ultimate or Follow-Up ATK to ignore 20% of the target's DEF, lasting for 2 turn(s).",
         stats: { critRate: 0.20 },
     },
     {
@@ -531,7 +531,7 @@ export const LIGHT_CONES = [
         path: "Erudition",
         icon: "icon/light_cone/21060.png",
         baseStats: { hp: 953, atk: 529, def: 397 },
-        description: "Increases the wearer's CRIT Rate by 0%. The Ultimate DMG and Follow-Up ATK DMG dealt by the wearer increase by 0%.",
+        description: "Increases the wearer's CRIT Rate by 12%. The Ultimate DMG and Follow-Up ATK DMG dealt by the wearer increase by 24%.",
         stats: { critRate: 0.16 },
     },
     {
@@ -539,7 +539,7 @@ export const LIGHT_CONES = [
         path: "Destruction",
         icon: "icon/light_cone/21012.png",
         baseStats: { hp: 1058, atk: 476, def: 265 },
-        description: "Increases DMG dealt by the wearer by 0%. The wearer also deals an extra 0% of DMG to enemies whose current HP percentage is equal to or higher than the wearer's current HP percentage.",
+        description: "Increases DMG dealt by the wearer by 20%. The wearer also deals an extra 20% of DMG to enemies whose current HP percentage is equal to or higher than the wearer's current HP percentage.",
         stats: null,
     },
     {
@@ -547,7 +547,7 @@ export const LIGHT_CONES = [
         path: "Destruction",
         icon: "icon/light_cone/21058.png",
         baseStats: { hp: 1058, atk: 529, def: 331 },
-        description: "Increases the wearer's CRIT Rate by 0%. The Skill DMG and Ultimate DMG dealt by the wearer increase by 0%.",
+        description: "Increases the wearer's CRIT Rate by 12%. The Skill DMG and Ultimate DMG dealt by the wearer increase by 24%.",
         stats: { critRate: 0.16 },
     },
     {
@@ -555,7 +555,7 @@ export const LIGHT_CONES = [
         path: "Erudition",
         icon: "icon/light_cone/21045.png",
         baseStats: { hp: 847, atk: 476, def: 397 },
-        description: "Increases the wearer's Break Effect by 0%. After the wearer uses Ultimate, increases SPD by 0%, lasting for 2 turn(s).",
+        description: "Increases the wearer's Break Effect by 28%. After the wearer uses Ultimate, increases SPD by 8%, lasting for 2 turn(s).",
         stats: { breakEffect: 0.16 },
     },
     {
@@ -563,7 +563,7 @@ export const LIGHT_CONES = [
         path: "Nihility",
         icon: "icon/light_cone/22000.png",
         baseStats: { hp: 953, atk: 476, def: 331 },
-        description: "Increases the wearer's Effect Hit Rate by 0%. When the wearer attacks DEF-reduced enemies, regenerates 4 Energy.",
+        description: "Increases the wearer's Effect Hit Rate by 20%. When the wearer attacks DEF-reduced enemies, regenerates 4 Energy.",
         stats: { effectHitRate: 0.20 },
     },
     {
@@ -571,7 +571,7 @@ export const LIGHT_CONES = [
         path: "Nihility",
         icon: "icon/light_cone/21044.png",
         baseStats: { hp: 953, atk: 476, def: 331 },
-        description: "Increase the wearer's CRIT Rate by 0%. The wearer deals 0% more CRIT DMG to enemies that are currently Slowed or have reduced DEF.",
+        description: "Increase the wearer's CRIT Rate by 8%. The wearer deals 24% more CRIT DMG to enemies that are currently Slowed or have reduced DEF.",
         stats: { critRate: 0.16 },
     },
     {
@@ -579,7 +579,7 @@ export const LIGHT_CONES = [
         path: "Harmony",
         icon: "icon/light_cone/21032.png",
         baseStats: { hp: 953, atk: 476, def: 331 },
-        description: "At the start of the battle and whenever the wearer's turn begins, one of the following effects is applied randomly: All allies' ATK increases by 0%, all allies' CRIT DMG increases by 0%, or all allies' Energy Regeneration Rate increases by 0%. The applied effect cannot be identical to the last effect applied, and will replace the previous effect. The applied effect will be removed when the wearer has been knocked down. Effects of the same type cannot be stacked.",
+        description: "At the start of the battle and whenever the wearer's turn begins, one of the following effects is applied randomly: All allies' ATK increases by 10%, all allies' CRIT DMG increases by 12%, or all allies' Energy Regeneration Rate increases by 6%. The applied effect cannot be identical to the last effect applied, and will replace the previous effect. The applied effect will be removed when the wearer has been knocked down. Effects of the same type cannot be stacked.",
         stats: null,
     },
     {
@@ -587,7 +587,7 @@ export const LIGHT_CONES = [
         path: "Preservation",
         icon: "icon/light_cone/21043.png",
         baseStats: { hp: 953, atk: 370, def: 463 },
-        description: "Increases the wearer's DEF by 0%. For every on-field character that has a Shield, the DMG dealt by the wearer increases by 0%.",
+        description: "Increases the wearer's DEF by 16%. For every on-field character that has a Shield, the DMG dealt by the wearer increases by 4%.",
         stats: { defPct: 0.16 },
     },
     {
@@ -595,7 +595,7 @@ export const LIGHT_CONES = [
         path: "Harmony",
         icon: "icon/light_cone/21018.png",
         baseStats: { hp: 953, atk: 423, def: 397 },
-        description: "When the wearer uses their Ultimate, all allies' actions are Advanced Forward by 0%.",
+        description: "When the wearer uses their Ultimate, all allies' actions are Advanced Forward by 16%.",
         stats: null,
     },
     {
@@ -603,7 +603,7 @@ export const LIGHT_CONES = [
         path: "Preservation",
         icon: "icon/light_cone/21002.png",
         baseStats: { hp: 953, atk: 370, def: 463 },
-        description: "Increases the wearer's DEF by 0%. After entering battle, increases All-Type RES of all allies by 0%. Abilities of the same type cannot stack.",
+        description: "Increases the wearer's DEF by 16%. After entering battle, increases All-Type RES of all allies by 8%. Abilities of the same type cannot stack.",
         stats: { defPct: 0.16 },
     },
     {
@@ -611,7 +611,7 @@ export const LIGHT_CONES = [
         path: "Preservation",
         icon: "icon/light_cone/21039.png",
         baseStats: { hp: 953, atk: 370, def: 463 },
-        description: "Increases the wearer's Effect RES by 0%. For every 100 of DEF the wearer has, increases the wearer's DMG dealt by 0.0%, up to a maximum DMG increase of 0%.",
+        description: "Increases the wearer's Effect RES by 12%. For every 100 of DEF the wearer has, increases the wearer's DMG dealt by 0.8%, up to a maximum DMG increase of 32%.",
         stats: { effectRes: 0.16 },
     },
     {
@@ -619,7 +619,7 @@ export const LIGHT_CONES = [
         path: "Abundance",
         icon: "icon/light_cone/21048.png",
         baseStats: { hp: 953, atk: 423, def: 397 },
-        description: "Increases the wearer's SPD by 0%. After attacking enemy targets that are Weakness Broken, regenerates 3.0 Energy. This effect can trigger up to 2 time(s) per turn.",
+        description: "Increases the wearer's SPD by 8%. After attacking enemy targets that are Weakness Broken, regenerates 3.0 Energy. This effect can trigger up to 2 time(s) per turn.",
         stats: { spdPct: 0.10 },
     },
     {
@@ -627,7 +627,7 @@ export const LIGHT_CONES = [
         path: "Harmony",
         icon: "icon/light_cone/21036.png",
         baseStats: { hp: 953, atk: 423, def: 397 },
-        description: "After the wearer uses a certain type of ability such as Basic ATK, Skill, or Ultimate, all allies gain Childishness, which increases allies' DMG for the same type of ability as used by the wearer by 0%. Childishness only takes effect for the most recent type of ability the wearer used and cannot be stacked.",
+        description: "After the wearer uses a certain type of ability such as Basic ATK, Skill, or Ultimate, all allies gain Childishness, which increases allies' DMG for the same type of ability as used by the wearer by 12%. Childishness only takes effect for the most recent type of ability the wearer used and cannot be stacked.",
         stats: null,
     },
     {
@@ -635,7 +635,7 @@ export const LIGHT_CONES = [
         path: "Nihility",
         icon: "icon/light_cone/21008.png",
         baseStats: { hp: 953, atk: 476, def: 331 },
-        description: "Increases the wearer's Effect Hit Rate by 0% and increases DoT by 0%.",
+        description: "Increases the wearer's Effect Hit Rate by 20% and increases DoT by 24%.",
         stats: { effectHitRate: 0.20 },
     },
     {
@@ -643,7 +643,7 @@ export const LIGHT_CONES = [
         path: "Nihility",
         icon: "icon/light_cone/21022.png",
         baseStats: { hp: 953, atk: 476, def: 331 },
-        description: "Increases the wearer's Break Effect by 0%, and increases their DMG to enemies afflicted with Shock or Wind Shear by 0%. This also applies to DoT.",
+        description: "Increases the wearer's Break Effect by 16%, and increases their DMG to enemies afflicted with Shock or Wind Shear by 16%. This also applies to DoT.",
         stats: { breakEffect: 0.16 },
     },
     {
@@ -651,7 +651,7 @@ export const LIGHT_CONES = [
         path: "The Hunt",
         icon: "icon/light_cone/21037.png",
         baseStats: { hp: 953, atk: 476, def: 331 },
-        description: "Increases the wearer's ATK by 0%. When the wearer lands a CRIT hit on enemies, gains 1 stack of Good Fortune. This can stack up to 4 time(s). Every stack of Good Fortune increases the wearer's CRIT DMG by 0%. Good Fortune will be removed at the end of the wearer's turn.",
+        description: "Increases the wearer's ATK by 12%. When the wearer lands a CRIT hit on enemies, gains 1 stack of Good Fortune. This can stack up to 4 time(s). Every stack of Good Fortune increases the wearer's CRIT DMG by 8%. Good Fortune will be removed at the end of the wearer's turn.",
         stats: { atkPct: 0.16 },
     },
     {
@@ -659,7 +659,7 @@ export const LIGHT_CONES = [
         path: "Destruction",
         icon: "icon/light_cone/21038.png",
         baseStats: { hp: 1058, atk: 476, def: 265 },
-        description: "When the wearer's cumulative HP loss during one attack exceeds 0% of their Max HP, or if the amount of their own HP consumed at one time is greater than 0% of their Max HP, immediately heals the wearer for 0% of their Max HP, and at the same time, increases the DMG they deal by 0% for 2 turn(s). This effect can only be triggered once every 3 turn(s).",
+        description: "When the wearer's cumulative HP loss during one attack exceeds 25% of their Max HP, or if the amount of their own HP consumed at one time is greater than 25% of their Max HP, immediately heals the wearer for 15% of their Max HP, and at the same time, increases the DMG they deal by 25% for 2 turn(s). This effect can only be triggered once every 3 turn(s).",
         stats: null,
     },
     {
@@ -667,7 +667,7 @@ export const LIGHT_CONES = [
         path: "Remembrance",
         icon: "icon/light_cone/22006.png",
         baseStats: { hp: 847, atk: 476, def: 397 },
-        description: "Increases the wearer's CRIT DMG by 0%. When equipped by Trailblazer (Remembrance), increases all ally targets' DMG dealt by 0% and increases the DMG dealt by the Enhanced Basic ATK \"Together, We Script Tomorrow!\" by 1%.",
+        description: "Increases the wearer's CRIT DMG by 12%. When equipped by Trailblazer (Remembrance), increases all ally targets' DMG dealt by 8% and increases the DMG dealt by the Enhanced Basic ATK \"Together, We Script Tomorrow!\" by 60%.",
         stats: { critDmg: 0.20 },
     },
     {
@@ -675,7 +675,7 @@ export const LIGHT_CONES = [
         path: "Harmony",
         icon: "icon/light_cone/22002.png",
         baseStats: { hp: 953, atk: 476, def: 331 },
-        description: "Increases the wearer's ATK by 0%. After the wearer uses their Ultimate, increases their DMG dealt by 0%, lasting for 1 turn(s).",
+        description: "Increases the wearer's ATK by 16%. After the wearer uses their Ultimate, increases their DMG dealt by 18%, lasting for 1 turn(s).",
         stats: { atkPct: 0.24 },
     },
     {
@@ -683,7 +683,7 @@ export const LIGHT_CONES = [
         path: "Remembrance",
         icon: "icon/light_cone/21051.png",
         baseStats: { hp: 953, atk: 476, def: 331 },
-        description: "Increases the wearer's ATK by 0%. After the wearer uses Ultimate, increases the Basic ATK DMG dealt by the wearer and their memosprite by 0%, lasting for 3 turn(s).",
+        description: "Increases the wearer's ATK by 16%. After the wearer uses Ultimate, increases the Basic ATK DMG dealt by the wearer and their memosprite by 20%, lasting for 3 turn(s).",
         stats: { atkPct: 0.16 },
     },
     {
@@ -691,7 +691,7 @@ export const LIGHT_CONES = [
         path: "Erudition",
         icon: "icon/light_cone/21020.png",
         baseStats: { hp: 847, atk: 476, def: 397 },
-        description: "Increases the wearer's ATK by 0%. When the wearer defeats an enemy, the wearer's CRIT DMG increases by 0% for 3 turn(s).",
+        description: "Increases the wearer's ATK by 16%. When the wearer defeats an enemy, the wearer's CRIT DMG increases by 24% for 3 turn(s).",
         stats: { atkPct: 0.16 },
     },
     {
@@ -699,7 +699,7 @@ export const LIGHT_CONES = [
         path: "Nihility",
         icon: "icon/light_cone/21001.png",
         baseStats: { hp: 953, atk: 476, def: 331 },
-        description: "For every debuff the target enemy has, the DMG dealt by the wearer increases by 0%, stacking up to 3 time(s). This effect also applies to DoT.",
+        description: "For every debuff the target enemy has, the DMG dealt by the wearer increases by 12%, stacking up to 3 time(s). This effect also applies to DoT.",
         stats: null,
     },
     {
@@ -707,7 +707,7 @@ export const LIGHT_CONES = [
         path: "Abundance",
         icon: "icon/light_cone/22001.png",
         baseStats: { hp: 953, atk: 423, def: 397 },
-        description: "Increases the wearer's Max HP by 0%. When the wearer uses their Skill, increases Outgoing Healing by 0%, lasting for 2 turn(s).",
+        description: "Increases the wearer's Max HP by 8%. When the wearer uses their Skill, increases Outgoing Healing by 16%, lasting for 2 turn(s).",
         stats: { hpPct: 0.20 },
     },
     {
@@ -715,7 +715,7 @@ export const LIGHT_CONES = [
         path: "Nihility",
         icon: "icon/light_cone/21061.png",
         baseStats: { hp: 1058, atk: 529, def: 331 },
-        description: "Increases the wearer's DMG dealt by 0%. After the wearer attacks, there is a 1% base chance to inflict the attacked target with Vulnerability, increasing the DMG they receive by 0% for 2 turn(s). Effects of the same type cannot stack.",
+        description: "Increases the wearer's DMG dealt by 16%. After the wearer attacks, there is a 100% base chance to inflict the attacked target with Vulnerability, increasing the DMG they receive by 10% for 2 turn(s). Effects of the same type cannot stack.",
         stats: null,
     },
     {
@@ -723,7 +723,7 @@ export const LIGHT_CONES = [
         path: "Harmony",
         icon: "icon/light_cone/21056.png",
         baseStats: { hp: 1058, atk: 476, def: 397 },
-        description: "After entering combat, increases all allies' Break DMG dealt by 0%. Abilities of the same type cannot stack.",
+        description: "After entering combat, increases all allies' Break DMG dealt by 16%. Abilities of the same type cannot stack.",
         stats: null,
     },
     {
@@ -731,7 +731,7 @@ export const LIGHT_CONES = [
         path: "Destruction",
         icon: "icon/light_cone/21042.png",
         baseStats: { hp: 953, atk: 476, def: 331 },
-        description: "Increases the wearer's Break Effect by 0%. When the wearer uses their Ultimate, increases CRIT Rate by 0%, lasting for 2 turn(s).",
+        description: "Increases the wearer's Break Effect by 28%. When the wearer uses their Ultimate, increases CRIT Rate by 15%, lasting for 2 turn(s).",
         stats: { breakEffect: 0.24 },
     },
     {
@@ -739,7 +739,7 @@ export const LIGHT_CONES = [
         path: "Nihility",
         icon: "icon/light_cone/21041.png",
         baseStats: { hp: 1058, atk: 476, def: 265 },
-        description: "When the wearer inflicts a debuff on an enemy, gains a stack of Trick. Every stack of Trick increases the wearer's DMG dealt by 0%, stacking up to 3 time(s). This effect lasts for 1 turn(s). When the wearer's Effect Hit Rate is 1% or higher, increases ATK by 0%.",
+        description: "When the wearer inflicts a debuff on an enemy, gains a stack of Trick. Every stack of Trick increases the wearer's DMG dealt by 6%, stacking up to 3 time(s). This effect lasts for 1 turn(s). When the wearer's Effect Hit Rate is 80% or higher, increases ATK by 20%.",
         stats: null,
     },
     {
@@ -747,7 +747,7 @@ export const LIGHT_CONES = [
         path: "Preservation",
         icon: "icon/light_cone/21053.png",
         baseStats: { hp: 1058, atk: 370, def: 529 },
-        description: "Increases the wearer's provided Shield Effect by 0%. While an ally target has a Shield, their DMG dealt increases by 0%.",
+        description: "Increases the wearer's provided Shield Effect by 12%. While an ally target has a Shield, their DMG dealt increases by 12%.",
         stats: null,
     },
     {
@@ -755,7 +755,7 @@ export const LIGHT_CONES = [
         path: "Preservation",
         icon: "icon/light_cone/21009.png",
         baseStats: { hp: 953, atk: 423, def: 397 },
-        description: "The wearer is more likely to be attacked, and DMG taken is reduced by 0%.",
+        description: "The wearer is more likely to be attacked, and DMG taken is reduced by 16%.",
         stats: null,
     },
     {
@@ -763,7 +763,7 @@ export const LIGHT_CONES = [
         path: "Erudition",
         icon: "icon/light_cone/21013.png",
         baseStats: { hp: 847, atk: 476, def: 397 },
-        description: "The wearer regenerates 20 Energy immediately upon entering battle, and increases DMG dealt by the wearer's Ultimate by 0%.",
+        description: "The wearer regenerates 20 Energy immediately upon entering battle, and increases DMG dealt by the wearer's Ultimate by 32%.",
         stats: null,
     },
     {
@@ -771,7 +771,7 @@ export const LIGHT_CONES = [
         path: "Harmony",
         icon: "icon/light_cone/21004.png",
         baseStats: { hp: 953, atk: 423, def: 397 },
-        description: "Increases the wearer's Break Effect by 0%. When the wearer attacks, additionally regenerates 4 Energy. This effect cannot be repeatedly triggered in a single turn.",
+        description: "Increases the wearer's Break Effect by 28%. When the wearer attacks, additionally regenerates 4 Energy. This effect cannot be repeatedly triggered in a single turn.",
         stats: { breakEffect: 0.16 },
     },
     {
@@ -779,7 +779,7 @@ export const LIGHT_CONES = [
         path: "Elation",
         icon: "icon/light_cone/21064.png",
         baseStats: { hp: 847, atk: 476, def: 397 },
-        description: "Increases the wearer's Elation by 0%. When the wearer uses an Elation Skill, increases Elation DMG taken by all enemies by 0% for 2 turn(s).",
+        description: "Increases the wearer's Elation by 12%. When the wearer uses an Elation Skill, increases Elation DMG taken by all enemies by 6% for 2 turn(s).",
         stats: null,
     },
     {
@@ -787,7 +787,7 @@ export const LIGHT_CONES = [
         path: "Destruction",
         icon: "icon/light_cone/22003.png",
         baseStats: { hp: 1058, atk: 476, def: 265 },
-        description: "Increases the wearer's Max HP by 0%. When losing or restoring this unit's HP, increases CRIT DMG by 0%, lasting for 2 turn(s). This effect can only trigger once per turn.",
+        description: "Increases the wearer's Max HP by 12%. When losing or restoring this unit's HP, increases CRIT DMG by 18%, lasting for 2 turn(s). This effect can only trigger once per turn.",
         stats: { hpPct: 0.24 },
     },
     {
@@ -795,7 +795,7 @@ export const LIGHT_CONES = [
         path: "Destruction",
         icon: "icon/light_cone/21033.png",
         baseStats: { hp: 953, atk: 529, def: 265 },
-        description: "Increases the wearer's ATK by 0%. Whenever the wearer defeats an enemy, they restore HP equal to 0% of their ATK.",
+        description: "Increases the wearer's ATK by 24%. Whenever the wearer defeats an enemy, they restore HP equal to 12% of their ATK.",
         stats: { atkPct: 0.24 },
     },
     {
@@ -803,7 +803,7 @@ export const LIGHT_CONES = [
         path: "The Hunt",
         icon: "icon/light_cone/21003.png",
         baseStats: { hp: 953, atk: 476, def: 331 },
-        description: "Increases the wearer's ATK by 0%. If there are 2 or fewer enemies on the field, increases wearer's CRIT Rate by 0%.",
+        description: "Increases the wearer's ATK by 16%. If there are 2 or fewer enemies on the field, increases wearer's CRIT Rate by 12%.",
         stats: { atkPct: 0.16 },
     },
     {
@@ -811,7 +811,7 @@ export const LIGHT_CONES = [
         path: "Harmony",
         icon: "icon/light_cone/21025.png",
         baseStats: { hp: 953, atk: 423, def: 397 },
-        description: "When the wearer uses their Skill, the next ally taking action (except the wearer) deals 0% increased DMG for 1 turn(s).",
+        description: "When the wearer uses their Skill, the next ally taking action (except the wearer) deals 16% increased DMG for 1 turn(s).",
         stats: null,
     },
     {
@@ -819,7 +819,7 @@ export const LIGHT_CONES = [
         path: "Abundance",
         icon: "icon/light_cone/21014.png",
         baseStats: { hp: 953, atk: 423, def: 397 },
-        description: "Increases the wearer's Effect RES by 0% and increases Outgoing Healing by an amount that is equal to 0% of Effect RES. Outgoing Healing can be increased this way by up to 0%.",
+        description: "Increases the wearer's Effect RES by 16% and increases Outgoing Healing by an amount that is equal to 33% of Effect RES. Outgoing Healing can be increased this way by up to 15%.",
         stats: { effectRes: 0.16 },
     },
     {
@@ -827,7 +827,7 @@ export const LIGHT_CONES = [
         path: "Harmony",
         icon: "icon/light_cone/21011.png",
         baseStats: { hp: 1058, atk: 423, def: 331 },
-        description: "After entering battle, if an ally deals the same DMG Type as the wearer, DMG dealt increases by 0%.",
+        description: "After entering battle, if an ally deals the same DMG Type as the wearer, DMG dealt increases by 12%.",
         stats: null,
     },
     {
@@ -835,7 +835,7 @@ export const LIGHT_CONES = [
         path: "Harmony",
         icon: "icon/light_cone/21046.png",
         baseStats: { hp: 953, atk: 423, def: 397 },
-        description: "Increases the wearer's ATK by 0%. Upon entering battle, if two or more characters follow the same Path, then these characters' CRIT DMG increases by 0%. Abilities of the same type cannot stack.",
+        description: "Increases the wearer's ATK by 16%. Upon entering battle, if two or more characters follow the same Path, then these characters' CRIT DMG increases by 16%. Abilities of the same type cannot stack.",
         stats: { atkPct: 0.16 },
     },
     {
@@ -843,7 +843,7 @@ export const LIGHT_CONES = [
         path: "Abundance",
         icon: "icon/light_cone/21000.png",
         baseStats: { hp: 1058, atk: 423, def: 331 },
-        description: "Increases the wearer's Energy Regeneration Rate by 0% and increases Outgoing Healing when they use their Ultimate by 0%.",
+        description: "Increases the wearer's Energy Regeneration Rate by 8% and increases Outgoing Healing when they use their Ultimate by 12%.",
         stats: { energyRegen: 0.08 },
     },
     {
@@ -851,7 +851,7 @@ export const LIGHT_CONES = [
         path: "Abundance",
         icon: "icon/light_cone/21021.png",
         baseStats: { hp: 953, atk: 423, def: 397 },
-        description: "At the start of the wearer's turn, regenerates 8 Energy for a randomly chosen ally (excluding the wearer) whose current Energy is lower than 0%.",
+        description: "At the start of the wearer's turn, regenerates 8 Energy for a randomly chosen ally (excluding the wearer) whose current Energy is lower than 50%.",
         stats: null,
     },
     {
@@ -859,7 +859,7 @@ export const LIGHT_CONES = [
         path: "Nihility",
         icon: "icon/light_cone/21015.png",
         baseStats: { hp: 953, atk: 476, def: 331 },
-        description: "When the wearer hits an enemy and if the hit enemy is not already \"Ensnared,\" then there is a 1% base chance to \"Ensnare\" the hit enemy. \"Ensnared\" enemies' DEF decreases by 0% for 1 turn(s).",
+        description: "When the wearer hits an enemy and if the hit enemy is not already \"Ensnared,\" then there is a 60% base chance to \"Ensnare\" the hit enemy. \"Ensnared\" enemies' DEF decreases by 12% for 1 turn(s).",
         stats: null,
     },
     {
@@ -867,7 +867,7 @@ export const LIGHT_CONES = [
         path: "The Hunt",
         icon: "icon/light_cone/21031.png",
         baseStats: { hp: 847, atk: 529, def: 331 },
-        description: "Increases the wearer's CRIT Rate by 0%. After a CRIT Hit, there is a 0% fixed chance to dispel 1 buff on the target enemy. This effect can only trigger 1 time per attack.",
+        description: "Increases the wearer's CRIT Rate by 12%. After a CRIT Hit, there is a 16% fixed chance to dispel 1 buff on the target enemy. This effect can only trigger 1 time per attack.",
         stats: { critRate: 0.12 },
     },
     {
@@ -875,7 +875,7 @@ export const LIGHT_CONES = [
         path: "The Hunt",
         icon: "icon/light_cone/21024.png",
         baseStats: { hp: 847, atk: 476, def: 397 },
-        description: "After entering battle, increases the wearer's SPD by 0% and DMG by 0%. When the wearer takes DMG, this effect will disappear. This effect will resume after the end of the wearer's next turn.",
+        description: "After entering battle, increases the wearer's SPD by 8% and DMG by 12%. When the wearer takes DMG, this effect will disappear. This effect will resume after the end of the wearer's next turn.",
         stats: null,
     },
     {
@@ -883,7 +883,7 @@ export const LIGHT_CONES = [
         path: "The Hunt",
         icon: "icon/light_cone/21062.png",
         baseStats: { hp: 953, atk: 529, def: 397 },
-        description: "Increases the wearer's CRIT DMG by 0%. The Skill DMG and Follow-Up ATK DMG dealt by the wearer increase by 0%.",
+        description: "Increases the wearer's CRIT DMG by 24%. The Skill DMG and Follow-Up ATK DMG dealt by the wearer increase by 24%.",
         stats: { critDmg: 0.20 },
     },
     {
@@ -891,7 +891,7 @@ export const LIGHT_CONES = [
         path: "The Hunt",
         icon: "icon/light_cone/21047.png",
         baseStats: { hp: 847, atk: 476, def: 397 },
-        description: "Increases the wearer's Break Effect by 0%. When entering battle or after dealing Break DMG, increases SPD by 0%, lasting for 2 turn(s). This effect can only trigger once per turn.",
+        description: "Increases the wearer's Break Effect by 28%. When entering battle or after dealing Break DMG, increases SPD by 8%, lasting for 2 turn(s). This effect can only trigger once per turn.",
         stats: { breakEffect: 0.16 },
     },
     {
@@ -899,7 +899,7 @@ export const LIGHT_CONES = [
         path: "Abundance",
         icon: "icon/light_cone/21007.png",
         baseStats: { hp: 953, atk: 423, def: 397 },
-        description: "Increases the wearer's Outgoing Healing by 0%. When using Skill, regenerates 2.0 Energy for all allies.",
+        description: "Increases the wearer's Outgoing Healing by 10%. When using Skill, regenerates 2.0 Energy for all allies.",
         stats: null,
     },
     {
@@ -907,7 +907,7 @@ export const LIGHT_CONES = [
         path: "The Hunt",
         icon: "icon/light_cone/21017.png",
         baseStats: { hp: 953, atk: 476, def: 331 },
-        description: "The wearer's Basic ATK and Skill deals 0% more DMG. This effect increases by an extra 0% when the wearer's current Energy reaches its max level.",
+        description: "The wearer's Basic ATK and Skill deals 24% more DMG. This effect increases by an extra 24% when the wearer's current Energy reaches its max level.",
         stats: null,
     },
     {
@@ -915,7 +915,7 @@ export const LIGHT_CONES = [
         path: "Remembrance",
         icon: "icon/light_cone/21052.png",
         baseStats: { hp: 1058, atk: 529, def: 198 },
-        description: "Increases the wearer's CRIT Rate by 0%. When the wearer's memosprite is on the field, increases the DMG dealt by the wearer and their memosprite by 0%.",
+        description: "Increases the wearer's CRIT Rate by 12%. When the wearer's memosprite is on the field, increases the DMG dealt by the wearer and their memosprite by 24%.",
         stats: { critRate: 0.16 },
     },
     {
@@ -923,7 +923,7 @@ export const LIGHT_CONES = [
         path: "The Hunt",
         icon: "icon/light_cone/21010.png",
         baseStats: { hp: 953, atk: 476, def: 331 },
-        description: "For each time the wearer hits the same target, DMG dealt increases by 0%, stacking up to 5 time(s). This effect will be dispelled when the wearer changes targets.",
+        description: "For each time the wearer hits the same target, DMG dealt increases by 8%, stacking up to 5 time(s). This effect will be dispelled when the wearer changes targets.",
         stats: null,
     },
     {
@@ -931,7 +931,7 @@ export const LIGHT_CONES = [
         path: "Erudition",
         icon: "icon/light_cone/21006.png",
         baseStats: { hp: 953, atk: 476, def: 331 },
-        description: "Increases DMG dealt by the wearer's Follow-Up ATKs by 0%. If the current HP percentage of the enemy target is below or equal to 0%, increases DMG dealt by Follow-Up ATKs by an extra 0%.",
+        description: "Increases DMG dealt by the wearer's Follow-Up ATKs by 24%. If the current HP percentage of the enemy target is below or equal to 50%, increases DMG dealt by Follow-Up ATKs by an extra 24%.",
         stats: null,
     },
     {
@@ -939,7 +939,7 @@ export const LIGHT_CONES = [
         path: "Erudition",
         icon: "icon/light_cone/21040.png",
         baseStats: { hp: 953, atk: 476, def: 331 },
-        description: "Increases the wearer's ATK by 0%. When the wearer uses an attack and at least 2 attacked enemies have the corresponding Weakness, the wearer's CRIT DMG increases by 0%, lasting for 2 turn(s).",
+        description: "Increases the wearer's ATK by 16%. When the wearer uses an attack and at least 2 attacked enemies have the corresponding Weakness, the wearer's CRIT DMG increases by 20%, lasting for 2 turn(s).",
         stats: { atkPct: 0.16 },
     },
     {
@@ -947,7 +947,7 @@ export const LIGHT_CONES = [
         path: "Remembrance",
         icon: "icon/light_cone/21057.png",
         baseStats: { hp: 1058, atk: 529, def: 331 },
-        description: "Increases the wearer's CRIT DMG by 0%. The CRIT DMG dealt by the wearer's memosprite increases by 0%.",
+        description: "Increases the wearer's CRIT DMG by 24%. The CRIT DMG dealt by the wearer's memosprite increases by 24%.",
         stats: { critDmg: 0.20 },
     },
     {
@@ -955,7 +955,7 @@ export const LIGHT_CONES = [
         path: "Harmony",
         icon: "icon/light_cone/22005.png",
         baseStats: { hp: 953, atk: 476, def: 331 },
-        description: "Increases the wearer's ATK by 0%. After the wearer uses Skill, increases ATK by 0%, stacking up to 3 times.",
+        description: "Increases the wearer's ATK by 16%. After the wearer uses Skill, increases ATK by 8%, stacking up to 3 times.",
         stats: { atkPct: 0.16 },
     },
     {
@@ -963,7 +963,7 @@ export const LIGHT_CONES = [
         path: "Erudition",
         icon: "icon/light_cone/22004.png",
         baseStats: { hp: 953, atk: 476, def: 331 },
-        description: "Increases the wearer's ATK by 0%. For every 1 different Weakness Type an enemy target has, increases the DMG dealt to it by the wearer by 0%. Up to a max of 7 Weakness Types can be taken into account for this effect.",
+        description: "Increases the wearer's ATK by 8%. For every 1 different Weakness Type an enemy target has, increases the DMG dealt to it by the wearer by 4%. Up to a max of 7 Weakness Types can be taken into account for this effect.",
         stats: { atkPct: 0.16 },
     },
     {
@@ -971,7 +971,7 @@ export const LIGHT_CONES = [
         path: "Destruction",
         icon: "icon/light_cone/21005.png",
         baseStats: { hp: 1058, atk: 476, def: 265 },
-        description: "When the wearer uses Basic ATK, Skill, or Ultimate to attack enemies, the wearer gains one stack of Mischievous. Each stack increases the wearer's ATK by 0%.",
+        description: "When the wearer uses Basic ATK, Skill, or Ultimate to attack enemies, the wearer gains one stack of Mischievous. Each stack increases the wearer's ATK by 12%.",
         stats: null,
     },
     {
@@ -979,7 +979,7 @@ export const LIGHT_CONES = [
         path: "Erudition",
         icon: "icon/light_cone/21027.png",
         baseStats: { hp: 847, atk: 476, def: 397 },
-        description: "Increases the wearer's DMG by 0%. For every enemy defeated by the wearer, the wearer's ATK increases by 0%, stacking up to 3 time(s).",
+        description: "Increases the wearer's DMG by 12%. For every enemy defeated by the wearer, the wearer's ATK increases by 4%, stacking up to 3 time(s).",
         stats: null,
     },
     {
@@ -987,7 +987,7 @@ export const LIGHT_CONES = [
         path: "Remembrance",
         icon: "icon/light_cone/21054.png",
         baseStats: { hp: 1058, atk: 370, def: 397 },
-        description: "Increases the wearer's Max HP by 0%. After the wearer's memosprite attacks, the Outgoing Healing of the wearer and their memosprite increases by 0%, lasting for 1 turn(s).",
+        description: "Increases the wearer's Max HP by 16%. After the wearer's memosprite attacks, the Outgoing Healing of the wearer and their memosprite increases by 12%, lasting for 1 turn(s).",
         stats: { hpPct: 0.24 },
     },
     {
@@ -995,7 +995,7 @@ export const LIGHT_CONES = [
         path: "Preservation",
         icon: "icon/light_cone/21030.png",
         baseStats: { hp: 847, atk: 370, def: 529 },
-        description: "Increases the wearer's DEF by 0%. Increases the DMG of the wearer when they use their Ultimate by 1% of the wearer's DEF. This effect only applies 1 time per enemy target during each use of the wearer's Ultimate.",
+        description: "Increases the wearer's DEF by 16%. Increases the DMG of the wearer when they use their Ultimate by 60% of the wearer's DEF. This effect only applies 1 time per enemy target during each use of the wearer's Ultimate.",
         stats: { defPct: 0.16 },
     },
     {
@@ -1003,7 +1003,7 @@ export const LIGHT_CONES = [
         path: "Erudition",
         icon: "icon/light_cone/21034.png",
         baseStats: { hp: 847, atk: 529, def: 331 },
-        description: "After entering battle, increases the wearer's DMG based on their Max Energy. Each point of Energy increases DMG by 0.00%. A max of 160 Energy will be taken into account for this.",
+        description: "After entering battle, increases the wearer's DMG based on their Max Energy. Each point of Energy increases DMG by 0.20%. A max of 160 Energy will be taken into account for this.",
         stats: null,
     },
     {
@@ -1011,7 +1011,7 @@ export const LIGHT_CONES = [
         path: "Elation",
         icon: "icon/light_cone/21065.png",
         baseStats: { hp: 953, atk: 529, def: 397 },
-        description: "Increases the wearer's CRIT Rate by 0%. When the wearer uses an Elation Skill, increases Elation by 0%, stacking up to 2 times.",
+        description: "Increases the wearer's CRIT Rate by 12%. When the wearer uses an Elation Skill, increases Elation by 12%, stacking up to 2 times.",
         stats: { critRate: 0.16 },
     },
     {
@@ -1019,7 +1019,7 @@ export const LIGHT_CONES = [
         path: "Elation",
         icon: "icon/light_cone/22007.png",
         baseStats: { hp: 953, atk: 476, def: 331 },
-        description: "Increases the wearer's CRIT DMG by 0%. After the wearer uses their Ultimate, increases all allies' Elation by 0%, lasting for 1 turn(s).",
+        description: "Increases the wearer's CRIT DMG by 12%. After the wearer uses their Ultimate, increases all allies' Elation by 8%, lasting for 1 turn(s).",
         stats: { critDmg: 0.20 },
     },
     {
@@ -1027,7 +1027,7 @@ export const LIGHT_CONES = [
         path: "Preservation",
         icon: "icon/light_cone/21016.png",
         baseStats: { hp: 1058, atk: 370, def: 397 },
-        description: "Increases the wearer's DEF by 0%. When the wearer is attacked, there is a 1% base chance to Burn the enemy. For each turn, the wearer deals DoT that is equal to 0% of the wearer's DEF for 2 turn(s).",
+        description: "Increases the wearer's DEF by 16%. When the wearer is attacked, there is a 100% base chance to Burn the enemy. For each turn, the wearer deals DoT that is equal to 40% of the wearer's DEF for 2 turn(s).",
         stats: { defPct: 0.16 },
     },
     {
@@ -1035,7 +1035,7 @@ export const LIGHT_CONES = [
         path: "Destruction",
         icon: "icon/light_cone/21019.png",
         baseStats: { hp: 953, atk: 476, def: 331 },
-        description: "Increases the wearer's ATK by 0%. When the wearer defeats an enemy, the wearer's CRIT Rate increases by 0% for 3 turn(s).",
+        description: "Increases the wearer's ATK by 16%. When the wearer defeats an enemy, the wearer's CRIT Rate increases by 12% for 3 turn(s).",
         stats: { atkPct: 0.16 },
     },
     {
@@ -1043,7 +1043,7 @@ export const LIGHT_CONES = [
         path: "Abundance",
         icon: "icon/light_cone/21055.png",
         baseStats: { hp: 1058, atk: 476, def: 397 },
-        description: "Increases the wearer's Outgoing Healing by 0%. When an ally target's current HP percentage is greater than or equal to 0%, increases the DMG dealt by 0%.",
+        description: "Increases the wearer's Outgoing Healing by 12%. When an ally target's current HP percentage is greater than or equal to 50%, increases the DMG dealt by 12%.",
         stats: null,
     },
     {
@@ -1051,7 +1051,7 @@ export const LIGHT_CONES = [
         path: "Remembrance",
         icon: "icon/light_cone/21050.png",
         baseStats: { hp: 847, atk: 476, def: 397 },
-        description: "Increases the wearer's CRIT DMG by 0%. When the wearer's memosprite uses an ability on an ally target, increases the DMG dealt by all ally targets by 0%, lasting for 3 turn(s).",
+        description: "Increases the wearer's CRIT DMG by 12%. When the wearer's memosprite uses an ability on an ally target, increases the DMG dealt by all ally targets by 8%, lasting for 3 turn(s).",
         stats: { critDmg: 0.20 },
     },
     {
@@ -1059,7 +1059,7 @@ export const LIGHT_CONES = [
         path: "Abundance",
         icon: "icon/light_cone/21028.png",
         baseStats: { hp: 1058, atk: 370, def: 397 },
-        description: "Increases the wearer's Max HP by 0%. When using Basic ATK or Skill, restores all allies' HP by an amount equal to 0.0% of their respective Max HP.",
+        description: "Increases the wearer's Max HP by 16%. When using Basic ATK or Skill, restores all allies' HP by an amount equal to 2.0% of their respective Max HP.",
         stats: { hpPct: 0.24 },
     },
     {
@@ -1067,7 +1067,7 @@ export const LIGHT_CONES = [
         path: "Preservation",
         icon: "icon/light_cone/21023.png",
         baseStats: { hp: 741, atk: 476, def: 463 },
-        description: "At the start of the battle, the DMG dealt to all allies decreases by 0% for 5 turn(s). At the same time, immediately restores HP to all allies equal to 0% of the respective HP difference between the characters' Max HP and current HP.",
+        description: "At the start of the battle, the DMG dealt to all allies decreases by 8% for 5 turn(s). At the same time, immediately restores HP to all allies equal to 30% of the respective HP difference between the characters' Max HP and current HP.",
         stats: null,
     },
     {
@@ -1075,7 +1075,7 @@ export const LIGHT_CONES = [
         path: "Nihility",
         icon: "icon/light_cone/21029.png",
         baseStats: { hp: 847, atk: 529, def: 331 },
-        description: "After the wearer uses Basic ATK or Skill, deals Additional DMG equal to 0% of the wearer's ATK to a random enemy that has been attacked.",
+        description: "After the wearer uses Basic ATK or Skill, deals Additional DMG equal to 48% of the wearer's ATK to a random enemy that has been attacked.",
         stats: null,
     },
     {
@@ -1083,7 +1083,7 @@ export const LIGHT_CONES = [
         path: "Abundance",
         icon: "icon/light_cone/21035.png",
         baseStats: { hp: 1058, atk: 423, def: 331 },
-        description: "Increases the wearer's Break Effect by 0%. After using Basic ATK, restores HP for the wearer by an amount equal to 0.0% of Max HP plus 800.",
+        description: "Increases the wearer's Break Effect by 24%. After using Basic ATK, restores HP for the wearer by an amount equal to 2.0% of Max HP plus 800.",
         stats: { breakEffect: 0.16 },
     },
     {
@@ -1091,7 +1091,7 @@ export const LIGHT_CONES = [
         path: "Destruction",
         icon: "icon/light_cone/21026.png",
         baseStats: { hp: 953, atk: 476, def: 331 },
-        description: "Increases the wearer's ATK by 0%, and increases their DMG to enemies afflicted with Burn or Bleed by 0%. This also applies to DoT.",
+        description: "Increases the wearer's ATK by 10%, and increases their DMG to enemies afflicted with Burn or Bleed by 16%. This also applies to DoT.",
         stats: { atkPct: 0.16 },
     },
     {
@@ -1099,7 +1099,7 @@ export const LIGHT_CONES = [
         path: "The Hunt",
         icon: "icon/light_cone/20014.png",
         baseStats: { hp: 741, atk: 370, def: 265 },
-        description: "When the wearer defeats an enemy, increases SPD by 0% for 2 turn(s).",
+        description: "When the wearer defeats an enemy, increases SPD by 10% for 2 turn(s).",
         stats: null,
     },
     {
@@ -1107,7 +1107,7 @@ export const LIGHT_CONES = [
         path: "Preservation",
         icon: "icon/light_cone/20003.png",
         baseStats: { hp: 847, atk: 265, def: 331 },
-        description: "Increases the wearer's DEF by 0%. If the wearer's current HP percentage is lower than 0%, increases their DEF by a further 0%.",
+        description: "Increases the wearer's DEF by 16%. If the wearer's current HP percentage is lower than 50%, increases their DEF by a further 16%.",
         stats: { defPct: 0.08 },
     },
     {
@@ -1115,7 +1115,7 @@ export const LIGHT_CONES = [
         path: "The Hunt",
         icon: "icon/light_cone/20000.png",
         baseStats: { hp: 847, atk: 318, def: 265 },
-        description: "At the start of the battle, the wearer's CRIT Rate increases by 0% for 3 turn(s).",
+        description: "At the start of the battle, the wearer's CRIT Rate increases by 12% for 3 turn(s).",
         stats: null,
     },
     {
@@ -1123,7 +1123,7 @@ export const LIGHT_CONES = [
         path: "Harmony",
         icon: "icon/light_cone/20005.png",
         baseStats: { hp: 847, atk: 318, def: 265 },
-        description: "After entering battle, increases the ATK of all allies by 0%. Abilities of the same type cannot stack.",
+        description: "After entering battle, increases the ATK of all allies by 8%. Abilities of the same type cannot stack.",
         stats: null,
     },
     {
@@ -1131,7 +1131,7 @@ export const LIGHT_CONES = [
         path: "Destruction",
         icon: "icon/light_cone/20002.png",
         baseStats: { hp: 847, atk: 370, def: 198 },
-        description: "The wearer's Basic ATK and Skill deal 0% more DMG.",
+        description: "The wearer's Basic ATK and Skill deal 20% more DMG.",
         stats: null,
     },
     {
@@ -1139,7 +1139,7 @@ export const LIGHT_CONES = [
         path: "Abundance",
         icon: "icon/light_cone/20001.png",
         baseStats: { hp: 953, atk: 265, def: 265 },
-        description: "When the wearer uses their Skill or Ultimate, their Outgoing Healing increases by 0%.",
+        description: "When the wearer uses their Skill or Ultimate, their Outgoing Healing increases by 12%.",
         stats: null,
     },
     {
@@ -1147,7 +1147,7 @@ export const LIGHT_CONES = [
         path: "The Hunt",
         icon: "icon/light_cone/20007.png",
         baseStats: { hp: 741, atk: 370, def: 265 },
-        description: "When the wearer defeats an enemy, increases ATK by 0% for 3 turn(s).",
+        description: "When the wearer defeats an enemy, increases ATK by 24% for 3 turn(s).",
         stats: null,
     },
     {
@@ -1155,7 +1155,7 @@ export const LIGHT_CONES = [
         path: "Erudition",
         icon: "icon/light_cone/20006.png",
         baseStats: { hp: 741, atk: 370, def: 265 },
-        description: "Increases DMG dealt by the wearer's Ultimate by 0%.",
+        description: "Increases DMG dealt by the wearer's Ultimate by 28%.",
         stats: null,
     },
     {
@@ -1163,7 +1163,7 @@ export const LIGHT_CONES = [
         path: "Preservation",
         icon: "icon/light_cone/20010.png",
         baseStats: { hp: 953, atk: 265, def: 265 },
-        description: "When the wearer unleashes their Ultimate, they restore HP by 0% of their Max HP.",
+        description: "When the wearer unleashes their Ultimate, they restore HP by 18% of their Max HP.",
         stats: null,
     },
     {
@@ -1179,7 +1179,7 @@ export const LIGHT_CONES = [
         path: "Nihility",
         icon: "icon/light_cone/20018.png",
         baseStats: { hp: 847, atk: 318, def: 265 },
-        description: "After using Skill, the wearer's next Basic ATK deals Additional DMG equal to 1% of ATK to the target enemy.",
+        description: "After using Skill, the wearer's next Basic ATK deals Additional DMG equal to 60% of ATK to the target enemy.",
         stats: null,
     },
     {
@@ -1187,7 +1187,7 @@ export const LIGHT_CONES = [
         path: "Elation",
         icon: "icon/light_cone/20024.png",
         baseStats: { hp: 847, atk: 318, def: 265 },
-        description: "When the Punchline held is 10 or more, the wearer's CRIT DMG increases by 0%.",
+        description: "When the Punchline held is 10 or more, the wearer's CRIT DMG increases by 20%.",
         stats: null,
     },
     {
@@ -1195,7 +1195,7 @@ export const LIGHT_CONES = [
         path: "Nihility",
         icon: "icon/light_cone/20011.png",
         baseStats: { hp: 847, atk: 318, def: 265 },
-        description: "Increases DMG dealt from its wearer to Slowed enemies by 0%.",
+        description: "Increases DMG dealt from its wearer to Slowed enemies by 24%.",
         stats: null,
     },
     {
@@ -1219,7 +1219,7 @@ export const LIGHT_CONES = [
         path: "Abundance",
         icon: "icon/light_cone/20015.png",
         baseStats: { hp: 953, atk: 318, def: 198 },
-        description: "After the wearer uses their Basic ATK, their next action will be Advanced Forward by 0%.",
+        description: "After the wearer uses their Basic ATK, their next action will be Advanced Forward by 12%.",
         stats: null,
     },
     {
@@ -1227,7 +1227,7 @@ export const LIGHT_CONES = [
         path: "Destruction",
         icon: "icon/light_cone/20016.png",
         baseStats: { hp: 847, atk: 370, def: 198 },
-        description: "If the wearer's current HP percentage is lower than 1%, CRIT Rate increases by 0%.",
+        description: "If the wearer's current HP percentage is lower than 80%, CRIT Rate increases by 12%.",
         stats: null,
     },
     {
@@ -1243,7 +1243,7 @@ export const LIGHT_CONES = [
         path: "Preservation",
         icon: "icon/light_cone/20017.png",
         baseStats: { hp: 953, atk: 265, def: 265 },
-        description: "When the wearer Breaks an enemy's Weakness, the wearer restores HP by 0% of their Max HP.",
+        description: "When the wearer Breaks an enemy's Weakness, the wearer restores HP by 12% of their Max HP.",
         stats: null,
     },
     {
@@ -1251,7 +1251,7 @@ export const LIGHT_CONES = [
         path: "Remembrance",
         icon: "icon/light_cone/20022.png",
         baseStats: { hp: 635, atk: 423, def: 265 },
-        description: "When memosprite's turn starts, the wearer and memosprite each gain 1 stack of \"Commemoration.\" Each stack increases DMG dealt by 0%, stacking up to 4 time(s). When memosprite disappears, removes \"Commemoration\" from the wearer and memosprite.",
+        description: "When memosprite's turn starts, the wearer and memosprite each gain 1 stack of \"Commemoration.\" Each stack increases DMG dealt by 8%, stacking up to 4 time(s). When memosprite disappears, removes \"Commemoration\" from the wearer and memosprite.",
         stats: null,
     },
     {
@@ -1259,7 +1259,7 @@ export const LIGHT_CONES = [
         path: "Erudition",
         icon: "icon/light_cone/20020.png",
         baseStats: { hp: 741, atk: 370, def: 265 },
-        description: "When the wearer uses their Ultimate, increases ATK by 0% for 2 turn(s).",
+        description: "When the wearer uses their Ultimate, increases ATK by 24% for 2 turn(s).",
         stats: null,
     },
     {
@@ -1275,7 +1275,7 @@ export const LIGHT_CONES = [
         path: "Destruction",
         icon: "icon/light_cone/20009.png",
         baseStats: { hp: 847, atk: 370, def: 198 },
-        description: "The wearer deals 0% more DMG to enemy targets whose HP percentage is greater than 0%.",
+        description: "The wearer deals 20% more DMG to enemy targets whose HP percentage is greater than 50%.",
         stats: null,
     },
     {
@@ -1283,7 +1283,7 @@ export const LIGHT_CONES = [
         path: "Elation",
         icon: "icon/light_cone/20023.png",
         baseStats: { hp: 741, atk: 370, def: 265 },
-        description: "When Aha Instant is activated, the wearer's Elation increases by 0%, lasting until Aha Instant ends.",
+        description: "When Aha Instant is activated, the wearer's Elation increases by 16%, lasting until Aha Instant ends.",
         stats: null,
     },
     {
@@ -1291,7 +1291,7 @@ export const LIGHT_CONES = [
         path: "Nihility",
         icon: "icon/light_cone/20004.png",
         baseStats: { hp: 847, atk: 318, def: 265 },
-        description: "At the start of the battle, the wearer's Effect Hit Rate increases by 0% for 3 turn(s).",
+        description: "At the start of the battle, the wearer's Effect Hit Rate increases by 20% for 3 turn(s).",
         stats: null,
     },
 ];
