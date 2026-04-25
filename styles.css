@@ -966,6 +966,103 @@ h1 {
     color: #ef5350;
 }
 
+/* === SET BONUS TRACKER === */
+#set-bonus-tracker {
+    margin-top: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+.set-bonus-tracker-heading {
+    font-size: 0.72em;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    color: #555;
+    font-weight: 700;
+    margin-bottom: 8px;
+    margin-top: 4px;
+}
+
+.sbt-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 5px 8px;
+    border-radius: 5px;
+    font-size: 0.78em;
+}
+
+.sbt-active {
+    background-color: #1a2a1a;
+    border: 1px solid #2a4a2a;
+}
+
+.sbt-inactive {
+    background-color: #181818;
+    border: 1px solid #222;
+    opacity: 0.55;
+}
+
+.sbt-4pc-row {
+    margin-top: -2px;
+}
+
+.sbt-badge {
+    font-size: 0.82em;
+    color: #4caf50;
+    font-weight: 700;
+    min-width: 26px;
+    flex-shrink: 0;
+}
+
+.sbt-inactive .sbt-badge {
+    color: #555;
+}
+
+.sbt-badge-4pc {
+    visibility: hidden;
+}
+
+.sbt-set-name {
+    flex: 1;
+    color: #ccc;
+    font-weight: 500;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.sbt-threshold {
+    font-size: 0.82em;
+    font-weight: 700;
+    color: #4caf50;
+    flex-shrink: 0;
+}
+
+.sbt-inactive .sbt-threshold {
+    color: #444;
+}
+
+.sbt-bonus-text {
+    font-size: 0.72em;
+    line-height: 1.4;
+    padding: 3px 8px 6px 8px;
+    border-left: 2px solid #2a4a2a;
+    margin-left: 4px;
+    margin-bottom: 4px;
+}
+
+.sbt-text-active {
+    color: #aaa;
+    border-color: #2a4a2a;
+}
+
+.sbt-text-inactive {
+    color: #3a3a3a;
+    border-color: #222;
+}
+
 /* === SLOT PICKER OVERLAY === */
 .slot-picker-overlay {
     position: fixed;

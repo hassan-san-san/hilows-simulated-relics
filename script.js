@@ -586,7 +586,30 @@ function renderCharView() {
     const lc = currentLcId ? LIGHT_CONES.find(l => l.id === currentLcId) : null;
     const lcBase = lc ? lc.baseStats : { hp: 0, atk: 0, def: 0 };
 
-    // Stat formula: (charBase + lcBase) * (1 + trace%) + flat trace deltas
+    // Collect relic stat contributions
+    // Maps stat name → which accumulator bucket it feeds
+    const RELIC_STAT_MAP = {
+        'HP': 'flatHP', 'ATK': 'flatATK', 'DEF': 'flatDEF',
+        'HP%': 'hpPct', 'ATK%': 'atkPct', 'DEF%': 'defPct',
+        'SPD': 'spd', 'CRIT Rate': 'critRate', 'CRIT DMG': 'critDmg'
+    };
+    const rc = { flatHP: 0, flatATK: 0, flatDEF: 0, hpPct: 0, atkPct: 0, defPct: 0, spd: 0, critRate: 0, critDmg: 0 };
+    const equippedNow = getEquippedRelics(currentCharId);
+    const equippedCount = Object.keys(equippedNow).length;
+
+    Object.values(equippedNow).forEach(relic => {
+        // Main stat contribution
+        const mainVal = calculateMainStatValue(relic.mainStat, relic.level);
+        const mainKey = RELIC_STAT_MAP[relic.mainStat];
+        if (mainKey) rc[mainKey] += mainVal;
+        // Substat contributions
+        relic.substats.forEach(sub => {
+            const subKey = RELIC_STAT_MAP[sub.stat];
+            if (subKey) rc[subKey] += sub.value;
+        });
+    });
+
+    // Full formula: (charBase + lcBase) * (1 + trace% + relic%) + flatRelics
     const bs = char.baseStats;
     const tr = char.traces;
 
@@ -597,14 +620,22 @@ function renderCharView() {
     const crBonus = tr['CRIT Rate'] || 0;
     const cdBonus = tr['CRIT DMG']  || 0;
 
-    const finalHp  = Math.round((bs.hp  + lcBase.hp)  * (1 + hpPct));
-    const finalAtk = Math.round((bs.atk + lcBase.atk) * (1 + atkPct));
-    const finalDef = Math.round((bs.def + lcBase.def) * (1 + defPct));
-    const finalSpd = bs.spd + spdDelta;
-    const finalCr  = bs.critRate + crBonus;
-    const finalCd  = bs.critDmg  + cdBonus;
+    const finalHp  = Math.round((bs.hp  + lcBase.hp)  * (1 + hpPct  + rc.hpPct)  + rc.flatHP);
+    const finalAtk = Math.round((bs.atk + lcBase.atk) * (1 + atkPct + rc.atkPct) + rc.flatATK);
+    const finalDef = Math.round((bs.def + lcBase.def) * (1 + defPct + rc.defPct) + rc.flatDEF);
+    const finalSpd = +(bs.spd + spdDelta + rc.spd).toFixed(1);
+    const finalCr  = bs.critRate + crBonus + rc.critRate;
+    const finalCd  = bs.critDmg  + cdBonus + rc.critDmg;
 
-    const lcLabel = lc ? ` <span style="font-size:0.75em;color:#555">(+LC)</span>` : '';
+    // Update heading to reflect what's included
+    const statsHeading = document.querySelector('.char-stats-panel .char-stats-heading');
+    if (statsHeading) {
+        const parts = ['Lv. 80'];
+        if (lc) parts.push('LC');
+        if (equippedCount > 0) parts.push(`${equippedCount}/6 relics`);
+        statsHeading.innerHTML = `Stats <span class="char-stats-level">(${parts.join(' · ')})</span>`;
+    }
+
     const statsTable = document.getElementById('char-stats-table');
     statsTable.innerHTML = [
         ['HP',        finalHp],
@@ -613,7 +644,7 @@ function renderCharView() {
         ['SPD',       finalSpd],
         ['CRIT Rate', `${(finalCr * 100).toFixed(1)}%`],
         ['CRIT DMG',  `${(finalCd * 100).toFixed(1)}%`],
-    ].map(([name, val]) => `<tr><td>${name}${name === 'HP' ? lcLabel : ''}</td><td>${val}</td></tr>`).join('');
+    ].map(([name, val]) => `<tr><td>${name}</td><td>${val}</td></tr>`).join('');
 
     // Traces table
     const tracesTable = document.getElementById('char-traces-table');
@@ -626,6 +657,66 @@ function renderCharView() {
     tracesTable.innerHTML = traceRows.join('') || '<tr><td colspan="2" style="color:#444">None</td></tr>';
 
     renderSlots();
+}
+
+// --- SET BONUS TRACKER ---
+
+function renderSetBonuses() {
+    const tracker = document.getElementById('set-bonus-tracker');
+    if (!tracker) return;
+
+    const equippedNow = getEquippedRelics(currentCharId);
+    const allSets = [...RELIC_SETS.cavern, ...RELIC_SETS.planar];
+
+    // Count how many relics per set name
+    const setCounts = {};
+    Object.values(equippedNow).forEach(relic => {
+        setCounts[relic.setName] = (setCounts[relic.setName] || 0) + 1;
+    });
+
+    if (Object.keys(setCounts).length === 0) {
+        tracker.innerHTML = '';
+        return;
+    }
+
+    // Build rows — sorted by count desc so active bonuses appear first
+    const entries = Object.entries(setCounts).sort((a, b) => b[1] - a[1]);
+
+    let html = '<div class="set-bonus-tracker-heading">Set Bonuses</div>';
+
+    entries.forEach(([setName, count]) => {
+        const setData = allSets.find(s => s.name === setName);
+        if (!setData) return;
+
+        const has2pc = count >= 2;
+        const has4pc = count >= 4 && setData.bonus4pc;
+
+        const maxPieces = setData.bonus4pc ? 4 : 2;
+
+        // 2pc row
+        html += `
+            <div class="sbt-row ${has2pc ? 'sbt-active' : 'sbt-inactive'}">
+                <span class="sbt-badge">${count}/${maxPieces}</span>
+                <span class="sbt-set-name">${setName}</span>
+                <span class="sbt-threshold">2pc</span>
+            </div>
+            <div class="sbt-bonus-text ${has2pc ? 'sbt-text-active' : 'sbt-text-inactive'}">${setData.bonus2pc}</div>
+        `;
+
+        // 4pc row (only for cavern sets that have one)
+        if (setData.bonus4pc) {
+            html += `
+                <div class="sbt-row ${has4pc ? 'sbt-active' : 'sbt-inactive'} sbt-4pc-row">
+                    <span class="sbt-badge sbt-badge-4pc">${count}/4</span>
+                    <span class="sbt-set-name"></span>
+                    <span class="sbt-threshold">4pc</span>
+                </div>
+                <div class="sbt-bonus-text ${has4pc ? 'sbt-text-active' : 'sbt-text-inactive'}">${setData.bonus4pc}</div>
+            `;
+        }
+    });
+
+    tracker.innerHTML = html;
 }
 
 // --- EQUIP SYSTEM ---
@@ -684,6 +775,8 @@ function renderSlots() {
             `;
         }
     });
+
+    renderSetBonuses();
 }
 
 // --- SLOT PICKER ---
