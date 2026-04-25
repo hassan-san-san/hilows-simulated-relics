@@ -743,7 +743,26 @@ function updateCharStats() {
     statsTable.innerHTML = html;
 }
 
+function renderLcDescPanel() {
+    const lcDescPanel = document.getElementById('lc-desc-panel');
+    if (!lcDescPanel) return;
+    const lc = currentLcId ? LIGHT_CONES.find(l => l.id === currentLcId) : null;
+    if (lc && lc.description) {
+        const starCol = lc.rarity === 5 ? '#ffa500' : '#42a5f5';
+        lcDescPanel.innerHTML = `
+            <span class="lc-desc-name" style="color:${starCol}">${lc.name}</span>
+            <span class="lc-desc-stars" style="color:${starCol}">${'★'.repeat(lc.rarity)}</span>
+            <p class="lc-desc-text">${lc.description}</p>
+        `;
+        lcDescPanel.classList.remove('hidden');
+    } else {
+        lcDescPanel.innerHTML = '';
+        lcDescPanel.classList.add('hidden');
+    }
+}
+
 function renderCharView() {
+    renderLcDescPanel();
     const charView = document.getElementById('char-view');
     if (!currentCharId) { charView.classList.add('hidden'); return; }
 
@@ -778,24 +797,6 @@ function renderCharView() {
         return `<tr><td>${stat}</td><td class="stat-highlight">${display}</td></tr>`;
     });
     tracesTable.innerHTML = traceRows.join('') || '<tr><td colspan="2" style="color:#444">None</td></tr>';
-
-    // LC description panel
-    const lcDescPanel = document.getElementById('lc-desc-panel');
-    if (lcDescPanel) {
-        const lc = currentLcId ? LIGHT_CONES.find(l => l.id === currentLcId) : null;
-        if (lc && lc.description) {
-            const starCol = lc.rarity === 5 ? '#ffa500' : '#42a5f5';
-            lcDescPanel.innerHTML = `
-                <span class="lc-desc-name" style="color:${starCol}">${lc.name}</span>
-                <span class="lc-desc-stars" style="color:${starCol}">${'★'.repeat(lc.rarity)}</span>
-                <p class="lc-desc-text">${lc.description}</p>
-            `;
-            lcDescPanel.classList.remove('hidden');
-        } else {
-            lcDescPanel.innerHTML = '';
-            lcDescPanel.classList.add('hidden');
-        }
-    }
 
     updateCharStats();
     renderSlots();

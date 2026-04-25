@@ -492,8 +492,8 @@ export const RELIC_SETS = {
             pieces: { "Planar Sphere": "Livestream's Protean Vistas", "Link Rope": "Livestream's Chatter Banter" },
             bonus2pc: "Increases the wearer's CRIT DMG by 16%. If 3 or more Skill Points are consumed in the same turn, additionally increases the wearer's CRIT DMG by 32%, lasting for 3 turns.",
             bonus4pc: "",
-            stats2pc: null, // NEW SET — fill in unconditional passive stat bonuses
-            stats4pc: null, // NEW SET — fill in unconditional passive stat bonuses (cavern only; null for planar if no 4pc)
+            stats2pc: null,
+            stats4pc: null,
         },
         {
             name: "Punklorde Stage Zero",

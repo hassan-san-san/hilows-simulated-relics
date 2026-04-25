@@ -974,7 +974,6 @@ h1 {
 
 /* === LC DESCRIPTION PANEL === */
 .lc-desc-panel {
-    flex: 0 0 100%;          /* full-width row below the three columns */
     background-color: #141414;
     border: 1px solid #272727;
     border-radius: 8px;
@@ -983,6 +982,7 @@ h1 {
     flex-wrap: wrap;
     align-items: baseline;
     gap: 6px 10px;
+    margin-bottom: 16px;
 }
 
 .lc-desc-name {
