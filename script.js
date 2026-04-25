@@ -558,18 +558,32 @@ function buildLcSelector(charPath) {
     container.appendChild(dropdown);
 }
 
-// Percentage relic stats are stored as display values (e.g. 14.6 for 14.6%).
-// These must be divided by 100 before being applied to the formula, which works in decimal fractions.
+// Relic stat name → accumulator key + whether it's stored as a display % (needs /100).
+// Flat stats (HP, ATK, DEF, SPD) are stored as raw numbers; percentage stats are stored
+// as display values (e.g. 14.6 for 14.6%) and must be divided by 100.
+// Set bonus values in relicSets.js are already in decimal form and do NOT need dividing.
 const RELIC_STAT_MAP = {
-    'HP':         { key: 'flatHP',   pct: false },
-    'ATK':        { key: 'flatATK',  pct: false },
-    'DEF':        { key: 'flatDEF',  pct: false },
-    'HP%':        { key: 'hpPct',    pct: true  },
-    'ATK%':       { key: 'atkPct',   pct: true  },
-    'DEF%':       { key: 'defPct',   pct: true  },
-    'SPD':        { key: 'spd',      pct: false },
-    'CRIT Rate':  { key: 'critRate', pct: true  },
-    'CRIT DMG':   { key: 'critDmg',  pct: true  },
+    'HP':                       { key: 'flatHP',       pct: false },
+    'ATK':                      { key: 'flatATK',      pct: false },
+    'DEF':                      { key: 'flatDEF',      pct: false },
+    'HP%':                      { key: 'hpPct',        pct: true  },
+    'ATK%':                     { key: 'atkPct',       pct: true  },
+    'DEF%':                     { key: 'defPct',       pct: true  },
+    'SPD':                      { key: 'spd',          pct: false },
+    'CRIT Rate':                { key: 'critRate',     pct: true  },
+    'CRIT DMG':                 { key: 'critDmg',      pct: true  },
+    'Break Effect':             { key: 'breakEffect',  pct: true  },
+    'Effect Hit Rate':          { key: 'effectHitRate',pct: true  },
+    'Effect RES':               { key: 'effectRes',    pct: true  },
+    'Healing Boost':            { key: 'healingBoost', pct: true  },
+    'Energy Regeneration Rate': { key: 'energyRegen',  pct: true  },
+    'Physical DMG':             { key: 'physicalDmg',  pct: true  },
+    'Fire DMG':                 { key: 'fireDmg',      pct: true  },
+    'Ice DMG':                  { key: 'iceDmg',       pct: true  },
+    'Wind DMG':                 { key: 'windDmg',      pct: true  },
+    'Lightning DMG':            { key: 'lightningDmg', pct: true  },
+    'Quantum DMG':              { key: 'quantumDmg',   pct: true  },
+    'Imaginary DMG':            { key: 'imaginaryDmg', pct: true  },
 };
 
 function updateCharStats() {
@@ -580,26 +594,50 @@ function updateCharStats() {
     const lc     = currentLcId ? LIGHT_CONES.find(l => l.id === currentLcId) : null;
     const lcBase = lc ? lc.baseStats : { hp: 0, atk: 0, def: 0 };
 
-    const rc = { flatHP: 0, flatATK: 0, flatDEF: 0, hpPct: 0, atkPct: 0, defPct: 0, spd: 0, critRate: 0, critDmg: 0 };
-    const equippedNow  = getEquippedRelics(currentCharId);
+    // Accumulator — all values in decimal fraction form
+    const rc = {
+        flatHP: 0, flatATK: 0, flatDEF: 0,
+        hpPct: 0, atkPct: 0, defPct: 0,
+        spd: 0, spdPct: 0,
+        critRate: 0, critDmg: 0,
+        breakEffect: 0, effectHitRate: 0, effectRes: 0,
+        healingBoost: 0, energyRegen: 0, shieldEffect: 0,
+        physicalDmg: 0, fireDmg: 0, iceDmg: 0, windDmg: 0,
+        lightningDmg: 0, quantumDmg: 0, imaginaryDmg: 0,
+    };
+
+    const equippedNow   = getEquippedRelics(currentCharId);
     const equippedCount = Object.keys(equippedNow).length;
 
+    // 1. Relic main stat + substat contributions (display values → divide pct by 100)
     Object.values(equippedNow).forEach(relic => {
-        // Main stat
         const mainVal  = calculateMainStatValue(relic.mainStat, relic.level);
         const mainMeta = RELIC_STAT_MAP[relic.mainStat];
         if (mainMeta) rc[mainMeta.key] += mainMeta.pct ? mainVal / 100 : mainVal;
 
-        // Substats
         relic.substats.forEach(sub => {
             const subMeta = RELIC_STAT_MAP[sub.stat];
             if (subMeta) rc[subMeta.key] += subMeta.pct ? sub.value / 100 : sub.value;
         });
     });
 
-    const bs = char.baseStats;
-    const tr = char.traces;
+    // 2. Set bonus contributions (values already in decimal form, no division needed)
+    const allSets = [...RELIC_SETS.cavern, ...RELIC_SETS.planar];
+    const setCounts = {};
+    Object.values(equippedNow).forEach(r => { setCounts[r.setName] = (setCounts[r.setName] || 0) + 1; });
+    Object.entries(setCounts).forEach(([setName, count]) => {
+        const setData = allSets.find(s => s.name === setName);
+        if (!setData) return;
+        if (count >= 2 && setData.stats2pc) {
+            Object.entries(setData.stats2pc).forEach(([key, val]) => { if (key in rc) rc[key] += val; });
+        }
+        if (count >= 4 && setData.stats4pc) {
+            Object.entries(setData.stats4pc).forEach(([key, val]) => { if (key in rc) rc[key] += val; });
+        }
+    });
 
+    // 3. Trace contributions (traces are in decimal form, add directly)
+    const tr = char.traces;
     const hpPct    = tr['HP%']       || 0;
     const atkPct   = tr['ATK%']      || 0;
     const defPct   = tr['DEF%']      || 0;
@@ -607,14 +645,33 @@ function updateCharStats() {
     const crBonus  = tr['CRIT Rate'] || 0;
     const cdBonus  = tr['CRIT DMG']  || 0;
 
+    // Secondary stat traces fold directly into rc
+    rc.breakEffect   += tr['Break Effect']            || 0;
+    rc.effectHitRate += tr['Effect Hit Rate']          || 0;
+    rc.effectRes     += tr['Effect RES']               || 0;
+    rc.healingBoost  += tr['Healing Boost']            || 0;
+    rc.energyRegen   += tr['Energy Regeneration Rate'] || 0;
+    rc.shieldEffect  += tr['Shield Effect']            || 0;
+    rc.physicalDmg   += tr['Physical DMG']             || 0;
+    rc.fireDmg       += tr['Fire DMG']                 || 0;
+    rc.iceDmg        += tr['Ice DMG']                  || 0;
+    rc.windDmg       += tr['Wind DMG']                 || 0;
+    rc.lightningDmg  += tr['Lightning DMG']            || 0;
+    rc.quantumDmg    += tr['Quantum DMG']              || 0;
+    rc.imaginaryDmg  += tr['Imaginary DMG']            || 0;
+
+    // 4. Final values
+    const bs = char.baseStats;
+
     const finalHp  = Math.round((bs.hp  + lcBase.hp)  * (1 + hpPct  + rc.hpPct)  + rc.flatHP);
     const finalAtk = Math.round((bs.atk + lcBase.atk) * (1 + atkPct + rc.atkPct) + rc.flatATK);
     const finalDef = Math.round((bs.def + lcBase.def) * (1 + defPct + rc.defPct) + rc.flatDEF);
-    const finalSpd = +(bs.spd + spdDelta + rc.spd).toFixed(1);
+    // SPD%: multiplies base SPD only; flat additions (traces, relic substats) are additive after
+    const finalSpd = +(bs.spd * (1 + rc.spdPct) + spdDelta + rc.spd).toFixed(1);
     const finalCr  = bs.critRate + crBonus + rc.critRate;
     const finalCd  = bs.critDmg  + cdBonus + rc.critDmg;
 
-    // Update heading
+    // 5. Update heading
     const statsHeading = document.querySelector('.char-stats-panel .char-stats-heading');
     if (statsHeading) {
         const parts = ['Lv. 80'];
@@ -623,17 +680,54 @@ function updateCharStats() {
         statsHeading.innerHTML = `Stats <span class="char-stats-level">(${parts.join(' · ')})</span>`;
     }
 
+    // 6. Build stats table
     const statsTable = document.getElementById('char-stats-table');
-    if (statsTable) {
-        statsTable.innerHTML = [
-            ['HP',        finalHp],
-            ['ATK',       finalAtk],
-            ['DEF',       finalDef],
-            ['SPD',       finalSpd],
-            ['CRIT Rate', `${(finalCr * 100).toFixed(1)}%`],
-            ['CRIT DMG',  `${(finalCd * 100).toFixed(1)}%`],
-        ].map(([name, val]) => `<tr><td>${name}</td><td>${val}</td></tr>`).join('');
-    }
+    if (!statsTable) return;
+
+    const row = (name, val) => `<tr><td>${name}</td><td>${val}</td></tr>`;
+    const divider = '<tr class="stat-section-div"><td colspan="2"></td></tr>';
+    const pct1 = v => `${(v * 100).toFixed(1)}%`;
+
+    // Core stats — always shown
+    let html = [
+        row('HP',        finalHp),
+        row('ATK',       finalAtk),
+        row('DEF',       finalDef),
+        row('SPD',       finalSpd),
+        row('CRIT Rate', pct1(finalCr)),
+        row('CRIT DMG',  pct1(finalCd)),
+    ].join('');
+
+    // Secondary stats — shown if > 0
+    const secondary = [
+        ['Break Effect',    rc.breakEffect,   pct1],
+        ['Effect Hit Rate', rc.effectHitRate, pct1],
+        ['Effect RES',      rc.effectRes,     pct1],
+        ['Healing Boost',   rc.healingBoost,  pct1],
+        ['Energy Regen',    rc.energyRegen,   v => pct1(1 + v)], // display as total e.g. 105.0%
+        ['Shield Effect',   rc.shieldEffect,  pct1],
+    ].filter(([, v]) => v > 0.0001)
+     .map(([n, v, fmt]) => row(n, fmt(v)))
+     .join('');
+
+    if (secondary) html += divider + secondary;
+
+    // Elemental DMG% — shown if > 0
+    const elemental = [
+        ['Physical DMG',  rc.physicalDmg],
+        ['Fire DMG',      rc.fireDmg],
+        ['Ice DMG',       rc.iceDmg],
+        ['Wind DMG',      rc.windDmg],
+        ['Lightning DMG', rc.lightningDmg],
+        ['Quantum DMG',   rc.quantumDmg],
+        ['Imaginary DMG', rc.imaginaryDmg],
+    ].filter(([, v]) => v > 0.0001)
+     .map(([n, v]) => row(n, pct1(v)))
+     .join('');
+
+    if (elemental) html += divider + elemental;
+
+    statsTable.innerHTML = html;
 }
 
 function renderCharView() {

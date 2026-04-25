@@ -810,6 +810,12 @@ h1 {
     font-weight: 500;
 }
 
+.char-stats-table tr.stat-section-div td {
+    padding: 0;
+    height: 6px;
+    border-bottom: 1px solid #252525;
+}
+
 .stat-highlight {
     color: #ffa500 !important;
 }
