@@ -558,6 +558,84 @@ function buildLcSelector(charPath) {
     container.appendChild(dropdown);
 }
 
+// Percentage relic stats are stored as display values (e.g. 14.6 for 14.6%).
+// These must be divided by 100 before being applied to the formula, which works in decimal fractions.
+const RELIC_STAT_MAP = {
+    'HP':         { key: 'flatHP',   pct: false },
+    'ATK':        { key: 'flatATK',  pct: false },
+    'DEF':        { key: 'flatDEF',  pct: false },
+    'HP%':        { key: 'hpPct',    pct: true  },
+    'ATK%':       { key: 'atkPct',   pct: true  },
+    'DEF%':       { key: 'defPct',   pct: true  },
+    'SPD':        { key: 'spd',      pct: false },
+    'CRIT Rate':  { key: 'critRate', pct: true  },
+    'CRIT DMG':   { key: 'critDmg',  pct: true  },
+};
+
+function updateCharStats() {
+    if (!currentCharId) return;
+    const char = CHARACTERS.find(c => c.id === currentCharId);
+    if (!char) return;
+
+    const lc     = currentLcId ? LIGHT_CONES.find(l => l.id === currentLcId) : null;
+    const lcBase = lc ? lc.baseStats : { hp: 0, atk: 0, def: 0 };
+
+    const rc = { flatHP: 0, flatATK: 0, flatDEF: 0, hpPct: 0, atkPct: 0, defPct: 0, spd: 0, critRate: 0, critDmg: 0 };
+    const equippedNow  = getEquippedRelics(currentCharId);
+    const equippedCount = Object.keys(equippedNow).length;
+
+    Object.values(equippedNow).forEach(relic => {
+        // Main stat
+        const mainVal  = calculateMainStatValue(relic.mainStat, relic.level);
+        const mainMeta = RELIC_STAT_MAP[relic.mainStat];
+        if (mainMeta) rc[mainMeta.key] += mainMeta.pct ? mainVal / 100 : mainVal;
+
+        // Substats
+        relic.substats.forEach(sub => {
+            const subMeta = RELIC_STAT_MAP[sub.stat];
+            if (subMeta) rc[subMeta.key] += subMeta.pct ? sub.value / 100 : sub.value;
+        });
+    });
+
+    const bs = char.baseStats;
+    const tr = char.traces;
+
+    const hpPct    = tr['HP%']       || 0;
+    const atkPct   = tr['ATK%']      || 0;
+    const defPct   = tr['DEF%']      || 0;
+    const spdDelta = tr['SPD']       || 0;
+    const crBonus  = tr['CRIT Rate'] || 0;
+    const cdBonus  = tr['CRIT DMG']  || 0;
+
+    const finalHp  = Math.round((bs.hp  + lcBase.hp)  * (1 + hpPct  + rc.hpPct)  + rc.flatHP);
+    const finalAtk = Math.round((bs.atk + lcBase.atk) * (1 + atkPct + rc.atkPct) + rc.flatATK);
+    const finalDef = Math.round((bs.def + lcBase.def) * (1 + defPct + rc.defPct) + rc.flatDEF);
+    const finalSpd = +(bs.spd + spdDelta + rc.spd).toFixed(1);
+    const finalCr  = bs.critRate + crBonus + rc.critRate;
+    const finalCd  = bs.critDmg  + cdBonus + rc.critDmg;
+
+    // Update heading
+    const statsHeading = document.querySelector('.char-stats-panel .char-stats-heading');
+    if (statsHeading) {
+        const parts = ['Lv. 80'];
+        if (lc) parts.push('LC');
+        if (equippedCount > 0) parts.push(`${equippedCount}/6 relics`);
+        statsHeading.innerHTML = `Stats <span class="char-stats-level">(${parts.join(' · ')})</span>`;
+    }
+
+    const statsTable = document.getElementById('char-stats-table');
+    if (statsTable) {
+        statsTable.innerHTML = [
+            ['HP',        finalHp],
+            ['ATK',       finalAtk],
+            ['DEF',       finalDef],
+            ['SPD',       finalSpd],
+            ['CRIT Rate', `${(finalCr * 100).toFixed(1)}%`],
+            ['CRIT DMG',  `${(finalCd * 100).toFixed(1)}%`],
+        ].map(([name, val]) => `<tr><td>${name}</td><td>${val}</td></tr>`).join('');
+    }
+}
+
 function renderCharView() {
     const charView = document.getElementById('char-view');
     if (!currentCharId) { charView.classList.add('hidden'); return; }
@@ -582,71 +660,7 @@ function renderCharView() {
         `<span class="char-rarity-star">${stars}</span> &nbsp;` +
         `<span style="color:${elemCol}">${char.element}</span> · ${char.path}`;
 
-    // Resolve selected LC
-    const lc = currentLcId ? LIGHT_CONES.find(l => l.id === currentLcId) : null;
-    const lcBase = lc ? lc.baseStats : { hp: 0, atk: 0, def: 0 };
-
-    // Collect relic stat contributions
-    // Maps stat name → which accumulator bucket it feeds
-    const RELIC_STAT_MAP = {
-        'HP': 'flatHP', 'ATK': 'flatATK', 'DEF': 'flatDEF',
-        'HP%': 'hpPct', 'ATK%': 'atkPct', 'DEF%': 'defPct',
-        'SPD': 'spd', 'CRIT Rate': 'critRate', 'CRIT DMG': 'critDmg'
-    };
-    const rc = { flatHP: 0, flatATK: 0, flatDEF: 0, hpPct: 0, atkPct: 0, defPct: 0, spd: 0, critRate: 0, critDmg: 0 };
-    const equippedNow = getEquippedRelics(currentCharId);
-    const equippedCount = Object.keys(equippedNow).length;
-
-    Object.values(equippedNow).forEach(relic => {
-        // Main stat contribution
-        const mainVal = calculateMainStatValue(relic.mainStat, relic.level);
-        const mainKey = RELIC_STAT_MAP[relic.mainStat];
-        if (mainKey) rc[mainKey] += mainVal;
-        // Substat contributions
-        relic.substats.forEach(sub => {
-            const subKey = RELIC_STAT_MAP[sub.stat];
-            if (subKey) rc[subKey] += sub.value;
-        });
-    });
-
-    // Full formula: (charBase + lcBase) * (1 + trace% + relic%) + flatRelics
-    const bs = char.baseStats;
-    const tr = char.traces;
-
-    const hpPct   = tr['HP%']       || 0;
-    const atkPct  = tr['ATK%']      || 0;
-    const defPct  = tr['DEF%']      || 0;
-    const spdDelta= tr['SPD']       || 0;
-    const crBonus = tr['CRIT Rate'] || 0;
-    const cdBonus = tr['CRIT DMG']  || 0;
-
-    const finalHp  = Math.round((bs.hp  + lcBase.hp)  * (1 + hpPct  + rc.hpPct)  + rc.flatHP);
-    const finalAtk = Math.round((bs.atk + lcBase.atk) * (1 + atkPct + rc.atkPct) + rc.flatATK);
-    const finalDef = Math.round((bs.def + lcBase.def) * (1 + defPct + rc.defPct) + rc.flatDEF);
-    const finalSpd = +(bs.spd + spdDelta + rc.spd).toFixed(1);
-    const finalCr  = bs.critRate + crBonus + rc.critRate;
-    const finalCd  = bs.critDmg  + cdBonus + rc.critDmg;
-
-    // Update heading to reflect what's included
-    const statsHeading = document.querySelector('.char-stats-panel .char-stats-heading');
-    if (statsHeading) {
-        const parts = ['Lv. 80'];
-        if (lc) parts.push('LC');
-        if (equippedCount > 0) parts.push(`${equippedCount}/6 relics`);
-        statsHeading.innerHTML = `Stats <span class="char-stats-level">(${parts.join(' · ')})</span>`;
-    }
-
-    const statsTable = document.getElementById('char-stats-table');
-    statsTable.innerHTML = [
-        ['HP',        finalHp],
-        ['ATK',       finalAtk],
-        ['DEF',       finalDef],
-        ['SPD',       finalSpd],
-        ['CRIT Rate', `${(finalCr * 100).toFixed(1)}%`],
-        ['CRIT DMG',  `${(finalCd * 100).toFixed(1)}%`],
-    ].map(([name, val]) => `<tr><td>${name}</td><td>${val}</td></tr>`).join('');
-
-    // Traces table
+    // Traces table (only needs to render once per character change)
     const tracesTable = document.getElementById('char-traces-table');
     const traceRows = Object.entries(char.traces).map(([stat, val]) => {
         const display = typeof val === 'number' && val < 10
@@ -656,6 +670,7 @@ function renderCharView() {
     });
     tracesTable.innerHTML = traceRows.join('') || '<tr><td colspan="2" style="color:#444">None</td></tr>';
 
+    updateCharStats();
     renderSlots();
 }
 
@@ -777,6 +792,7 @@ function renderSlots() {
     });
 
     renderSetBonuses();
+    updateCharStats();
 }
 
 // --- SLOT PICKER ---
