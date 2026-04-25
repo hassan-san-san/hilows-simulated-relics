@@ -584,6 +584,7 @@ const RELIC_STAT_MAP = {
     'Lightning DMG':            { key: 'lightningDmg', pct: true  },
     'Quantum DMG':              { key: 'quantumDmg',   pct: true  },
     'Imaginary DMG':            { key: 'imaginaryDmg', pct: true  },
+    'Elation DMG':              { key: 'elationDmg',   pct: true  },
 };
 
 function updateCharStats() {
@@ -603,7 +604,7 @@ function updateCharStats() {
         breakEffect: 0, effectHitRate: 0, effectRes: 0,
         healingBoost: 0, energyRegen: 0, shieldEffect: 0,
         physicalDmg: 0, fireDmg: 0, iceDmg: 0, windDmg: 0,
-        lightningDmg: 0, quantumDmg: 0, imaginaryDmg: 0,
+        lightningDmg: 0, quantumDmg: 0, imaginaryDmg: 0, elationDmg: 0,
     };
 
     const equippedNow   = getEquippedRelics(currentCharId);
@@ -621,7 +622,16 @@ function updateCharStats() {
         });
     });
 
-    // 2. Set bonus contributions (values already in decimal form, no division needed)
+    // 2. LC passive stat contributions (already in decimal form)
+    // baseSpdBonus is handled separately — it adds to base SPD before the SPD% multiplier
+    const lcBaseSpdBonus = (lc && lc.stats && lc.stats.baseSpdBonus) ? lc.stats.baseSpdBonus : 0;
+    if (lc && lc.stats) {
+        Object.entries(lc.stats).forEach(([key, val]) => {
+            if (key !== 'baseSpdBonus' && key in rc) rc[key] += val;
+        });
+    }
+
+    // 3. Set bonus contributions (values already in decimal form, no division needed)
     const allSets = [...RELIC_SETS.cavern, ...RELIC_SETS.planar];
     const setCounts = {};
     Object.values(equippedNow).forEach(r => { setCounts[r.setName] = (setCounts[r.setName] || 0) + 1; });
@@ -659,6 +669,7 @@ function updateCharStats() {
     rc.lightningDmg  += tr['Lightning DMG']            || 0;
     rc.quantumDmg    += tr['Quantum DMG']              || 0;
     rc.imaginaryDmg  += tr['Imaginary DMG']            || 0;
+    rc.elationDmg    += tr['Elation DMG']              || 0;
 
     // 4. Final values
     const bs = char.baseStats;
@@ -667,7 +678,8 @@ function updateCharStats() {
     const finalAtk = Math.round((bs.atk + lcBase.atk) * (1 + atkPct + rc.atkPct) + rc.flatATK);
     const finalDef = Math.round((bs.def + lcBase.def) * (1 + defPct + rc.defPct) + rc.flatDEF);
     // SPD%: multiplies base SPD only; flat additions (traces, relic substats) are additive after
-    const finalSpd = +(bs.spd * (1 + rc.spdPct) + spdDelta + rc.spd).toFixed(1);
+    // lcBaseSpdBonus (e.g. Aglaea's LC) increases the base value before the % multiplier
+    const finalSpd = +((bs.spd + lcBaseSpdBonus) * (1 + rc.spdPct) + spdDelta + rc.spd).toFixed(1);
     const finalCr  = bs.critRate + crBonus + rc.critRate;
     const finalCd  = bs.critDmg  + cdBonus + rc.critDmg;
 
@@ -721,6 +733,7 @@ function updateCharStats() {
         ['Lightning DMG', rc.lightningDmg],
         ['Quantum DMG',   rc.quantumDmg],
         ['Imaginary DMG', rc.imaginaryDmg],
+        ['Elation DMG',   rc.elationDmg],
     ].filter(([, v]) => v > 0.0001)
      .map(([n, v]) => row(n, pct1(v)))
      .join('');
@@ -755,14 +768,34 @@ function renderCharView() {
         `<span style="color:${elemCol}">${char.element}</span> · ${char.path}`;
 
     // Traces table (only needs to render once per character change)
+    // Flat trace stats are raw numbers (e.g. SPD +5). Everything else is a decimal fraction (0.225 = 22.5%).
+    const FLAT_TRACE_STATS = new Set(['SPD', 'HP', 'ATK', 'DEF']);
     const tracesTable = document.getElementById('char-traces-table');
     const traceRows = Object.entries(char.traces).map(([stat, val]) => {
-        const display = typeof val === 'number' && val < 10
-            ? `+${(val * 100).toFixed(1)}%`
-            : `+${val}`;
+        const display = FLAT_TRACE_STATS.has(stat)
+            ? `+${val}`
+            : `+${(val * 100).toFixed(1)}%`;
         return `<tr><td>${stat}</td><td class="stat-highlight">${display}</td></tr>`;
     });
     tracesTable.innerHTML = traceRows.join('') || '<tr><td colspan="2" style="color:#444">None</td></tr>';
+
+    // LC description panel
+    const lcDescPanel = document.getElementById('lc-desc-panel');
+    if (lcDescPanel) {
+        const lc = currentLcId ? LIGHT_CONES.find(l => l.id === currentLcId) : null;
+        if (lc && lc.description) {
+            const starCol = lc.rarity === 5 ? '#ffa500' : '#42a5f5';
+            lcDescPanel.innerHTML = `
+                <span class="lc-desc-name" style="color:${starCol}">${lc.name}</span>
+                <span class="lc-desc-stars" style="color:${starCol}">${'★'.repeat(lc.rarity)}</span>
+                <p class="lc-desc-text">${lc.description}</p>
+            `;
+            lcDescPanel.classList.remove('hidden');
+        } else {
+            lcDescPanel.innerHTML = '';
+            lcDescPanel.classList.add('hidden');
+        }
+    }
 
     updateCharStats();
     renderSlots();

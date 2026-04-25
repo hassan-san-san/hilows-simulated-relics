@@ -972,6 +972,39 @@ h1 {
     color: #ef5350;
 }
 
+/* === LC DESCRIPTION PANEL === */
+.lc-desc-panel {
+    flex: 0 0 100%;          /* full-width row below the three columns */
+    background-color: #141414;
+    border: 1px solid #272727;
+    border-radius: 8px;
+    padding: 12px 16px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 6px 10px;
+}
+
+.lc-desc-name {
+    font-size: 0.82em;
+    font-weight: 600;
+    flex-shrink: 0;
+}
+
+.lc-desc-stars {
+    font-size: 0.75em;
+    flex-shrink: 0;
+    margin-right: 4px;
+}
+
+.lc-desc-text {
+    flex: 0 0 100%;
+    font-size: 0.78em;
+    color: #888;
+    line-height: 1.55;
+    margin: 0;
+}
+
 /* === SET BONUS TRACKER === */
 #set-bonus-tracker {
     margin-top: 16px;

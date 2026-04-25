@@ -28,7 +28,7 @@ export const CHARACTERS = [
         path: "Nihility", element: "Imaginary",
         icon: "icon/character/1004.png", portrait: "image/character_portrait/1004.png",
         baseStats: { hp: 1125, atk: 621, def: 509, spd: 102, critRate: 0.05, critDmg: 0.5 },
-        traces: { "ATK%": 0.28, "Imaginary DMG": 0.144, "Effect RES": 0.1 }
+        traces: { "ATK%": 0.28, "Imaginary DMG": 0.288, "Effect RES": 0.2, "Effect Hit Rate": 0.28 }
     },
     {
         id: "1005", name: "Kafka", rarity: 5,
@@ -91,7 +91,7 @@ export const CHARACTERS = [
         path: "The Hunt", element: "Quantum",
         icon: "icon/character/1102.png", portrait: "image/character_portrait/1102.png",
         baseStats: { hp: 931, atk: 640, def: 364, spd: 115, critRate: 0.05, critDmg: 0.5 },
-        traces: { "ATK%": 0.28, "CRIT DMG": 0.24, "DEF%": 0.125 }
+        traces: { "ATK%": 0.56, "CRIT DMG": 0.48, "DEF%": 0.25 }
     },
     {
         id: "1103", name: "Serval", rarity: 4,
@@ -273,7 +273,7 @@ export const CHARACTERS = [
         path: "Abundance", element: "Wind",
         icon: "icon/character/1217.png", portrait: "image/character_portrait/1217.png",
         baseStats: { hp: 1358, atk: 602, def: 509, spd: 98, critRate: 0.05, critDmg: 0.5 },
-        traces: { "HP%": 0.28, "Effect RES": 0.18, "SPD": 5 }
+        traces: { "HP%": 0.56, "Effect RES": 0.36, "SPD": 10 }
     },
     {
         id: "1218", name: "Jiaoqiu", rarity: 5,
@@ -392,7 +392,7 @@ export const CHARACTERS = [
         path: "Destruction", element: "Fire",
         icon: "icon/character/1310.png", portrait: "image/character_portrait/1310.png",
         baseStats: { hp: 815, atk: 524, def: 776, spd: 104, critRate: 0.05, critDmg: 0.5 },
-        traces: { "Break Effect": 0.373, "Effect RES": 0.18, "SPD": 5 }
+        traces: { "Break Effect": 0.746, "Effect RES": 0.36, "SPD": 10 }
     },
     {
         id: "1312", name: "Misha", rarity: 4,
@@ -554,5 +554,19 @@ export const CHARACTERS = [
         icon: "icon/character/1504.png", portrait: "image/character_portrait/1504.png",
         baseStats: { hp: 854, atk: 776, def: 388, spd: 106, critRate: 0.05, critDmg: 0.5 },
         traces: { "CRIT DMG": 0.373, "Lightning DMG": 0.144, "ATK%": 0.1 }
+    },
+    {
+        id: "1505", name: "Evanescia", rarity: 5,
+        path: "Elation", element: "Physical",
+        icon: "icon/character/1505.png", portrait: "image/character_portrait/1505.png",
+        baseStats: { hp: 1048, atk: 737, def: 461, spd: 104, critRate: 0.05, critDmg: 0.5 },
+        traces: { "CRIT Rate": 0.187, "Elation DMG": 0.18, "SPD": 5 }
+    },
+    {
+        id: "1506", name: "Silver Wolf LV.999", rarity: 5,
+        path: "Elation", element: "Imaginary",
+        icon: "icon/character/1506.png", portrait: "image/character_portrait/1506.png",
+        baseStats: { hp: 1048, atk: 388, def: 655, spd: 110, critRate: 0.05, critDmg: 0.5 },
+        traces: { "CRIT Rate": 0.187, "SPD": 9, "Elation DMG": 0.1 }
     },
 ];
