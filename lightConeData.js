@@ -28,7 +28,7 @@ export const LIGHT_CONES = [
         icon: "icon/light_cone/23024.png",
         baseStats: { hp: 1058, atk: 635, def: 397 },
         description: "Increases the wearer's CRIT DMG by 36%. When the wearer hits an enemy target, inflicts Mirage Fizzle on the enemy, lasting for 1 turn. Each time the wearer attacks, this effect can only trigger 1 time on each target. The wearer deals 24% increased DMG to targets afflicted with Mirage Fizzle, and the DMG dealt by Ultimate additionally increases by 24%.",
-        stats: { critDmg: 0.28 },
+        stats: { critDmg: 0.36 },
     },
     {
         id: "23018", name: "An Instant Before A Gaze", rarity: 5,
@@ -44,7 +44,7 @@ export const LIGHT_CONES = [
         icon: "icon/light_cone/23020.png",
         baseStats: { hp: 953, atk: 582, def: 529 },
         description: "Increases the wearer's CRIT DMG by 20%. For every debuff on the enemy target, the wearer's CRIT DMG dealt against this target additionally increases by 8%, stacking up to 3 times. When using Ultimate to attack the enemy target, the wearer receives the \"Disputation\" effect, which increases DMG dealt by 36% and enables their Follow-Up ATKs to ignore 24% of the target's DEF. This effect lasts for 2 turns.",
-        stats: { critDmg: 0.32 },
+        stats: { critDmg: 0.20 },
     },
     {
         id: "23010", name: "Before Dawn", rarity: 5,
@@ -92,7 +92,7 @@ export const LIGHT_CONES = [
         icon: "icon/light_cone/23053.png",
         baseStats: { hp: 1058, atk: 582, def: 463 },
         description: "Increases the wearer's CRIT DMG by 48%. While the wearer is on the field, for every 1 Elation character in the team, increases the Skill Point upper limit by 1, up to a max increase of 3. For every 1 Skill Point the wearer consumes, enables the Elation DMG dealt by this unit to ignore 5.0% of enemy targets' DEF, stacking up to 4 times. If 4 or more Skill Points are consumed in the same turn, the wearer gains \"Stream Promo,\" which increases all allies' Elation by 20%. Light Cone effects of the same type cannot stack.",
-        stats: { critDmg: 0.36 },
+        stats: { critDmg: 0.48 },
     },
     {
         id: "23021", name: "Earthly Escapade", rarity: 5,
@@ -108,7 +108,7 @@ export const LIGHT_CONES = [
         icon: "icon/light_cone/23008.png",
         baseStats: { hp: 1164, atk: 582, def: 397 },
         description: "Increases the wearer's ATK by 24%. After the wearer uses an attack, for each different enemy target the wearer hits, regenerates 3.0 Energy. Each attack can regenerate Energy up to 3 time(s) this way. After the wearer uses their Ultimate, all allies gain 12 SPD for 1 turn.",
-        stats: { atkPct: 0.48 },
+        stats: { atkPct: 0.24 },
     },
     {
         id: "24006", name: "Elation Brimming With Blessings", rarity: 5,
@@ -116,7 +116,7 @@ export const LIGHT_CONES = [
         icon: "icon/light_cone/24006.png",
         baseStats: { hp: 953, atk: 529, def: 463 },
         description: "Increases the wearer's ATK by 20%. After the wearer uses Skill or Ultimate on one ally character, increases the target's Elation stat by 12% for 2 turn(s).",
-        stats: { atkPct: 0.24 },
+        stats: { atkPct: 0.20 },
     },
     {
         id: "23048", name: "Epoch Etched in Golden Blood", rarity: 5,
@@ -124,7 +124,7 @@ export const LIGHT_CONES = [
         icon: "icon/light_cone/23048.png",
         baseStats: { hp: 953, atk: 635, def: 463 },
         description: "Increases the wearer's ATK by 64%. After using Ultimate to attack, recovers 1 Skill Point(s). After the wearer uses their Skill on one ally character, increases the Skill DMG dealt by the target by 54.0% for 3 turn(s).",
-        stats: { atkPct: 0.24 },
+        stats: { atkPct: 0.64 },
     },
     {
         id: "24004", name: "Eternal Calculus", rarity: 5,
@@ -132,7 +132,7 @@ export const LIGHT_CONES = [
         icon: "icon/light_cone/24004.png",
         baseStats: { hp: 1058, atk: 529, def: 397 },
         description: "Increases the wearer's ATK by 8%. After using an attack, for each enemy target hit, additionally increases ATK by 4%. This effect can stack up to 5 times and last until the next attack. If there are 3 or more enemy targets hit, this unit's SPD increases by 8%, lasting for 1 turn(s).",
-        stats: { atkPct: 0.24 },
+        stats: { atkPct: 0.08 },
     },
     {
         id: "23039", name: "Flame of Blood, Blaze My Path", rarity: 5,
@@ -140,7 +140,7 @@ export const LIGHT_CONES = [
         icon: "icon/light_cone/23039.png",
         baseStats: { hp: 1376, atk: 476, def: 397 },
         description: "Increases the wearer's Max HP by 18% and Incoming Healing by 20%. When using Skill or Ultimate, consumes HP equal to 6.0% of the wearer's Max HP and increases the DMG dealt by this attack by 30%. If this effect's consumed HP is greater than 500, the DMG additionally increases by 30%.\nIf the current HP is not sufficient, this effect reduces the wearer's current HP down to 1.",
-        stats: { hpPct: 0.24 },
+        stats: { hpPct: 0.18 },
     },
     {
         id: "23026", name: "Flowing Nightglow", rarity: 5,
@@ -172,7 +172,7 @@ export const LIGHT_CONES = [
         icon: "icon/light_cone/23038.png",
         baseStats: { hp: 1270, atk: 529, def: 397 },
         description: "Increases the wearer's CRIT DMG by 36%. After the wearer launches Follow-Up ATK, additionally regenerates 12 Energy and gains \"Presage,\" lasting for 2 turn(s). While the wearer has \"Presage,\" all ally targets' CRIT DMG increases by 48%. When entering battle, the wearer regenerates 21 Energy and gains \"Presage,\" lasting for 2 turn(s).",
-        stats: { critDmg: 0.32 },
+        stats: { critDmg: 0.36 },
     },
     {
         id: "23004", name: "In the Name of the World", rarity: 5,
@@ -212,7 +212,7 @@ export const LIGHT_CONES = [
         icon: "icon/light_cone/23037.png",
         baseStats: { hp: 953, atk: 635, def: 463 },
         description: "Increases the wearer's CRIT Rate by 12%. When the wearer uses their Ultimate, increases the wearer's Skill DMG and Ultimate DMG dealt by 60%, lasting for 3 turn(s). After the wearer uses their Ultimate, if this Ultimate consumed 140 or more Energy, recovers 1 Skill Point.",
-        stats: { critRate: 0.24 },
+        stats: { critRate: 0.12 },
     },
     {
         id: "23043", name: "Lies Dance on the Breeze", rarity: 5,
@@ -220,7 +220,7 @@ export const LIGHT_CONES = [
         icon: "icon/light_cone/23043.png",
         baseStats: { hp: 953, atk: 582, def: 529 },
         description: "Increases the wearer's SPD by 18%. After the wearer uses an attack, there is a 120% base chance to inflict the \"Bamboozle\" state on every enemy target. While under the \"Bamboozle\" state, enemy targets have their DEF decreased by 16% for 2 turn(s). If the wearer's SPD is higher than or equal to 170, there is a 120% base chance to inflict the \"Theft\" state on every enemy target. While under the \"Theft\" state, enemy targets have their DEF decreased by 8% for 2 turn(s). When \"Bamboozle\" or \"Theft\" is repeatedly inflicted, only the most recently inflicted instance takes effect.",
-        stats: { spdPct: 0.12 },
+        stats: { spdPct: 0.18 },
     },
     {
         id: "23041", name: "Life Should Be Cast to Flames", rarity: 5,
@@ -236,7 +236,7 @@ export const LIGHT_CONES = [
         icon: "icon/light_cone/23042.png",
         baseStats: { hp: 1164, atk: 476, def: 529 },
         description: "Increases the wearer's SPD by 18%. When the wearer uses Basic ATK, Skill, or Ultimate, consumes all allies' HP equal to 1.0% of their current HP, and after the next attack of the wearer's memosprite, enables it to additionally deal 1 instance of Additional DMG equal to 250.0% of the total consumed HP to the attacked target, with the damage type based on the memosprite's type. Then, the total consumed HP is reset. When the wearer's memosprite uses Memosprite Skill, increases the DMG taken by all enemies by 18.0%, lasting for 2 turn(s). Effects of the same type cannot stack.",
-        stats: { spdPct: 0.08 },
+        stats: { spdPct: 0.18 },
     },
     {
         id: "23035", name: "Long Road Leads Home", rarity: 5,
@@ -252,7 +252,7 @@ export const LIGHT_CONES = [
         icon: "icon/light_cone/23040.png",
         baseStats: { hp: 1270, atk: 529, def: 397 },
         description: "Increases the wearer's Max HP by 30%. When the wearer or their memosprite loses HP during their own turn, the wearer gains \"Death Flower.\" \"Death Flower\" allows the wearer and their memosprite to ignore 30% of the target's DEF when dealing DMG, lasting for 2 turn(s).\nWhen the wearer's memosprite disappears, advances the wearer's action by 12%. This effect can only trigger up to 1 time, and the trigger count resets every time the wearer uses Ultimate.",
-        stats: { hpPct: 0.24 },
+        stats: { hpPct: 0.30 },
     },
     {
         id: "24005", name: "Memory's Curtain Never Falls", rarity: 5,
@@ -316,7 +316,7 @@ export const LIGHT_CONES = [
         icon: "icon/light_cone/23019.png",
         baseStats: { hp: 1058, atk: 529, def: 529 },
         description: "Increases the wearer's Break Effect by 60%. When the wearer uses their Ultimate, increases all allies' DMG by 24%, lasting for 3 turn(s). If the wearer's Break Effect exceeds or equals 150%, 1 Skill Point will be recovered.\nAt the start of each wave, all allies regenerate 10.0 Energy immediately. Abilities of the same type cannot stack.",
-        stats: { breakEffect: 0.32 },
+        stats: { breakEffect: 0.60 },
     },
     {
         id: "23006", name: "Patience Is All You Need", rarity: 5,
@@ -348,7 +348,7 @@ export const LIGHT_CONES = [
         icon: "icon/light_cone/23032.png",
         baseStats: { hp: 1058, atk: 529, def: 529 },
         description: "Increases the wearer's Break Effect by 60%. After the wearer uses Ultimate to attack enemy targets, inflicts the targets with the \"Woefree\" state, lasting for 2 turn(s). While in \"Woefree,\" enemy targets take 10% increased DMG. The effect of increasing DMG taken is additionally boosted by 8% if the wearer's current Break Effect is 150% or higher.",
-        stats: { breakEffect: 0.40 },
+        stats: { breakEffect: 0.60 },
     },
     {
         id: "23011", name: "She Already Shut Her Eyes", rarity: 5,
@@ -356,7 +356,7 @@ export const LIGHT_CONES = [
         icon: "icon/light_cone/23011.png",
         baseStats: { hp: 1270, atk: 423, def: 529 },
         description: "Increases the wearer's Max HP by 24% and Energy Regeneration Rate by 12%. When the wearer's HP is reduced, all allies' DMG dealt increases by 9.0%, lasting for 2 turn(s).\nAt the start of every wave, restores HP to all allies by an amount equal to 80% of their respective lost HP.",
-        stats: { hpPct: 0.24, energyRegen: 0.10 },
+        stats: { hpPct: 0.24, energyRegen: 0.12 },
     },
     {
         id: "23012", name: "Sleep Like the Dead", rarity: 5,
@@ -372,7 +372,7 @@ export const LIGHT_CONES = [
         icon: "icon/light_cone/24003.png",
         baseStats: { hp: 1058, atk: 529, def: 397 },
         description: "Increases the wearer's Break Effect by 20%. When the wearer uses their Ultimate, increases DoT dealt by the wearer by 24%, lasting for 2 turn(s). When a target enemy suffering from DoT imposed by the wearer is defeated, regenerates 4.0 Energy for the wearer.",
-        stats: { breakEffect: 0.40 },
+        stats: { breakEffect: 0.20 },
     },
     {
         id: "23002", name: "Something Irreplaceable", rarity: 5,
@@ -396,7 +396,7 @@ export const LIGHT_CONES = [
         icon: "icon/light_cone/23056.png",
         baseStats: { hp: 847, atk: 635, def: 529 },
         description: "Increases the wearer's CRIT Rate by 18%. At the start of battle or for every 4 instance(s) of Follow-Up ATK the wearer uses, the wearer gains \"Umbra Devourer,\" lasting for 3 turn(s). While the wearer holds \"Umbra Devourer,\" increases ATK by 40% and increases the DMG taken by all enemies by 20%. Effects of the same type cannot stack.",
-        stats: { critRate: 0.24 },
+        stats: { critRate: 0.18 },
     },
     {
         id: "23046", name: "The Hell Where Ideals Burn", rarity: 5,
@@ -404,7 +404,7 @@ export const LIGHT_CONES = [
         icon: "icon/light_cone/23046.png",
         baseStats: { hp: 953, atk: 582, def: 529 },
         description: "Increases the wearer's CRIT Rate by 16%. When entering combat, if the allies' Skill Points limit is 6 or higher, increases the wearer's ATK by 40%. After each use of the wearer's Skill, increases the wearer's ATK by 10%, stacking up to 4 time(s).",
-        stats: { critRate: 0.24 },
+        stats: { critRate: 0.16 },
     },
     {
         id: "23009", name: "The Unreachable Side", rarity: 5,
@@ -420,7 +420,7 @@ export const LIGHT_CONES = [
         icon: "icon/light_cone/23052.png",
         baseStats: { hp: 1270, atk: 476, def: 463 },
         description: "Increases the wearer's SPD by 18%. When the wearer's memosprite uses Memosprite Skill on one ally, gains \"Blank,\" which increases DMG taken by all enemies by 10%. When the wearer's memosprite uses Memosprite Skill on an enemy, gains \"Verse,\" which increases CRIT DMG of all allies by 16%. When the wearer's memosprite has both \"Blank\" and \"Verse,\" increases the effects of both \"Blank\" and \"Verse\" by 60%.",
-        stats: { spdPct: 0.08 },
+        stats: { spdPct: 0.18 },
     },
     {
         id: "23029", name: "Those Many Springs", rarity: 5,
@@ -428,7 +428,7 @@ export const LIGHT_CONES = [
         icon: "icon/light_cone/23029.png",
         baseStats: { hp: 953, atk: 582, def: 529 },
         description: "Increases the wearer's Effect Hit Rate by 60%. After the wearer uses Basic ATK, Skill, or Ultimate to attack an enemy target, there is a 60% base chance to inflict \"Unarmored\" on the target. While in the Unarmored state, the enemy target receives 10% increased DMG, lasting for 2 turn(s). If the target is under a DoT state inflicted by the wearer, there is a 60% base chance to upgrade the \"Unarmored\" state inflicted by the wearer to the \"Cornered\" state, which additionally increases the DMG the enemy target receives by 14%, lasting for 2 turn(s). During this period, the wearer cannot inflict \"Unarmored\" on the target.",
-        stats: { effectHitRate: 0.40 },
+        stats: { effectHitRate: 0.60 },
     },
     {
         id: "23051", name: "Though Worlds Apart", rarity: 5,
@@ -436,7 +436,7 @@ export const LIGHT_CONES = [
         icon: "icon/light_cone/23051.png",
         baseStats: { hp: 1058, atk: 582, def: 463 },
         description: "Increases the wearer's ATK by 64%. When the wearer uses Ultimate, restores HP equal to 10% of the wearer's ATK for all allies, and additionally restores HP equal to 10% of the wearer's ATK for the character with the lowest current HP, and grants \"Redoubt\" to all allies for 3 turn(s). Targets with \"Redoubt\" deal 24% increased DMG, which further increases by 12% if the targets have summons.",
-        stats: { atkPct: 0.24 },
+        stats: { atkPct: 0.64 },
     },
     {
         id: "23044", name: "Thus Burns the Dawn", rarity: 5,
@@ -444,7 +444,7 @@ export const LIGHT_CONES = [
         icon: "icon/light_cone/23044.png",
         baseStats: { hp: 953, atk: 688, def: 397 },
         description: "The wearer's base SPD increases by 12. When dealing DMG, ignores 18% of the target's DEF. After the wearer uses Ultimate, gains \"Blazing Sun,\" which is removed at the start of the turn. While holding \"Blazing Sun,\" increases the wearer's DMG dealt by 60%.",
-        stats: { baseSpdBonus: 10 },
+        stats: { baseSpdBonus: 12 },
     },
     {
         id: "23013", name: "Time Waits for No One", rarity: 5,
@@ -460,7 +460,7 @@ export const LIGHT_CONES = [
         icon: "icon/light_cone/23036.png",
         baseStats: { hp: 1058, atk: 635, def: 397 },
         description: "Increases the wearer's base SPD by 12. After the wearer and the wearer's memosprite attacks, the wearer gains 1 stack of \"Brocade.\" Each stack of \"Brocade\" increases the wearer's and their memosprite's CRIT DMG by 9.0%, stacking up to 6 time(s). When reaching maximum stacks, each \"Brocade\" stack additionally increases Basic ATK DMG dealt by 9.0%.",
-        stats: { baseSpdBonus: 10 },
+        stats: { baseSpdBonus: 12 },
     },
     {
         id: "23049", name: "To Evernight's Stars", rarity: 5,
@@ -468,7 +468,7 @@ export const LIGHT_CONES = [
         icon: "icon/light_cone/23049.png",
         baseStats: { hp: 1164, atk: 529, def: 463 },
         description: "Increases the wearer's Max HP by 30%. When the wearer's memosprite uses an ability, the wearer gains \"Noctis.\" While the wearer has \"Noctis,\" the DMG dealt by all ally memosprites ignores 20% of the targets' DEF. Increases the DMG dealt by the wearer and their memosprite by 30%. When the wearer's memosprite disappears, the wearer recovers 8 Energy. Effects of the same type cannot stack.",
-        stats: { hpPct: 0.24 },
+        stats: { hpPct: 0.30 },
     },
     {
         id: "23058", name: "Until the Flowers Bloom Again", rarity: 5,
@@ -476,7 +476,7 @@ export const LIGHT_CONES = [
         icon: "icon/light_cone/23058.png",
         baseStats: { hp: 953, atk: 635, def: 463 },
         description: "Increases the wearer's CRIT DMG by 60% and Energy Regeneration Rate by 10.0%. When the wearer's Max Energy is greater than 120, for every 10 points of Max Energy that exceeds this amount, further increases Energy Regeneration Rate by 0.3%. Up to a maximum of 360 points of excess Max Energy can be taken into account. When the wearer uses Elation Skill, increases the DMG received by all enemies by 15.0% for 2 turn(s). Effects of the same type cannot stack.",
-        stats: { critDmg: 0.36, energyRegen: 0.08 },
+        stats: { critDmg: 0.60, energyRegen: 0.10 },
     },
     {
         id: "23057", name: "Welcome to the Cosmic City", rarity: 5,
@@ -484,7 +484,7 @@ export const LIGHT_CONES = [
         icon: "icon/light_cone/23057.png",
         baseStats: { hp: 1164, atk: 476, def: 529 },
         description: "Increases the wearer's SPD by 18%. The Elation DMG dealt ignores 20% of the target's DEF. When the wearer uses Ultimate on themselves, gains 20 point(s) of \"Punchline.\" This effect can be triggered up to 1 time. And resets this trigger count after using Basic ATK 3 time(s).",
-        stats: { spdPct: 0.08 },
+        stats: { spdPct: 0.18 },
     },
     {
         id: "23054", name: "When She Decided to See", rarity: 5,
@@ -492,7 +492,7 @@ export const LIGHT_CONES = [
         icon: "icon/light_cone/23054.png",
         baseStats: { hp: 1058, atk: 529, def: 529 },
         description: "Increases the wearer's SPD by 18%. When the wearer enters combat or uses Ultimate on an ally target, the wearer gains \"Great Fortune\" for 3 turn(s). While the wearer holds \"Great Fortune,\" all allies' CRIT Rate increases by 10%, CRIT DMG increases by 30%, and the wearer's Energy Regeneration Rate increases by 12%.\nAt the start of each wave, the wearer regenerates a fixed amount of 15 Energy.",
-        stats: { spdPct: 0.06 },
+        stats: { spdPct: 0.18 },
     },
     {
         id: "23025", name: "Whereabouts Should Dreams Rest", rarity: 5,
@@ -508,7 +508,7 @@ export const LIGHT_CONES = [
         icon: "icon/light_cone/23047.png",
         baseStats: { hp: 953, atk: 635, def: 463 },
         description: "Increases the wearer's Effect Hit Rate by 40%. When an enemy target gets inflicted with a debuff by the wearer, there is a 80% base chance for them to enter \"Enthrallment,\" lasting for 3 turn(s). Effects of the same type cannot stack. While the target is in \"Enthrallment,\" for every 1 debuff applied by the wearer on the target, increases the target's received DoT by 5.0%, stacking up to 6 time(s). When the target gets attacked by an ally, increases the attacker's SPD by 10.0% for 3 turn(s). When the wearer gets knocked down, removes all \"Enthrallment.\"",
-        stats: { effectHitRate: 0.24 },
+        stats: { effectHitRate: 0.40 },
     },
     {
         id: "23016", name: "Worrisome, Blissful", rarity: 5,
@@ -524,7 +524,7 @@ export const LIGHT_CONES = [
         icon: "icon/light_cone/23028.png",
         baseStats: { hp: 953, atk: 582, def: 529 },
         description: "Increases the wearer's CRIT Rate by 16%. While the wearer is in battle, for every 20% CRIT DMG that exceeds 120%, the DMG dealt by Follow-Up ATK increases by 12%. This effect can stack up to 4 time(s). When the battle starts or after the wearer uses their Basic ATK, enables the DMG dealt by Ultimate or Follow-Up ATK to ignore 20% of the target's DEF, lasting for 2 turn(s).",
-        stats: { critRate: 0.20 },
+        stats: { critRate: 0.16 },
     },
     {
         id: "21060", name: "A Dream Scented in Wheat", rarity: 4,
@@ -532,7 +532,7 @@ export const LIGHT_CONES = [
         icon: "icon/light_cone/21060.png",
         baseStats: { hp: 953, atk: 529, def: 397 },
         description: "Increases the wearer's CRIT Rate by 12%. The Ultimate DMG and Follow-Up ATK DMG dealt by the wearer increase by 24%.",
-        stats: { critRate: 0.16 },
+        stats: { critRate: 0.12 },
     },
     {
         id: "21012", name: "A Secret Vow", rarity: 4,
@@ -548,7 +548,7 @@ export const LIGHT_CONES = [
         icon: "icon/light_cone/21058.png",
         baseStats: { hp: 1058, atk: 529, def: 331 },
         description: "Increases the wearer's CRIT Rate by 12%. The Skill DMG and Ultimate DMG dealt by the wearer increase by 24%.",
-        stats: { critRate: 0.16 },
+        stats: { critRate: 0.12 },
     },
     {
         id: "21045", name: "After the Charmony Fall", rarity: 4,
@@ -556,7 +556,7 @@ export const LIGHT_CONES = [
         icon: "icon/light_cone/21045.png",
         baseStats: { hp: 847, atk: 476, def: 397 },
         description: "Increases the wearer's Break Effect by 28%. After the wearer uses Ultimate, increases SPD by 8%, lasting for 2 turn(s).",
-        stats: { breakEffect: 0.16 },
+        stats: { breakEffect: 0.28 },
     },
     {
         id: "22000", name: "Before the Tutorial Mission Starts", rarity: 4,
@@ -572,7 +572,7 @@ export const LIGHT_CONES = [
         icon: "icon/light_cone/21044.png",
         baseStats: { hp: 953, atk: 476, def: 331 },
         description: "Increase the wearer's CRIT Rate by 8%. The wearer deals 24% more CRIT DMG to enemies that are currently Slowed or have reduced DEF.",
-        stats: { critRate: 0.16 },
+        stats: { critRate: 0.08 },
     },
     {
         id: "21032", name: "Carve the Moon, Weave the Clouds", rarity: 4,
@@ -612,7 +612,7 @@ export const LIGHT_CONES = [
         icon: "icon/light_cone/21039.png",
         baseStats: { hp: 953, atk: 370, def: 463 },
         description: "Increases the wearer's Effect RES by 12%. For every 100 of DEF the wearer has, increases the wearer's DMG dealt by 0.8%, up to a maximum DMG increase of 32%.",
-        stats: { effectRes: 0.16 },
+        stats: { effectRes: 0.12 },
     },
     {
         id: "21048", name: "Dream's Montage", rarity: 4,
@@ -620,7 +620,7 @@ export const LIGHT_CONES = [
         icon: "icon/light_cone/21048.png",
         baseStats: { hp: 953, atk: 423, def: 397 },
         description: "Increases the wearer's SPD by 8%. After attacking enemy targets that are Weakness Broken, regenerates 3.0 Energy. This effect can trigger up to 2 time(s) per turn.",
-        stats: { spdPct: 0.10 },
+        stats: { spdPct: 0.08 },
     },
     {
         id: "21036", name: "Dreamville Adventure", rarity: 4,
@@ -652,7 +652,7 @@ export const LIGHT_CONES = [
         icon: "icon/light_cone/21037.png",
         baseStats: { hp: 953, atk: 476, def: 331 },
         description: "Increases the wearer's ATK by 12%. When the wearer lands a CRIT hit on enemies, gains 1 stack of Good Fortune. This can stack up to 4 time(s). Every stack of Good Fortune increases the wearer's CRIT DMG by 8%. Good Fortune will be removed at the end of the wearer's turn.",
-        stats: { atkPct: 0.16 },
+        stats: { atkPct: 0.12 },
     },
     {
         id: "21038", name: "Flames Afar", rarity: 4,
@@ -668,7 +668,7 @@ export const LIGHT_CONES = [
         icon: "icon/light_cone/22006.png",
         baseStats: { hp: 847, atk: 476, def: 397 },
         description: "Increases the wearer's CRIT DMG by 12%. When equipped by Trailblazer (Remembrance), increases all ally targets' DMG dealt by 8% and increases the DMG dealt by the Enhanced Basic ATK \"Together, We Script Tomorrow!\" by 60%.",
-        stats: { critDmg: 0.20 },
+        stats: { critDmg: 0.12 },
     },
     {
         id: "22002", name: "For Tomorrow's Journey", rarity: 4,
@@ -676,7 +676,7 @@ export const LIGHT_CONES = [
         icon: "icon/light_cone/22002.png",
         baseStats: { hp: 953, atk: 476, def: 331 },
         description: "Increases the wearer's ATK by 16%. After the wearer uses their Ultimate, increases their DMG dealt by 18%, lasting for 1 turn(s).",
-        stats: { atkPct: 0.24 },
+        stats: { atkPct: 0.16 },
     },
     {
         id: "21051", name: "Geniuses' Greetings", rarity: 4,
@@ -708,7 +708,7 @@ export const LIGHT_CONES = [
         icon: "icon/light_cone/22001.png",
         baseStats: { hp: 953, atk: 423, def: 397 },
         description: "Increases the wearer's Max HP by 8%. When the wearer uses their Skill, increases Outgoing Healing by 16%, lasting for 2 turn(s).",
-        stats: { hpPct: 0.20 },
+        stats: { hpPct: 0.08 },
     },
     {
         id: "21061", name: "Holiday Thermae Escapade", rarity: 4,
@@ -732,7 +732,7 @@ export const LIGHT_CONES = [
         icon: "icon/light_cone/21042.png",
         baseStats: { hp: 953, atk: 476, def: 331 },
         description: "Increases the wearer's Break Effect by 28%. When the wearer uses their Ultimate, increases CRIT Rate by 15%, lasting for 2 turn(s).",
-        stats: { breakEffect: 0.24 },
+        stats: { breakEffect: 0.28 },
     },
     {
         id: "21041", name: "It's Showtime", rarity: 4,
@@ -772,7 +772,7 @@ export const LIGHT_CONES = [
         icon: "icon/light_cone/21004.png",
         baseStats: { hp: 953, atk: 423, def: 397 },
         description: "Increases the wearer's Break Effect by 28%. When the wearer attacks, additionally regenerates 4 Energy. This effect cannot be repeatedly triggered in a single turn.",
-        stats: { breakEffect: 0.16 },
+        stats: { breakEffect: 0.28 },
     },
     {
         id: "21064", name: "Mushy Shroomy's Adventures", rarity: 4,
@@ -788,7 +788,7 @@ export const LIGHT_CONES = [
         icon: "icon/light_cone/22003.png",
         baseStats: { hp: 1058, atk: 476, def: 265 },
         description: "Increases the wearer's Max HP by 12%. When losing or restoring this unit's HP, increases CRIT DMG by 18%, lasting for 2 turn(s). This effect can only trigger once per turn.",
-        stats: { hpPct: 0.24 },
+        stats: { hpPct: 0.12 },
     },
     {
         id: "21033", name: "Nowhere to Run", rarity: 4,
@@ -884,7 +884,7 @@ export const LIGHT_CONES = [
         icon: "icon/light_cone/21062.png",
         baseStats: { hp: 953, atk: 529, def: 397 },
         description: "Increases the wearer's CRIT DMG by 24%. The Skill DMG and Follow-Up ATK DMG dealt by the wearer increase by 24%.",
-        stats: { critDmg: 0.20 },
+        stats: { critDmg: 0.24 },
     },
     {
         id: "21047", name: "Shadowed by Night", rarity: 4,
@@ -892,7 +892,7 @@ export const LIGHT_CONES = [
         icon: "icon/light_cone/21047.png",
         baseStats: { hp: 847, atk: 476, def: 397 },
         description: "Increases the wearer's Break Effect by 28%. When entering battle or after dealing Break DMG, increases SPD by 8%, lasting for 2 turn(s). This effect can only trigger once per turn.",
-        stats: { breakEffect: 0.16 },
+        stats: { breakEffect: 0.28 },
     },
     {
         id: "21007", name: "Shared Feeling", rarity: 4,
@@ -916,7 +916,7 @@ export const LIGHT_CONES = [
         icon: "icon/light_cone/21052.png",
         baseStats: { hp: 1058, atk: 529, def: 198 },
         description: "Increases the wearer's CRIT Rate by 12%. When the wearer's memosprite is on the field, increases the DMG dealt by the wearer and their memosprite by 24%.",
-        stats: { critRate: 0.16 },
+        stats: { critRate: 0.12 },
     },
     {
         id: "21010", name: "Swordplay", rarity: 4,
@@ -948,7 +948,7 @@ export const LIGHT_CONES = [
         icon: "icon/light_cone/21057.png",
         baseStats: { hp: 1058, atk: 529, def: 331 },
         description: "Increases the wearer's CRIT DMG by 24%. The CRIT DMG dealt by the wearer's memosprite increases by 24%.",
-        stats: { critDmg: 0.20 },
+        stats: { critDmg: 0.24 },
     },
     {
         id: "22005", name: "The Forever Victual", rarity: 4,
@@ -964,7 +964,7 @@ export const LIGHT_CONES = [
         icon: "icon/light_cone/22004.png",
         baseStats: { hp: 953, atk: 476, def: 331 },
         description: "Increases the wearer's ATK by 8%. For every 1 different Weakness Type an enemy target has, increases the DMG dealt to it by the wearer by 4%. Up to a max of 7 Weakness Types can be taken into account for this effect.",
-        stats: { atkPct: 0.16 },
+        stats: { atkPct: 0.08 },
     },
     {
         id: "21005", name: "The Moles Welcome You", rarity: 4,
@@ -988,7 +988,7 @@ export const LIGHT_CONES = [
         icon: "icon/light_cone/21054.png",
         baseStats: { hp: 1058, atk: 370, def: 397 },
         description: "Increases the wearer's Max HP by 16%. After the wearer's memosprite attacks, the Outgoing Healing of the wearer and their memosprite increases by 12%, lasting for 1 turn(s).",
-        stats: { hpPct: 0.24 },
+        stats: { hpPct: 0.16 },
     },
     {
         id: "21030", name: "This Is Me!", rarity: 4,
@@ -1012,7 +1012,7 @@ export const LIGHT_CONES = [
         icon: "icon/light_cone/21065.png",
         baseStats: { hp: 953, atk: 529, def: 397 },
         description: "Increases the wearer's CRIT Rate by 12%. When the wearer uses an Elation Skill, increases Elation by 12%, stacking up to 2 times.",
-        stats: { critRate: 0.16 },
+        stats: { critRate: 0.12 },
     },
     {
         id: "22007", name: "Tomorrow, Together", rarity: 4,
@@ -1020,7 +1020,7 @@ export const LIGHT_CONES = [
         icon: "icon/light_cone/22007.png",
         baseStats: { hp: 953, atk: 476, def: 331 },
         description: "Increases the wearer's CRIT DMG by 12%. After the wearer uses their Ultimate, increases all allies' Elation by 8%, lasting for 1 turn(s).",
-        stats: { critDmg: 0.20 },
+        stats: { critDmg: 0.12 },
     },
     {
         id: "21016", name: "Trend of the Universal Market", rarity: 4,
@@ -1052,7 +1052,7 @@ export const LIGHT_CONES = [
         icon: "icon/light_cone/21050.png",
         baseStats: { hp: 847, atk: 476, def: 397 },
         description: "Increases the wearer's CRIT DMG by 12%. When the wearer's memosprite uses an ability on an ally target, increases the DMG dealt by all ally targets by 8%, lasting for 3 turn(s).",
-        stats: { critDmg: 0.20 },
+        stats: { critDmg: 0.12 },
     },
     {
         id: "21028", name: "Warmth Shortens Cold Nights", rarity: 4,
@@ -1060,7 +1060,7 @@ export const LIGHT_CONES = [
         icon: "icon/light_cone/21028.png",
         baseStats: { hp: 1058, atk: 370, def: 397 },
         description: "Increases the wearer's Max HP by 16%. When using Basic ATK or Skill, restores all allies' HP by an amount equal to 2.0% of their respective Max HP.",
-        stats: { hpPct: 0.24 },
+        stats: { hpPct: 0.16 },
     },
     {
         id: "21023", name: "We Are Wildfire", rarity: 4,
@@ -1084,7 +1084,7 @@ export const LIGHT_CONES = [
         icon: "icon/light_cone/21035.png",
         baseStats: { hp: 1058, atk: 423, def: 331 },
         description: "Increases the wearer's Break Effect by 24%. After using Basic ATK, restores HP for the wearer by an amount equal to 2.0% of Max HP plus 800.",
-        stats: { breakEffect: 0.16 },
+        stats: { breakEffect: 0.24 },
     },
     {
         id: "21026", name: "Woof! Walk Time!", rarity: 4,
@@ -1092,7 +1092,7 @@ export const LIGHT_CONES = [
         icon: "icon/light_cone/21026.png",
         baseStats: { hp: 953, atk: 476, def: 331 },
         description: "Increases the wearer's ATK by 10%, and increases their DMG to enemies afflicted with Burn or Bleed by 16%. This also applies to DoT.",
-        stats: { atkPct: 0.16 },
+        stats: { atkPct: 0.10 },
     },
     {
         id: "20014", name: "Adversarial", rarity: 3,
@@ -1108,7 +1108,7 @@ export const LIGHT_CONES = [
         icon: "icon/light_cone/20003.png",
         baseStats: { hp: 847, atk: 265, def: 331 },
         description: "Increases the wearer's DEF by 16%. If the wearer's current HP percentage is lower than 50%, increases their DEF by a further 16%.",
-        stats: { defPct: 0.08 },
+        stats: { defPct: 0.16 },
     },
     {
         id: "20000", name: "Arrows", rarity: 3,
