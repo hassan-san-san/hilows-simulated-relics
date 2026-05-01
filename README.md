@@ -6,8 +6,6 @@ A Honkai: Star Rail relic simulator that lets you pull, upgrade, and manage reli
 
 I couldn't find an up-to-date relic simulator that was both accurate to the current game and actually fun to use. Most tools are focused purely on optimisation and miss the experience of the pull itself. This is an attempt to fix that.
 
-Partly inspired by [Fribbels' HSR Optimizer](https://github.com/fribbels/hsr-optimizer).
-
 ## Features
 
 - Pull Cavern Relics and Planar Ornaments from all current sets
@@ -15,12 +13,14 @@ Partly inspired by [Fribbels' HSR Optimizer](https://github.com/fribbels/hsr-opt
 - Upgrade system matching in-game mechanics (+3 per upgrade, 3-liner vs 4-liner logic)
 - Inventory management with filtering, sorting, locking, and trash system
 - Set bonus descriptions displayed on the pull page
+- Character page with base stats, minor traces, Light Cone viewer, and relic equip slots
+- Light Cone browser with descriptions and passive stat display
 
 ## Status
 
-> **Early Access / Beta** — the core relic system is functional but features are still being added. Expect changes and relic wipes until fully functional.
+> **On hold** — I'm currently burnt out and won't be continuing development until I feel like it again. The core system is functional, so feel free to use it as-is.
 
-Planned: character builder, stamina system, leaderboards.
+Planned (eventually): relic shard crafting system, stamina system, leaderboards.
 
 ## Credits
 
